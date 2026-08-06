@@ -152,7 +152,7 @@ git stash push -m "my customizations"   # или закоммитьте в от�
 
 # 2. Получите обновления
 git fetch origin
-git pull origin main
+git pull origin master
 
 # 3. Обновите зависимости (если изменился package-lock.json)
 npm install
