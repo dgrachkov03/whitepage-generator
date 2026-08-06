@@ -1,0 +1,77 @@
+include /mixins/ui/logo.pug
+include /mixins/ui/link-button.pug
+include /mixins/ui/text-link.pug
+
+- const footerData = site.footer || {}
+- const footerIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const footerPrimaryNavigation = (site.navigation && site.navigation.primary) || {}
+- const footerLegalNavigation = (site.navigation && site.navigation.legal) || {}
+- const footerPrimaryNavigationItems = footerPrimaryNavigation.items || []
+- const footerLegalNavigationItems = footerLegalNavigation.items || []
+- const footerContactInfo = site.contactInfo || {}
+- const footerContactInfoItems = footerContactInfo.items || []
+- const footerAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.footer : undefined
+
+footer(class=blockClasses(footerAppearance))
+  div(class="mx-auto grid max-w-6xl grid-cols-1 gap-10 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-[1.4fr_1fr_1fr_1.2fr] lg:gap-12 lg:px-8 lg:py-16")
+    div(class="flex flex-col items-start gap-4")
+      +logo(site.brand)
+
+      if footerData.description
+        p(class="max-w-sm font-body text-sm leading-relaxed text-ink-muted sm:text-base")= footerData.description
+
+    if footerPrimaryNavigationItems.length
+      nav(
+        class="flex flex-col gap-4"
+        aria-label=footerPrimaryNavigation.label
+      )
+        if footerData.navigationTitle
+          h2(class="type-card-title text-ink")= footerData.navigationTitle
+
+        ul(class="flex flex-col items-start gap-2")
+          each item in footerPrimaryNavigationItems
+            li
+              +textLink(item.text, item.href)
+
+    if footerLegalNavigationItems.length
+      nav(
+        class="flex flex-col gap-4"
+        aria-label=footerLegalNavigation.label
+      )
+        if footerData.legalTitle
+          h2(class="type-card-title text-ink")= footerData.legalTitle
+
+        ul(class="flex flex-col items-start gap-2")
+          each item in footerLegalNavigationItems
+            li
+              +textLink(item.text, item.href)
+
+    if footerContactInfoItems.length || (footerData.ctaText && footerData.ctaLink)
+      div(class="flex flex-col items-start gap-4")
+        if footerData.contactsTitle
+          h2(class="type-card-title text-ink")= footerData.contactsTitle
+
+        if footerContactInfoItems.length
+          address(class="font-body text-sm not-italic text-ink-muted sm:text-base")
+            ul(class="flex flex-col items-start gap-3")
+              each item in footerContactInfoItems
+                li(class="flex flex-col items-start gap-0.5")
+                  span(class="text-xs font-semibold text-ink")= item.label
+
+                  if item.href
+                    +textLink(item.text, item.href)(class=item.type === "phone" ? "font-mono" : null)
+                  else
+                    span= item.text
+
+        if footerData.ctaText && footerData.ctaLink
+          +linkButton(footerData.ctaText, footerData.ctaLink, {
+            variant: "primary",
+            icon: footerData.ctaIcon,
+            iconPosition: footerData.ctaIconPosition,
+            iconSet: footerIconSet
+          })
+
+  if footerData.copyright
+    div(class="border-t border-ink/10")
+      div(class="mx-auto flex max-w-6xl justify-center px-4 py-5 text-center font-body text-sm text-ink-muted sm:px-6 lg:px-8")
+        p= footerData.copyright

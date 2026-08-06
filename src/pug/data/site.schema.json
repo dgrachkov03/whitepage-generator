@@ -1,0 +1,2100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "site.schema.json",
+  "title": "Данные статического сайта",
+  "description": "Контракт данных для site.json. Необязательные поля можно не добавлять или удалять, если соответствующий контент не нужен.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "lang",
+    "title",
+    "description",
+    "brand",
+    "hero"
+  ],
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "const": "./site.schema.json",
+      "description": "Связывает site.json со схемой для проверки и автодополнения в редакторе."
+    },
+    "lang": {
+      "type": "string",
+      "minLength": 2,
+      "description": "Язык HTML-документа, например es, fr или en."
+    },
+    "title": {
+      "$ref": "#/$defs/nonEmptyString",
+      "description": "Обязательный SEO title страницы."
+    },
+    "description": {
+      "$ref": "#/$defs/nonEmptyString",
+      "description": "Обязательная метаописание страницы для SEO."
+    },
+    "favicon": {
+      "type": "string",
+      "description": "Путь к favicon. Если поле отсутствует или пустое, тег favicon не создаётся."
+    },
+    "design": {
+      "$ref": "#/$defs/design"
+    },
+    "brand": {
+      "$ref": "#/$defs/brand"
+    },
+    "navigation": {
+      "$ref": "#/$defs/navigation"
+    },
+    "contactInfo": {
+      "$ref": "#/$defs/contactInfo"
+    },
+    "topbar": {
+      "$ref": "#/$defs/topbar"
+    },
+    "header": {
+      "$ref": "#/$defs/header"
+    },
+    "hero": {
+      "$ref": "#/$defs/hero"
+    },
+    "about": {
+      "$ref": "#/$defs/about"
+    },
+    "features": {
+      "$ref": "#/$defs/features"
+    },
+    "services": {
+      "$ref": "#/$defs/services"
+    },
+    "whyUs": {
+      "$ref": "#/$defs/whyUs"
+    },
+    "process": {
+      "$ref": "#/$defs/process"
+    },
+    "pricing": {
+      "$ref": "#/$defs/pricing"
+    },
+    "reviews": {
+      "$ref": "#/$defs/reviews"
+    },
+    "faq": {
+      "$ref": "#/$defs/faq"
+    },
+    "contact": {
+      "$ref": "#/$defs/contactSection"
+    },
+    "footer": {
+      "$ref": "#/$defs/footer"
+    },
+    "stats": {
+      "$ref": "#/$defs/stats"
+    },
+    "legalPages": {
+      "$ref": "#/$defs/legalPages"
+    },
+    "cookieBanner": {
+      "$ref": "#/$defs/cookieBanner"
+    }
+  },
+  "$defs": {
+    "nonEmptyString": {
+      "type": "string",
+      "minLength": 1
+    },
+    "href": {
+      "type": "string",
+      "minLength": 1,
+      "description": "URL, относительный путь, якорь, mailto: или tel:."
+    },
+    "icon": {
+      "$ref": "#/$defs/libraryIcon"
+    },
+    "iconPosition": {
+      "type": "string",
+      "enum": [
+        "start",
+        "end"
+      ],
+      "description": "Положение иконки относительно текста."
+    },
+    "iconSet": {
+      "type": "string",
+      "enum": [
+        "lucide",
+        "tabler"
+      ],
+      "description": "Iconify-набор контентных иконок."
+    },
+    "contactType": {
+      "type": "string",
+      "enum": [
+        "email",
+        "phone",
+        "address",
+        "hours"
+      ],
+      "description": "Стабильный тип общих контактных данных."
+    },
+    "libraryIcon": {
+      "type": "string",
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+      "description": "Имя иконки внутри выбранного Iconify-набора без префикса библиотеки."
+    },
+    "design": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Набор контентных иконок по умолчанию для всего сайта."
+        }
+      }
+    },
+    "brand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательное доступное имя бренда."
+        },
+        "text": {
+          "type": "string",
+          "description": "Необязательный видимый текст логотипа."
+        },
+        "image": {
+          "type": "string",
+          "description": "Необязательный путь к изображению логотипа. Пустая строка отключает изображение."
+        },
+        "imageAlt": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Доступное имя изображения. Для логотипа с видимым текстом используется пустой alt."
+        },
+        "href": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка логотипа. По умолчанию /."
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная ширина изображения логотипа."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная высота изображения логотипа."
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "text"
+          ],
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        {
+          "required": [
+            "image"
+          ],
+          "properties": {
+            "image": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      ],
+      "allOf": [
+        {
+          "if": {
+            "required": [
+              "image"
+            ],
+            "properties": {
+              "image": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "then": {
+            "required": [
+              "width",
+              "height"
+            ]
+          }
+        }
+      ]
+    },
+    "navigationItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "href"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Видимый текст ссылки."
+        },
+        "href": {
+          "$ref": "#/$defs/href"
+        }
+      }
+    },
+    "navigationGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "items"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Доступное имя элемента nav."
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/navigationItem"
+          },
+          "description": "Ссылки группы навигации."
+        }
+      }
+    },
+    "legalNavigationGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "items"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Доступное имя legal-навигации."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "prefixItems": [
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "href"
+              ],
+              "properties": {
+                "text": {
+                  "$ref": "#/$defs/nonEmptyString",
+                  "description": "Локализованный текст ссылки на terms.html."
+                },
+                "href": {
+                  "const": "/terms.html"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "href"
+              ],
+              "properties": {
+                "text": {
+                  "$ref": "#/$defs/nonEmptyString",
+                  "description": "Локализованный текст ссылки на privacy.html."
+                },
+                "href": {
+                  "const": "/privacy.html"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "text",
+                "href"
+              ],
+              "properties": {
+                "text": {
+                  "$ref": "#/$defs/nonEmptyString",
+                  "description": "Локализованный текст ссылки на cookies.html."
+                },
+                "href": {
+                  "const": "/cookies.html"
+                }
+              }
+            }
+          ],
+          "items": false,
+          "description": "Три legal-ссылки с фиксированными href. Меняется только text."
+        }
+      }
+    },
+    "navigation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "primary": {
+          "$ref": "#/$defs/navigationGroup",
+          "description": "Основная навигация сайта."
+        },
+        "legal": {
+          "$ref": "#/$defs/legalNavigationGroup",
+          "description": "Ссылки на terms.html, privacy.html и cookies.html."
+        }
+      }
+    },
+    "header": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ctaText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст CTA-кнопки."
+        },
+        "ctaLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка CTA-кнопки."
+        },
+        "ctaIcon": {
+          "$ref": "#/$defs/libraryIcon"
+        },
+        "ctaIconPosition": {
+          "$ref": "#/$defs/iconPosition"
+        },
+        "contactTypes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/contactType"
+          },
+          "description": "Контактные иконки справа в header, в указанном порядке."
+        },
+        "menuOpenLabel": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Доступная подпись кнопки открытия мобильного меню."
+        },
+        "menuCloseLabel": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Доступная подпись кнопки закрытия мобильного меню."
+        }
+      },
+      "dependentRequired": {
+        "ctaText": [
+          "ctaLink"
+        ],
+        "ctaLink": [
+          "ctaText"
+        ],
+        "ctaIcon": [
+          "ctaText",
+          "ctaLink"
+        ],
+        "ctaIconPosition": [
+          "ctaIcon"
+        ],
+        "menuOpenLabel": [
+          "menuCloseLabel"
+        ],
+        "menuCloseLabel": [
+          "menuOpenLabel"
+        ]
+      }
+    },
+    "hero": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над H1. Если поле отсутствует или пустое, разметка не создаётся."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H1 страницы."
+        },
+        "subtitle": {
+          "type": "string",
+          "description": "Необязательный подзаголовок hero."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное описание hero."
+        },
+        "ctaText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст основной CTA-кнопки."
+        },
+        "ctaLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка основной CTA-кнопки."
+        },
+        "ctaIcon": {
+          "$ref": "#/$defs/libraryIcon"
+        },
+        "ctaIconPosition": {
+          "$ref": "#/$defs/iconPosition"
+        },
+        "secondaryCtaText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст дополнительной CTA-кнопки."
+        },
+        "secondaryCtaLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка дополнительной CTA-кнопки."
+        },
+        "secondaryCtaIcon": {
+          "$ref": "#/$defs/libraryIcon"
+        },
+        "secondaryCtaIconPosition": {
+          "$ref": "#/$defs/iconPosition"
+        },
+        "image": {
+          "type": "string",
+          "description": "Путь к изображению hero. Пустая строка включает SVG-placeholder."
+        },
+        "imageAlt": {
+          "type": "string",
+          "description": "Alt изображения hero. Оставляется пустым для декоративного изображения."
+        }
+      },
+      "dependentRequired": {
+        "ctaText": [
+          "ctaLink"
+        ],
+        "ctaLink": [
+          "ctaText"
+        ],
+        "ctaIcon": [
+          "ctaText",
+          "ctaLink"
+        ],
+        "ctaIconPosition": [
+          "ctaIcon"
+        ],
+        "secondaryCtaText": [
+          "secondaryCtaLink"
+        ],
+        "secondaryCtaLink": [
+          "secondaryCtaText"
+        ],
+        "secondaryCtaIcon": [
+          "secondaryCtaText",
+          "secondaryCtaLink"
+        ],
+        "secondaryCtaIconPosition": [
+          "secondaryCtaIcon"
+        ],
+        "imageAlt": [
+          "image"
+        ]
+      }
+    },
+    "about": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "paragraphs"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции about."
+        },
+        "paragraphs": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "description": "Текст about в виде одного или нескольких абзацев."
+        },
+        "image": {
+          "type": "string",
+          "description": "Путь к изображению about. Пустая строка включает SVG-placeholder."
+        },
+        "imageAlt": {
+          "type": "string",
+          "description": "Alt изображения about. Оставляется пустым для декоративного изображения."
+        },
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Необязательное переопределение набора иконок для highlights."
+        },
+        "quote": {
+          "$ref": "#/$defs/aboutQuote",
+          "description": "Цитата для quote-panel варианта."
+        },
+        "highlights": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/aboutHighlight"
+          },
+          "description": "Принципы или ценности для values-grid варианта."
+        }
+      },
+      "dependentRequired": {
+        "imageAlt": [
+          "image"
+        ]
+      }
+    },
+    "featureMedia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "src",
+        "alt",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Путь к изображению. Пустая строка включает SVG-placeholder."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Описание изображения. Оставляется пустым для декоративного изображения."
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная ширина изображения."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная высота изображения."
+        }
+      }
+    },
+    "featureItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "description"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Краткое название преимущества или направления."
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пояснение преимущества или направления."
+        },
+        "icon": {
+          "$ref": "#/$defs/libraryIcon",
+          "description": "Необязательная иконка для вариантов Features с иконками."
+        },
+        "media": {
+          "$ref": "#/$defs/featureMedia",
+          "description": "Необязательное изображение для медийных вариантов Features."
+        }
+      }
+    },
+    "features": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции features."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание секции."
+        },
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Необязательное переопределение глобального набора иконок для секции."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/featureItem"
+          },
+          "description": "От двух до шести преимуществ или тематических направлений."
+        }
+      }
+    },
+    "serviceItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "description",
+        "ctaText",
+        "ctaLink"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Название услуги или направления."
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Краткое описание услуги."
+        },
+        "icon": {
+          "$ref": "#/$defs/libraryIcon",
+          "description": "Необязательная иконка услуги."
+        },
+        "highlights": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "description": "Короткие пункты, что входит в услугу."
+        },
+        "priceHint": {
+          "type": "string",
+          "description": "Ориентир по цене, например ab 450 € или auf Anfrage."
+        },
+        "duration": {
+          "type": "string",
+          "description": "Длительность или формат, например ca. 2 Stunden."
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false,
+          "description": "Выделить услугу как основную."
+        },
+        "media": {
+          "$ref": "#/$defs/featureMedia",
+          "description": "Необязательное изображение для медийных вариантов Services."
+        },
+        "ctaText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст CTA-кнопки услуги."
+        },
+        "ctaLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка CTA-кнопки услуги."
+        },
+        "ctaVariant": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary"
+          ],
+          "default": "primary",
+          "description": "Визуальный вариант CTA-кнопки."
+        }
+      }
+    },
+    "services": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции services."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание услуг."
+        },
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Необязательное переопределение глобального набора иконок для секции."
+        },
+        "offerServiceLabel": {
+          "type": "string",
+          "description": "Заголовок колонки услуги в offer-table."
+        },
+        "offerDetailsLabel": {
+          "type": "string",
+          "description": "Заголовок колонки описания в offer-table."
+        },
+        "offerDurationLabel": {
+          "type": "string",
+          "description": "Заголовок колонки длительности в offer-table."
+        },
+        "offerPriceLabel": {
+          "type": "string",
+          "description": "Заголовок колонки цены в offer-table."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/serviceItem"
+          },
+          "description": "От двух до шести услуг или направлений."
+        }
+      }
+    },
+    "whyUsItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "icon",
+        "title",
+        "description"
+      ],
+      "properties": {
+        "icon": {
+          "$ref": "#/$defs/libraryIcon"
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Краткая причина выбрать компанию, продукт или услугу."
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пояснение причины выбора."
+        }
+      }
+    },
+    "whyUsMedia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "src",
+        "alt",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "description": "Путь к изображению. Пустая строка включает SVG-placeholder."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Описание изображения. Оставляется пустым для декоративного изображения."
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная ширина изображения."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная высота изображения."
+        }
+      }
+    },
+    "whyUs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции Why Us."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание причин выбора."
+        },
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Необязательное переопределение глобального набора иконок для секции."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/whyUsItem"
+          },
+          "description": "От двух до шести причин выбрать компанию, продукт или услугу."
+        },
+        "gallery": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/whyUsMedia"
+          },
+          "description": "До трёх изображений для вариантов Why Us с галереей."
+        }
+      }
+    },
+    "processStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "description"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Краткое название шага."
+        },
+        "description": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пояснение действия или результата шага."
+        }
+      }
+    },
+    "process": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции process."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание процесса."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/processStep"
+          },
+          "description": "Последовательность от двух до шести шагов процесса."
+        }
+      }
+    },
+    "pricingFeature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пункт тарифа или строка сравнения."
+        },
+        "included": {
+          "type": "boolean",
+          "default": true,
+          "description": "Включён ли пункт в тариф. Для comparison-table."
+        }
+      }
+    },
+    "pricingPlan": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "price",
+        "features",
+        "ctaText",
+        "ctaLink"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Название тарифа или пакета."
+        },
+        "description": {
+          "type": "string",
+          "description": "Краткое описание тарифа."
+        },
+        "price": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Цена или формулировка вроде «ab 49 €» или «auf Anfrage»."
+        },
+        "pricePrefix": {
+          "type": "string",
+          "description": "Необязательный префикс перед ценой, например «ab» или «from»."
+        },
+        "period": {
+          "type": "string",
+          "description": "Период или единица: pro Monat, pro Stück, einmalig."
+        },
+        "badge": {
+          "type": "string",
+          "description": "Необязательная метка для выделенного тарифа."
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false,
+          "description": "Выделить тариф визуально как рекомендуемый."
+        },
+        "features": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/pricingFeature"
+          },
+          "description": "Список включений или преимуществ тарифа."
+        },
+        "ctaText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст CTA-кнопки тарифа."
+        },
+        "ctaLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка CTA-кнопки тарифа."
+        },
+        "ctaVariant": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary"
+          ],
+          "default": "primary",
+          "description": "Визуальный вариант CTA-кнопки."
+        }
+      }
+    },
+    "pricing": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "plans"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции pricing."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание тарифов."
+        },
+        "note": {
+          "type": "string",
+          "description": "Необязательная сноска о ценах, налогах или условиях."
+        },
+        "comparisonLabel": {
+          "type": "string",
+          "description": "Заголовок первой колонки в comparison-table."
+        },
+        "plans": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/pricingPlan"
+          },
+          "description": "От двух до четырёх тарифов или пакетов."
+        }
+      }
+    },
+    "reviewAuthor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательное доступное имя автора отзыва."
+        },
+        "meta": {
+          "type": "string",
+          "description": "Необязательная краткая информация об авторе или источнике."
+        },
+        "display": {
+          "type": "string",
+          "enum": [
+            "text",
+            "avatar",
+            "avatar-text"
+          ],
+          "default": "text",
+          "description": "Способ отображения автора: только текст, только аватар или аватар с текстом."
+        },
+        "photo": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Путь к фотографии автора. Если поле отсутствует в avatar-режиме, выводятся инициалы."
+        }
+      }
+    },
+    "reviewMedia": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "src",
+        "alt",
+        "width",
+        "height"
+      ],
+      "properties": {
+        "src": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Путь к изображению, приложенному к отзыву."
+        },
+        "alt": {
+          "type": "string",
+          "description": "Описание приложенного изображения. Может быть пустым только для декоративного изображения."
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная ширина приложенного изображения."
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Исходная высота приложенного изображения."
+        }
+      }
+    },
+    "reviewItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "author",
+        "quote",
+        "rating"
+      ],
+      "properties": {
+        "author": {
+          "$ref": "#/$defs/reviewAuthor"
+        },
+        "quote": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст отзыва без внешних кавычек."
+        },
+        "rating": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 5,
+          "description": "Оценка автора от 1 до 5."
+        },
+        "media": {
+          "$ref": "#/$defs/reviewMedia",
+          "description": "Необязательное изображение, приложенное к отзыву и не являющееся фотографией автора."
+        }
+      }
+    },
+    "reviewAction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text",
+        "href"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст действия под отзывами."
+        },
+        "href": {
+          "$ref": "#/$defs/href"
+        },
+        "variant": {
+          "type": "string",
+          "enum": [
+            "primary",
+            "secondary"
+          ],
+          "default": "primary",
+          "description": "Визуальный вариант ссылки-кнопки."
+        },
+        "icon": {
+          "$ref": "#/$defs/libraryIcon"
+        },
+        "iconPosition": {
+          "$ref": "#/$defs/iconPosition"
+        }
+      },
+      "dependentRequired": {
+        "iconPosition": [
+          "icon"
+        ]
+      }
+    },
+    "reviews": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции reviews."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание отзывов."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/reviewItem"
+          },
+          "description": "От двух до шести отзывов с указанием авторства и рейтинга."
+        },
+        "note": {
+          "type": "string",
+          "description": "Необязательная заметка об источнике, проверке или методике сбора отзывов."
+        },
+        "actions": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/$defs/reviewAction"
+          },
+          "description": "Необязательные действия под блоком отзывов."
+        }
+      }
+    },
+    "faqItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "question",
+        "answer"
+      ],
+      "properties": {
+        "question": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Вопрос FAQ."
+        },
+        "answer": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Ответ FAQ."
+        }
+      }
+    },
+    "faq": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "items"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции FAQ."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное вводное описание FAQ."
+        },
+        "image": {
+          "type": "string",
+          "description": "Путь к изображению для вариантов split-image-accordion-left и split-image-accordion-right. Пустая строка включает SVG-placeholder."
+        },
+        "imageAlt": {
+          "type": "string",
+          "description": "Alt изображения FAQ. Оставляется пустым для декоративного изображения."
+        },
+        "items": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 12,
+          "items": {
+            "$ref": "#/$defs/faqItem"
+          },
+          "description": "От двух до двенадцати вопросов и ответов."
+        }
+      }
+    },
+    "contactDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "label",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "$ref": "#/$defs/contactType"
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Название контактного способа или реквизита."
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Отображаемое контактное значение."
+        },
+        "shortText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Необязательная компактная версия значения для служебных панелей."
+        },
+        "icon": {
+          "$ref": "#/$defs/libraryIcon",
+          "description": "Необязательная иконка контактного способа."
+        },
+        "href": {
+          "$ref": "#/$defs/href",
+          "description": "Необязательная ссылка, например mailto: или tel:."
+        }
+      }
+    },
+    "topbar": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "message"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Доступное имя верхней информационной панели."
+        },
+        "message": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Короткое основное сообщение."
+        },
+        "icon": {
+          "$ref": "#/$defs/libraryIcon",
+          "description": "Необязательная декоративная иконка сообщения."
+        },
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Необязательное переопределение глобального набора иконок."
+        },
+        "contactTypes": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/contactType"
+          },
+          "description": "Контактные данные, выводимые справа в указанном порядке."
+        },
+        "actionText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Необязательный текст действия."
+        },
+        "actionLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка необязательного действия."
+        }
+      },
+      "dependentRequired": {
+        "actionText": [
+          "actionLink"
+        ],
+        "actionLink": [
+          "actionText"
+        ]
+      }
+    },
+    "contactInfo": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "items"
+      ],
+      "properties": {
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/contactDetail"
+          },
+          "description": "Общие контактные данные, используемые разными блоками сайта."
+        }
+      }
+    },
+    "contactFormSelectOption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "text"
+      ],
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Значение option для отправки формы."
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Подпись option в выпадающем списке."
+        }
+      }
+    },
+    "contactFormSelect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "placeholder",
+        "name",
+        "options"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Подпись выпадающего списка."
+        },
+        "placeholder": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст пустого option до выбора значения."
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "HTML name для select."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Обязателен ли выбор значения."
+        },
+        "options": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/contactFormSelectOption"
+          },
+          "description": "Список значений select."
+        }
+      }
+    },
+    "contactForm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "label",
+        "nameLabel",
+        "namePlaceholder",
+        "companyLabel",
+        "companyPlaceholder",
+        "emailLabel",
+        "emailPlaceholder",
+        "phoneLabel",
+        "phonePlaceholder",
+        "phoneCountry",
+        "messageLabel",
+        "messagePlaceholder",
+        "consentText",
+        "submitText"
+      ],
+      "properties": {
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Доступное имя формы."
+        },
+        "nameLabel": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Подпись поля имени и фамилии."
+        },
+        "namePlaceholder": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пример имени и фамилии внутри поля."
+        },
+        "companyLabel": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Подпись поля компании."
+        },
+        "companyPlaceholder": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пример названия компании внутри поля."
+        },
+        "emailLabel": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "emailPlaceholder": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пример адреса электронной почты внутри поля."
+        },
+        "phoneLabel": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Подпись поля телефона."
+        },
+        "phonePlaceholder": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пример номера телефона внутри поля."
+        },
+        "phoneCountry": {
+          "type": "string",
+          "pattern": "^[a-z]{2}$",
+          "description": "ISO2-код страны по умолчанию для intl-tel-input."
+        },
+        "select": {
+          "$ref": "#/$defs/contactFormSelect",
+          "description": "Необязательный выпадающий список."
+        },
+        "messageLabel": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Подпись поля сообщения."
+        },
+        "messagePlaceholder": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пример текста внутри textarea."
+        },
+        "consentText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст обязательного checkbox согласия."
+        },
+        "consentLinkText": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "consentLink": {
+          "const": "/privacy.html",
+          "description": "Ссылка на privacy.html в checkbox согласия."
+        },
+        "newsletterText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст необязательного checkbox подписки на рассылку."
+        },
+        "submitText": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "footerNote": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Необязательный текст под кнопкой отправки."
+        }
+      },
+      "dependentRequired": {
+        "consentLinkText": [
+          "consentLink"
+        ],
+        "consentLink": [
+          "consentLinkText"
+        ]
+      }
+    },
+    "contactBenefit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Короткое преимущество рядом с контактной формой."
+        },
+        "icon": {
+          "$ref": "#/$defs/libraryIcon",
+          "description": "Необязательная иконка преимущества."
+        }
+      }
+    },
+    "contactSection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "form"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции contact."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное описание секции."
+        },
+        "iconSet": {
+          "$ref": "#/$defs/iconSet",
+          "description": "Необязательное переопределение глобального набора иконок для секции."
+        },
+        "sectionId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "HTML id секции для якорных ссылок, например kontakt или contact."
+        },
+        "benefits": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 6,
+          "items": {
+            "$ref": "#/$defs/contactBenefit"
+          },
+          "description": "Необязательные преимущества рядом с формой."
+        },
+        "form": {
+          "$ref": "#/$defs/contactForm"
+        }
+      }
+    },
+    "cookieCategory": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "label"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+          "description": "Технический id категории cookies. Не переводить."
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Локализованное название категории."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное пояснение категории."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Обязательная категория, которую нельзя отключить."
+        },
+        "defaultEnabled": {
+          "type": "boolean",
+          "description": "Значение по умолчанию для категории в панели настроек."
+        }
+      }
+    },
+    "cookieBanner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "descriptionBefore",
+        "policyLinkText",
+        "acceptAllText",
+        "rejectAllText",
+        "configureText",
+        "saveText",
+        "categories"
+      ],
+      "properties": {
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Заголовок cookie-плашки."
+        },
+        "descriptionBefore": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст описания до ссылки на cookie policy."
+        },
+        "descriptionAfter": {
+          "type": "string",
+          "description": "Текст описания после ссылки на cookie policy."
+        },
+        "policyLinkText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Локализованный текст ссылки на cookies.html."
+        },
+        "policyLinkHref": {
+          "type": "string",
+          "const": "/cookies.html",
+          "description": "Технический путь к cookie policy."
+        },
+        "acceptAllText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст кнопки принятия всех cookies."
+        },
+        "rejectAllText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст кнопки отклонения необязательных cookies."
+        },
+        "configureText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст кнопки открытия настроек cookies."
+        },
+        "saveText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст кнопки сохранения выбранных настроек."
+        },
+        "categories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/cookieCategory"
+          },
+          "description": "Категории cookies для панели настроек."
+        }
+      }
+    },
+    "footer": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "description": {
+          "type": "string",
+          "description": "Краткое описание бренда в footer."
+        },
+        "navigationTitle": {
+          "type": "string",
+          "description": "Заголовок колонки основной навигации."
+        },
+        "legalTitle": {
+          "type": "string",
+          "description": "Заголовок колонки юридических ссылок."
+        },
+        "contactsTitle": {
+          "type": "string",
+          "description": "Заголовок колонки контактов."
+        },
+        "ctaTitle": {
+          "type": "string",
+          "description": "Необязательный крупный заголовок CTA-зоны footer."
+        },
+        "ctaText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст CTA-кнопки footer."
+        },
+        "ctaLink": {
+          "$ref": "#/$defs/href",
+          "description": "Ссылка CTA-кнопки footer."
+        },
+        "ctaIcon": {
+          "$ref": "#/$defs/libraryIcon"
+        },
+        "ctaIconPosition": {
+          "$ref": "#/$defs/iconPosition"
+        },
+        "copyright": {
+          "type": "string",
+          "description": "Текст копирайта."
+        },
+        "legalNotice": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          },
+          "description": "Юридическое уведомление в виде одного или нескольких абзацев."
+        }
+      },
+      "dependentRequired": {
+        "ctaText": [
+          "ctaLink"
+        ],
+        "ctaLink": [
+          "ctaText"
+        ],
+        "ctaIcon": [
+          "ctaText",
+          "ctaLink"
+        ],
+        "ctaIconPosition": [
+          "ctaIcon"
+        ]
+      }
+    },
+    "statItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "value",
+        "label"
+      ],
+      "properties": {
+        "value": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Краткое значение показателя."
+        },
+        "label": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пояснение показателя."
+        }
+      }
+    },
+    "stats": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "stats"
+      ],
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "description": "Необязательная короткая надпись над заголовком секции."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Обязательный H2 секции stats."
+        },
+        "description": {
+          "type": "string",
+          "description": "Необязательное описание секции."
+        },
+        "sectionId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$",
+          "description": "HTML id секции для якорных ссылок, например zahlen или stats."
+        },
+        "stats": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/statItem"
+          },
+          "description": "Ключевые проверяемые показатели."
+        }
+      }
+    },
+    "aboutQuote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "text"
+      ],
+      "properties": {
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Цитата основателя, мастера или бренда."
+        },
+        "author": {
+          "type": "string",
+          "description": "Автор цитаты."
+        },
+        "role": {
+          "type": "string",
+          "description": "Должность или контекст автора."
+        },
+        "photo": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Фото автора цитаты рядом с именем."
+        }
+      }
+    },
+    "aboutHighlight": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "title",
+        "text"
+      ],
+      "properties": {
+        "icon": {
+          "$ref": "#/$defs/libraryIcon",
+          "description": "Необязательная иконка принципа или ценности."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Краткий заголовок принципа."
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Пояснение принципа или ценности."
+        }
+      }
+    },
+    "legalPages": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "privacy": {
+          "$ref": "#/$defs/legalPage"
+        },
+        "terms": {
+          "$ref": "#/$defs/legalPage"
+        },
+        "cookies": {
+          "$ref": "#/$defs/legalPage"
+        }
+      }
+    },
+    "legalPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "metaTitle",
+        "metaDescription",
+        "backLinkText",
+        "eyebrow",
+        "title",
+        "updated",
+        "sections"
+      ],
+      "properties": {
+        "metaTitle": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "SEO title страницы policy/terms/cookies."
+        },
+        "metaDescription": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Meta description страницы."
+        },
+        "backLinkText": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Текст ссылки возврата на главную."
+        },
+        "eyebrow": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Короткая надпись над H1 документа."
+        },
+        "title": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Заголовок H1 документа."
+        },
+        "updated": {
+          "$ref": "#/$defs/nonEmptyString",
+          "description": "Дата последнего обновления докуменta."
+        },
+        "sections": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/legalSection"
+          }
+        }
+      }
+    },
+    "legalSection": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/legalSectionParagraph"
+        },
+        {
+          "$ref": "#/$defs/legalSectionHeading"
+        },
+        {
+          "$ref": "#/$defs/legalSectionList"
+        },
+        {
+          "$ref": "#/$defs/legalSectionDefinitionList"
+        },
+        {
+          "$ref": "#/$defs/legalSectionTable"
+        },
+        {
+          "$ref": "#/$defs/legalSectionNote"
+        }
+      ]
+    },
+    "legalSectionParagraph": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "const": "paragraph"
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "legalSectionHeading": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "level",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "const": "heading"
+        },
+        "level": {
+          "type": "integer",
+          "enum": [
+            2,
+            3
+          ]
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    },
+    "legalSectionList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "items"
+      ],
+      "properties": {
+        "type": {
+          "const": "list"
+        },
+        "ordered": {
+          "type": "boolean",
+          "default": false
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        }
+      }
+    },
+    "legalSectionDefinitionList": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "items"
+      ],
+      "properties": {
+        "type": {
+          "const": "definitionList"
+        },
+        "items": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/legalDefinitionItem"
+          }
+        }
+      }
+    },
+    "legalDefinitionItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "term",
+        "definition"
+      ],
+      "properties": {
+        "term": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "definition": {
+          "$ref": "#/$defs/nonEmptyString"
+        },
+        "href": {
+          "$ref": "#/$defs/href"
+        }
+      }
+    },
+    "legalSectionTable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "headers",
+        "rows"
+      ],
+      "properties": {
+        "type": {
+          "const": "table"
+        },
+        "caption": {
+          "type": "string"
+        },
+        "headers": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "$ref": "#/$defs/nonEmptyString"
+          }
+        },
+        "rows": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "legalSectionNote": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "type",
+        "text"
+      ],
+      "properties": {
+        "type": {
+          "const": "note"
+        },
+        "title": {
+          "type": "string"
+        },
+        "text": {
+          "$ref": "#/$defs/nonEmptyString"
+        }
+      }
+    }
+  }
+}

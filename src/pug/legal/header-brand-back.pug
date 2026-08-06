@@ -1,0 +1,7 @@
+include /mixins/ui/logo.pug
+include /mixins/ui/text-link.pug
+
+header(class=["legal-header", blockClasses(blockAppearance.header)])
+  div(class="legal-header__inner")
+    +logo(site.brand)
+    +textLink(legalPage.backLinkText || "Retour à l'accueil", "/")(class="ui-link--accent-bar shrink-0")

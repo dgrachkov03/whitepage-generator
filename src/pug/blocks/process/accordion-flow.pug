@@ -1,0 +1,30 @@
+include /mixins/blocks/process/header.pug
+
+- const processData = site.process || {}
+- const processSteps = processData.items || []
+- const processAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.process : undefined
+
+if processData.title && processSteps.length
+  section(
+    id="process"
+    class=["py-section", blockClasses(processAppearance)]
+    aria-labelledby="process-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 lg:px-8")
+      div(class="lg:sticky lg:top-8 lg:self-start")
+        +processHeader(processData, { align: "split" })
+
+      div(class="accordion-group")
+        each step, index in processSteps
+          details(
+            class="ui-tile accordion__details"
+            name="process"
+            open=index === 0
+          )
+            summary(class="accordion__summary")
+              h3(class="accordion__title")
+                span(class="mr-3 font-display text-primary tabular-nums" aria-hidden="true")= String(index + 1).padStart(2, "0")
+                span= step.title
+
+            div(class="accordion__content")
+              p= step.description

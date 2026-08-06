@@ -1,0 +1,58 @@
+include /mixins/ui/link-button.pug
+include /mixins/ui/logo.pug
+include /mixins/ui/text-link.pug
+
+- const footerData = site.footer || {}
+- const footerIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const primaryNavigation = site.navigation?.primary || {}
+- const legalNavigation = site.navigation?.legal || {}
+- const primaryItems = primaryNavigation.items || []
+- const legalItems = legalNavigation.items || []
+- const legalNotice = footerData.legalNotice || []
+- const footerAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.footer : undefined
+
+footer(class=blockClasses(footerAppearance))
+  div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 py-10 sm:gap-10 sm:px-6 sm:py-12 lg:px-8 lg:py-16")
+    if footerData.ctaTitle || footerData.description
+      section(class="grid grid-cols-1 items-center gap-6 rounded-card bg-primary p-6 text-ink-inverse shadow-card sm:p-8 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-12 lg:p-10")
+        div(class="flex max-w-2xl flex-col gap-3")
+          if footerData.ctaTitle
+            h2(class="type-section-title text-current")= footerData.ctaTitle
+
+          if footerData.description
+            p(class="font-body text-sm leading-relaxed text-current opacity-80 sm:text-base")= footerData.description
+
+        if footerData.ctaText && footerData.ctaLink
+          +linkButton(footerData.ctaText, footerData.ctaLink, {
+            variant: "inverse",
+            icon: footerData.ctaIcon,
+            iconPosition: footerData.ctaIconPosition,
+            iconSet: footerIconSet
+          })
+
+    div(class="grid grid-cols-1 gap-6 border-t border-ink/10 pt-8 sm:grid-cols-[auto_1fr] sm:items-start lg:gap-10")
+      +logo(site.brand)
+
+      if primaryItems.length
+        nav(aria-label=primaryNavigation.label)
+          ul(class="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end")
+            each item in primaryItems
+              li
+                +textLink(item.text, item.href)
+
+    div(class="flex flex-col gap-5")
+      div(class="flex flex-col justify-between gap-4 sm:flex-row sm:items-center")
+        if footerData.copyright
+          p(class="font-body text-sm text-ink-muted")= footerData.copyright
+
+        if legalItems.length
+          nav(aria-label=legalNavigation.label)
+            ul(class="flex flex-wrap gap-x-4 gap-y-2")
+              each item in legalItems
+                li
+                  +textLink(item.text, item.href)
+
+      if legalNotice.length
+        div(class="grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-6")
+          each paragraph in legalNotice
+            p(class="font-body text-xs leading-relaxed text-ink-muted")= paragraph

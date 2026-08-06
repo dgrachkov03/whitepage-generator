@@ -1,0 +1,22 @@
+include /mixins/ui/eyebrow.pug
+
+mixin whyUsHeader(whyUsData, options)
+  - options = options || {}
+  - const eyebrowVariant = resolveEyebrowVariant(options, pageAppearance)
+  - const align = options.align || "start"
+  - const headerClass = options.headerClass || (align === "center" ? "mx-auto flex max-w-2xl flex-col items-center gap-3 text-center sm:gap-4" : "flex max-w-2xl flex-col items-start gap-3 sm:gap-4")
+  - const titleClass = options.titleClass || "type-section-title text-ink"
+  - const titleId = options.titleId || "why-us-title"
+  - const descriptionClass = options.descriptionClass || (align === "center" ? "max-w-2xl font-body text-base leading-relaxed text-ink-muted sm:text-lg" : "font-body text-base leading-relaxed text-ink-muted sm:text-lg")
+
+  header(class=headerClass)
+    if whyUsData.eyebrow
+      +eyebrow(whyUsData.eyebrow, eyebrowVariant)
+
+    h2(
+      id=titleId
+      class=titleClass
+    )= whyUsData.title
+
+    if whyUsData.description
+      p(class=descriptionClass)= whyUsData.description

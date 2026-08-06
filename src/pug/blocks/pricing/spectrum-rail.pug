@@ -1,0 +1,101 @@
+include /mixins/blocks/pricing/header.pug
+include /mixins/blocks/pricing/price-display.pug
+include /mixins/blocks/pricing/feature-list.pug
+include /mixins/ui/link-button.pug
+include /mixins/ui/badge.pug
+
+- const pricingData = site.pricing || {}
+- const pricingPlans = pricingData.plans || []
+- const pricingAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.pricing : undefined
+
+if pricingData.title && pricingPlans.length
+  section(
+    id="pricing"
+    class=["py-section", blockClasses(pricingAppearance)]
+    aria-labelledby="pricing-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +pricingHeader(pricingData, { align: "center" })
+
+      div(
+        class=[
+          "mx-auto grid h-2 w-full max-w-3xl gap-1 overflow-hidden rounded-full",
+          pricingPlans.length >= 3 ? "grid-cols-3" : "grid-cols-2"
+        ]
+        aria-hidden="true"
+      )
+        each plan, index in pricingPlans
+          -
+            const segmentClass = plan.featured
+              ? "bg-accent"
+              : index % 2 === 0
+                ? "bg-primary/70"
+                : "bg-ink/15"
+
+          div(class=segmentClass)
+
+      ul(
+        class=[
+          "grid grid-cols-1 gap-5",
+          pricingPlans.length >= 3 ? "lg:grid-cols-3 lg:gap-6" : "sm:grid-cols-2 sm:gap-6"
+        ]
+        role="list"
+      )
+        each plan, index in pricingPlans
+          -
+            const bandClass = plan.featured
+              ? "bg-accent text-ink-inverse"
+              : index % 2 === 0
+                ? "bg-primary text-ink-inverse"
+                : "bg-surface-alt text-ink"
+            const cardClass = plan.featured
+              ? "shadow-card ring-2 ring-accent/40 lg:-translate-y-1"
+              : "shadow-card"
+
+          li(class=plan.featured ? "lg:row-span-1" : null)
+            article(
+              class=["ui-tile flex h-full flex-col overflow-hidden", cardClass]
+              aria-label=plan.name
+            )
+              header(class=["flex flex-col gap-3 px-5 py-5 sm:px-6 sm:py-6", bandClass])
+                div(class="flex flex-wrap items-center gap-2")
+                  h3(class="type-card-title text-current")= plan.name
+
+                  if plan.badge
+                    +badge(plan.badge, { variant: plan.featured ? "inverse" : "accent" })
+
+                if plan.description
+                  p(
+                    class=[
+                      "font-body text-sm leading-relaxed sm:text-base",
+                      plan.featured || index % 2 === 0 ? "text-current opacity-85" : "text-ink-muted"
+                    ]
+                  )= plan.description
+
+                div(class="flex flex-col gap-1")
+                  p(class="font-display text-3xl font-semibold tracking-tight text-current sm:text-4xl")
+                    if plan.pricePrefix
+                      span(
+                        class=[
+                          "font-body text-base font-normal sm:text-lg",
+                          plan.featured || index % 2 === 0 ? "opacity-75" : "text-ink-muted"
+                        ]
+                      )= `${plan.pricePrefix} `
+                    span= plan.price
+
+                  if plan.period
+                    p(
+                      class=[
+                        "font-body text-xs sm:text-sm",
+                        plan.featured || index % 2 === 0 ? "text-current opacity-75" : "text-ink-muted"
+                      ]
+                    )= plan.period
+
+              div(class="flex flex-1 flex-col gap-5 p-5 sm:p-6")
+                +pricingFeatureList(plan.features)
+
+                +linkButton(plan.ctaText, plan.ctaLink, {
+                  variant: plan.ctaVariant || (plan.featured ? "primary" : "secondary")
+                })(class="mt-auto w-full justify-center")
+
+      +pricingNote(pricingData, { noteClass: "text-center font-body text-xs leading-relaxed text-ink-muted sm:text-sm" })

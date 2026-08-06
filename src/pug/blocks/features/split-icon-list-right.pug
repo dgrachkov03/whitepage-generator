@@ -1,0 +1,33 @@
+include /mixins/blocks/features/header.pug
+
+- const featuresData = site.features || {}
+- const featureItems = featuresData.items || []
+- const featuresAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.features : undefined
+
+if featuresData.title && featureItems.length
+  section(
+    id="features"
+    class=["py-section", blockClasses(featuresAppearance)]
+    aria-labelledby="features-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-16 lg:px-8")
+      ul(class="order-2 flex flex-col lg:order-1")
+        each item, index in featureItems
+          li(class="grid grid-cols-[auto_1fr] gap-4 border-b border-ink/10 py-5 last:border-b-0 sm:gap-5 sm:py-6")
+            span(
+              class="inline-flex size-11 shrink-0 items-center justify-center rounded-button bg-surface-alt font-display text-lg text-primary"
+              aria-hidden="true"
+            )
+              if item.icon
+                != libraryIcon(item.icon, featuresData.iconSet)
+              else
+                = String(index + 1).padStart(2, "0")
+
+            div(class="grid grid-cols-1 gap-2 sm:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] sm:gap-6")
+              h3(class="type-card-title text-ink")= item.title
+              p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.description
+
+      +featuresHeader(featuresData, {
+        align: "split",
+        headerClass: "order-1 flex max-w-xl flex-col items-start gap-3 sm:gap-4 lg:order-2"
+      })

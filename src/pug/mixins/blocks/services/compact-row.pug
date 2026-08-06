@@ -1,0 +1,24 @@
+include meta.pug
+include /mixins/ui/link-button.pug
+
+mixin serviceCompactRow(item, options)
+  - options = options || {}
+  - const iconSet = options.iconSet || "lucide"
+  - const rowClass = options.rowClass || "grid grid-cols-1 gap-3 border-b border-ink/10 py-5 last:border-b-0 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6 sm:py-6"
+
+  div(class=rowClass)
+    div(class="flex min-w-0 items-start gap-3")
+      if item.icon
+        span(
+          class="inline-flex size-10 shrink-0 items-center justify-center rounded-button bg-surface-alt text-lg text-primary"
+          aria-hidden="true"
+        )!= libraryIcon(item.icon, iconSet)
+
+      div(class="flex min-w-0 flex-col gap-1")
+        h3(class="type-card-title text-ink")= item.title
+
+        +serviceMeta(item)
+
+    +linkButton(item.ctaText, item.ctaLink, {
+      variant: item.ctaVariant || "secondary"
+    })(class="w-full justify-center sm:w-auto")

@@ -1,0 +1,43 @@
+include /mixins/blocks/hero/content.pug
+
+mixin heroSplitPanel(imageSide, options)
+  - options = options || {}
+  - const heroData = site.hero || {}
+  - const heroIconSet = options.iconSet || "lucide"
+  - const heroAppearance = options.appearance || (typeof blockAppearance !== "undefined" ? blockAppearance.hero : undefined)
+  - const heroSectionAppearance = { ...(heroAppearance || {}), tone: "transparent" }
+  - const isImageLeft = imageSide === "left"
+  - const imageOrder = isImageLeft ? "order-2 lg:order-1" : "order-1 lg:order-2"
+  - const contentOrder = isImageLeft ? "order-1 lg:order-2" : "order-2 lg:order-1"
+
+  section(
+    id="hero"
+    class=blockClasses(heroSectionAppearance)
+    aria-labelledby="hero-title"
+  )
+    div(class="grid grid-cols-1 lg:grid-cols-2")
+      div(class=["relative min-h-72 sm:min-h-80 lg:min-h-[32rem]", imageOrder])
+        img(
+          class="absolute inset-0 size-full object-cover"
+          src=heroData.image || placeholder(1200, 900)
+          alt=heroData.imageAlt || ""
+          width="1200"
+          height="900"
+          decoding="async"
+          fetchpriority="high"
+        )
+
+      div(
+        class=[
+          "block-tone--alt flex flex-col justify-center px-4 py-section sm:px-8 lg:px-12",
+          contentOrder
+        ]
+      )
+        +heroContent(heroData, {
+          rootClass: "mx-auto flex w-full max-w-xl flex-col items-start gap-4 sm:gap-5 lg:gap-6",
+          titleClass: "type-hero-title text-ink",
+          subtitleClass: "type-card-title text-ink",
+          descriptionClass: "font-body text-base text-ink-muted sm:text-lg",
+          actionsClass: "flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row sm:gap-4",
+          iconSet: heroIconSet
+        })

@@ -1,0 +1,9 @@
+include /mixins/blocks/hero/split-panel.pug
+
+- const heroIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const heroAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.hero : undefined
+
++heroSplitPanel("right", {
+  iconSet: heroIconSet,
+  appearance: heroAppearance
+})

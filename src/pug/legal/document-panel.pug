@@ -1,0 +1,28 @@
+include /mixins/blocks/legal/intro.pug
+include /mixins/blocks/legal/sections.pug
+
+- const legalSections = legalPage.sections || []
+- const legalSectionGroups = groupLegalSectionsByH2(legalSections)
+
+if !legalPage.title
+  throw new Error("Legal document requires legalPage.title")
+
+article(class="legal-document legal-document--panel" aria-labelledby="legal-document-title")
+  div(class="legal-document__intro-panel ui-tile")
+    +legalIntro(legalPage)
+
+  div(class="legal-document__panels")
+    each group, index in legalSectionGroups
+      section(
+        class=["legal-panel", "ui-tile", index % 2 === 1 ? "legal-panel--alt" : null].filter(Boolean)
+        aria-labelledby=group.heading ? legalSectionSlug(group.heading.text) : undefined
+      )
+        if group.heading
+          - const panelId = legalSectionSlug(group.heading.text)
+          h2(
+            id=panelId
+            class="legal-panel__title type-section-title text-ink"
+          )= group.heading.text
+
+        div(class="legal-document__body")
+          +legalSections(group.sections)

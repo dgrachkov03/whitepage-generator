@@ -1,0 +1,17 @@
+mixin headerBurger(header, options)
+  - options = options || {}
+  - const pageAppearanceRef = typeof pageAppearance !== "undefined" ? pageAppearance : {}
+
+  button(
+    type="button"
+    class=headerBurgerClasses(pageAppearanceRef, options)
+    aria-controls="header-navigation"
+    aria-expanded="false"
+    aria-label=header.menuOpenLabel
+    data-open-label=header.menuOpenLabel
+    data-close-label=header.menuCloseLabel
+    data-js-header-burger-button
+  )
+    span.header-burger__line
+    span.header-burger__line
+    span.header-burger__line

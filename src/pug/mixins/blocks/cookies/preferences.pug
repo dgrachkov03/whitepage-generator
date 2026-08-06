@@ -1,0 +1,22 @@
+include /mixins/ui/checkbox.pug
+
+mixin consentBannerPreferences(cookieCategories)
+  div(
+    class="consent-banner__preferences flex flex-col gap-3"
+    data-js-consent-banner-preferences
+    hidden
+  )
+    each category in cookieCategories
+      div(class="flex flex-col gap-1")
+        +checkbox(category.label, `consent-banner-${category.id}`, {
+          name: category.id,
+          required: category.required,
+        })(
+          checked=category.required || category.defaultEnabled
+          disabled=category.required
+          data-js-consent-banner-toggle=""
+          data-category-id=category.id
+        )
+
+        if category.description
+          p(class="font-body text-xs leading-relaxed text-ink-muted")= category.description

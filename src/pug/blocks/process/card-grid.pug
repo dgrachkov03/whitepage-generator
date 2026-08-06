@@ -1,0 +1,26 @@
+include /mixins/blocks/process/header.pug
+
+- const processData = site.process || {}
+- const processSteps = processData.items || []
+- const processAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.process : undefined
+
+if processData.title && processSteps.length
+  section(
+    id="process"
+    class=["py-section", blockClasses(processAppearance)]
+    aria-labelledby="process-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +processHeader(processData, { align: "center" })
+
+      ol(class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 xl:gap-6")
+        each step, index in processSteps
+          li(class="ui-tile flex min-h-full flex-col gap-4 p-5 sm:p-6")
+            span(
+              class="inline-flex size-11 items-center justify-center rounded-full bg-primary font-display text-base text-ink-inverse shadow-card"
+              aria-hidden="true"
+            )= String(index + 1).padStart(2, "0")
+
+            div(class="flex flex-col gap-2")
+              h3(class="type-card-title text-ink")= step.title
+              p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= step.description

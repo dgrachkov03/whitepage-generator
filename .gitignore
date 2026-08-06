@@ -1,0 +1,9 @@
+node_modules/
+dist/
+index.html
+privacy.html
+terms.html
+cookies.html
+personal-data.html
+*.local
+.DS_Store

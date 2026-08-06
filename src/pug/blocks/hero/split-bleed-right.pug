@@ -1,0 +1,32 @@
+include /mixins/blocks/hero/content.pug
+
+- const heroData = site.hero || {}
+- const heroIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const heroAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.hero : undefined
+
+section(
+  id="hero"
+  class=["py-section overflow-hidden", blockClasses(heroAppearance)]
+  aria-labelledby="hero-title"
+)
+  div(class="grid grid-cols-1 items-center gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.12fr)] lg:gap-12 xl:gap-16")
+    div(class="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:mx-0 lg:max-w-none lg:pl-[max(1rem,calc((100vw-72rem)/2+2rem))] lg:pr-0")
+      +heroContent(heroData, {
+        rootClass: "flex flex-col items-start gap-4 sm:gap-5 lg:gap-6",
+        titleClass: "type-hero-title text-ink",
+        subtitleClass: "type-card-title text-ink",
+        descriptionClass: "font-body text-base text-ink-muted sm:text-lg",
+        actionsClass: "flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row sm:gap-4",
+        iconSet: heroIconSet
+      })
+
+    div(class="relative px-4 sm:px-6 lg:px-0")
+      img(
+        class="aspect-4/5 w-full object-cover sm:aspect-[5/4] lg:aspect-auto lg:min-h-128 lg:rounded-l-card lg:shadow-card"
+        src=heroData.image || placeholder(960, 1200)
+        alt=heroData.imageAlt || ""
+        width="960"
+        height="1200"
+        decoding="async"
+        fetchpriority="high"
+      )

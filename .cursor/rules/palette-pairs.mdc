@@ -1,0 +1,58 @@
+---
+description: Light/dark palette pairs — brand color, surfaces, and contrast rules
+globs: "src/pug/design/palettes/**/*.css,scripts/generator/palette.js,scripts/generator/palette-audit.js"
+alwaysApply: false
+---
+
+# Palette pairs (light / dark)
+
+When creating or editing fixed palettes in `src/pug/design/palettes/`:
+
+## Same brand hue in both themes
+
+- Light and dark variants of one theme must share the **same brand hue**, not unrelated colors.
+- Dark may use a brighter `primary` (e.g. `#22c55e`); light uses the **same hex or one step darker** (e.g. `#22c55e` / `#16a34a` on hover) — not slate, navy, or another family.
+- `gradient-primary` should match the visible brand color unless there is a deliberate secondary gradient role.
+
+## Accent stays in the primary hue family
+
+UI blocks (e.g. `services/panel-grid`, `pricing/spectrum-rail`) alternate **`bg-primary`** and **`bg-accent`** on cards. If they are unrelated hues, the page looks like several themes at once.
+
+- **`accent`** — lighter/darker/saturation variant of **`primary`** (same hue family).
+- **`gradient-secondary`** — align with `accent` (usually the same hex).
+- Do **not** use complementary pairs for accent: gold + blue, green + amber, red + slate, cyan + orange, etc.
+- **`secondary`** — neutral slate/stone for muted text and chrome; not a second brand color.
+
+Good: `#1E3A8A` primary + `#3B82F6` accent; `#B91C1C` + `#991B1B`; `#BE123C` + `#881337`.
+
+Bad for UI: `#E0B840` + `#8898A8` (vault), `#16A34A` + `#F59E0B` (devops), `#B91C1C` + `#1E293B` (ruby).
+
+Audit warns when primary/accent hue delta exceeds **25°**, distance falls outside **50–90 RGB**, or accent reads as neon (`palette-harmony.js`).
+
+## Surfaces stay neutral in light mode
+
+- Do **not** tint `surface` / `surface-alt` with the brand color (no mint/green/blue page backgrounds).
+- Use neutral fills (`#f8fafc`, `#e2e8f0`, etc.); brand color belongs in `primary`, `accent`, gradients, and accents only.
+
+## Buttons vs links
+
+- `primary` — links, outlines, borders, text accents (readable with dark `ink` on light backgrounds).
+- `button-gradient-start` / `button-gradient-end` — solid fills with white `ink-inverse`; may be **one step darker** than `primary` for WCAG ≥ 4.6:1.
+- Do not darken `primary` to fix button contrast if that breaks brand parity with dark; darken **button endpoints** instead.
+
+## Validation
+
+- Run `node --test scripts/generator/palette.test.js scripts/generator/palette-audit.test.js` after changes.
+- Light-mode rules in `palette.js`: bright `primary`/`accent` on surfaces is allowed when `ink` on that color passes contrast; `ink-inverse` on `primary` is not required in light (button endpoints are checked separately in tests).
+
+## Example (`tech/_devops`)
+
+```css
+/* light — brand matches dark, surfaces neutral, buttons darker */
+--design-primary: #22c55e;
+--design-primary-hover: #16a34a;
+--design-button-gradient-start: #15803d;
+--design-button-gradient-end: #166534;
+--design-surface: #f8fafc;
+--design-surface-alt: #e2e8f0;
+```

@@ -1,0 +1,44 @@
+include /mixins/blocks/why-us/header.pug
+
+- const whyUsData = site.whyUs || {}
+- const whyUsItems = whyUsData.items || []
+- const whyUsLeadMedia = (whyUsData.gallery || [])[0] || { width: 720, height: 900, alt: "" }
+- const whyUsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.whyUs : undefined
+
+if whyUsData.title && whyUsItems.length
+  section(
+    id="why-us"
+    class=["py-section", blockClasses(whyUsAppearance)]
+    aria-labelledby="why-us-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8")
+      img(
+        class="aspect-4/5 w-full rounded-card object-cover shadow-card lg:min-h-128"
+        src=whyUsLeadMedia.src || placeholder(whyUsLeadMedia.width, whyUsLeadMedia.height)
+        alt=whyUsLeadMedia.alt
+        width=whyUsLeadMedia.width
+        height=whyUsLeadMedia.height
+        loading="lazy"
+        decoding="async"
+      )
+
+      div(class="flex flex-col items-start gap-8 sm:gap-10")
+        +whyUsHeader(whyUsData)
+
+        ol(class="flex w-full flex-col")
+          each item, index in whyUsItems
+            li(
+              class=[
+                "flex items-start gap-4 sm:gap-5",
+                index > 0 ? "border-t border-ink/10 pt-5 sm:pt-6" : "",
+                index < whyUsItems.length - 1 ? "pb-5 sm:pb-6" : "",
+              ]
+            )
+              span(
+                class="w-9 shrink-0 font-display text-2xl leading-tight text-primary tabular-nums sm:w-10 sm:text-3xl"
+                aria-hidden="true"
+              )= String(index + 1).padStart(2, "0")
+
+              div(class="flex min-w-0 flex-col gap-2")
+                h3(class="type-card-title text-ink")= item.title
+                p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.description

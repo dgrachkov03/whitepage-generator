@@ -1,0 +1,26 @@
+include /mixins/blocks/faq/header.pug
+
+- const faqData = site.faq || {}
+- const faqItems = faqData.items || []
+- const faqAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.faq : undefined
+
+if faqData.title && faqItems.length
+  section(
+    id="faq"
+    class=["py-section", blockClasses(faqAppearance)]
+    aria-labelledby="faq-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +faqHeader(faqData, { align: "center" })
+
+      ul(class="grid grid-cols-1 gap-x-10 gap-y-8 md:grid-cols-2 lg:gap-x-16")
+        each item, index in faqItems
+          li(class="grid grid-cols-[auto_1fr] items-start gap-4 border-t border-ink/10 pt-5 sm:gap-5 sm:pt-6")
+            span(
+              class="font-display text-base leading-none text-primary"
+              aria-hidden="true"
+            )= String(index + 1).padStart(2, "0")
+
+            article(class="flex flex-col gap-3")
+              h3(class="type-card-title text-ink")= item.question
+              p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.answer

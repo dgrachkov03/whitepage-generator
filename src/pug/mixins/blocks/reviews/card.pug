@@ -1,0 +1,53 @@
+mixin reviewCard(review, options)
+  - options = options || {}
+  - const author = review.author || {}
+  - const authorDisplay = author.display || "text"
+  - const showAuthorAvatar = authorDisplay === "avatar" || authorDisplay === "avatar-text"
+  - const showAuthorText = authorDisplay === "text" || authorDisplay === "avatar-text"
+  - const authorInitials = author.name ? author.name.trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join("") : ""
+
+  figure(class=["ui-tile flex h-full flex-col gap-4 p-5 sm:p-6", options.tileClass])
+    if review.media
+      img(
+        class="h-auto w-full rounded-card object-cover"
+        src=review.media.src
+        alt=review.media.alt
+        width=review.media.width
+        height=review.media.height
+        loading="lazy"
+        decoding="async"
+      )
+
+    figcaption(class=["flex items-center", showAuthorAvatar && showAuthorText ? "gap-3" : null])
+      if showAuthorAvatar
+        if author.photo
+          img(
+            class="size-10 shrink-0 rounded-full object-cover"
+            src=author.photo
+            alt=showAuthorText ? "" : author.name
+            width="40"
+            height="40"
+            loading="lazy"
+            decoding="async"
+          )
+        else
+          span(class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary font-body text-sm font-semibold uppercase text-ink-inverse")
+            span(aria-hidden="true")= authorInitials
+            if !showAuthorText
+              span(class="sr-only")= author.name
+
+      if showAuthorText
+        div(class="flex min-w-0 flex-col")
+          span(class="truncate font-body text-sm font-semibold text-ink")= author.name
+
+          if author.meta
+            span(class="truncate font-body text-xs text-ink-muted")= author.meta
+
+    div(class="flex items-center text-sm leading-none text-primary")
+      span(aria-hidden="true")= "★".repeat(review.rating)
+      if review.rating < 5
+        span(class="text-ink/20" aria-hidden="true")= "★".repeat(5 - review.rating)
+      span(class="sr-only")= `${review.rating}/5`
+
+    blockquote
+      p(class="font-body text-sm leading-relaxed text-ink sm:text-base")= `“${review.quote}”`

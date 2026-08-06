@@ -1,0 +1,38 @@
+include /mixins/ui/logo.pug
+include /mixins/ui/text-link.pug
+
+- const footerData = site.footer || {}
+- const primaryNavigation = site.navigation?.primary || {}
+- const legalNavigation = site.navigation?.legal || {}
+- const primaryItems = primaryNavigation.items || []
+- const legalItems = legalNavigation.items || []
+- const legalNotice = footerData.legalNotice || []
+- const footerAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.footer : undefined
+
+footer(class=blockClasses(footerAppearance))
+  div(class="mx-auto flex max-w-6xl flex-col px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14")
+    div(class="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between")
+      +logo(site.brand)
+
+      if primaryItems.length
+        nav(aria-label=primaryNavigation.label)
+          ul(class="flex flex-wrap gap-x-5 gap-y-2 sm:justify-end")
+            each item in primaryItems
+              li
+                +textLink(item.text, item.href)
+
+    if legalNotice.length
+      div(class="mt-8 border-t border-ink/10 pt-8")
+        each paragraph in legalNotice
+          p(class="m-0 font-body text-xs leading-relaxed text-ink-muted")= paragraph
+
+    div(class="mt-8 flex flex-col gap-4 border-t border-ink/10 pt-6 sm:flex-row sm:items-center sm:justify-between")
+      if footerData.copyright
+        p(class="font-body text-sm text-ink-muted")= footerData.copyright
+
+      if legalItems.length
+        nav(aria-label=legalNavigation.label)
+          ul(class="flex flex-wrap gap-x-4 gap-y-2 sm:justify-end")
+            each item in legalItems
+              li
+                +textLink(item.text, item.href)

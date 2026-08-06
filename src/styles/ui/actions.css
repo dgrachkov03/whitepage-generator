@@ -1,0 +1,249 @@
+@layer components {
+  .ui-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--control-gap, 0.5rem);
+    width: 100%;
+    min-height: var(--control-min-height, 3rem);
+    padding: 0 var(--control-padding-inline, 1.375rem);
+    border: 1px solid transparent;
+    border-radius: var(--radius-button);
+    font-family: var(--font-body);
+    font-size: var(--control-font-size, 0.9375rem);
+    font-weight: 600;
+    line-height: 1.2;
+    text-align: center;
+    cursor: pointer;
+    transition:
+      color 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      filter 200ms ease,
+      opacity 200ms ease,
+      transform 200ms ease;
+  }
+
+  .ui-action__icon {
+    flex: none;
+    width: var(--control-icon-size, 1.125rem);
+    height: var(--control-icon-size, 1.125rem);
+  }
+
+  .ui-action__icon > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ui-action--primary {
+    color: var(--color-ink-inverse);
+    background-color: var(--color-primary);
+  }
+
+  .ui-action--primary:hover {
+    background-color: var(--color-primary-hover);
+  }
+
+  .ui-action--secondary {
+    color: var(--color-primary);
+    background-color: transparent;
+    border-color: var(--color-primary);
+  }
+
+  .ui-action--secondary:hover {
+    background-color: var(--color-surface-alt);
+  }
+
+  .ui-action--inverse {
+    color: var(--color-primary);
+    background-color: var(--color-ink-inverse);
+  }
+
+  .ui-action--inverse:hover {
+    opacity: 0.82;
+  }
+
+  .ui-action--inverse-outline {
+    color: var(--color-ink-inverse);
+    background-color: transparent;
+    border-color: color-mix(
+      in srgb,
+      var(--color-ink-inverse) 72%,
+      transparent
+    );
+  }
+
+  .ui-action--inverse-outline:hover {
+    background-color: color-mix(
+      in srgb,
+      var(--color-ink-inverse) 12%,
+      transparent
+    );
+    border-color: var(--color-ink-inverse);
+  }
+
+  .controls-buttons--gradient .ui-action--primary {
+    background-color: var(--color-primary);
+    background-image: linear-gradient(
+      120deg,
+      var(--design-button-gradient-start, var(--color-primary)),
+      var(--design-button-gradient-end, var(--color-primary-hover))
+    );
+    border-color: color-mix(
+      in srgb,
+      var(--design-button-gradient-end, var(--color-primary-hover)) 40%,
+      transparent
+    );
+  }
+
+  .controls-buttons--gradient .ui-action--primary:hover {
+    filter: saturate(1.08) brightness(1.06);
+  }
+
+  .controls-buttons--gradient .ui-action--inverse {
+    background-image: linear-gradient(
+      135deg,
+      var(--color-ink-inverse),
+      color-mix(in srgb, var(--color-ink-inverse) 82%, var(--color-secondary))
+    );
+  }
+
+  .controls-buttons--outline .ui-action--primary {
+    color: var(--color-primary);
+    background-color: transparent;
+    border-color: var(--color-primary);
+  }
+
+  .controls-buttons--outline .ui-action--primary:hover {
+    color: var(--color-ink-inverse);
+    background-color: var(--color-primary);
+  }
+
+  .controls-buttons--outline .ui-action--secondary {
+    color: var(--color-ink);
+    border-color: color-mix(in srgb, var(--color-ink) 28%, transparent);
+  }
+
+  .controls-buttons--outline .ui-action--inverse {
+    color: var(--color-ink-inverse);
+    background-color: transparent;
+    border-color: var(--color-ink-inverse);
+  }
+
+  .controls-buttons--outline .ui-action--inverse:hover {
+    color: var(--color-primary);
+    background-color: var(--color-ink-inverse);
+    opacity: 1;
+  }
+
+  .controls-buttons-hover--darken .ui-action--primary:hover {
+    color: var(--color-ink-inverse);
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    background-image: none;
+    filter: none;
+    opacity: 1;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .controls-buttons-hover--brighten .ui-action--primary:hover {
+    filter: saturate(1.1) brightness(1.08);
+    opacity: 1;
+  }
+
+  .controls-buttons-hover--brighten.controls-buttons--gradient
+    .ui-action--primary:hover {
+    background-color: var(--color-primary);
+  }
+
+  .controls-buttons-hover--lift .ui-action:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0.625rem 1.25rem
+      color-mix(in srgb, var(--color-ink) 18%, transparent);
+  }
+
+  .controls-buttons-hover--lift .ui-action--primary:hover {
+    filter: none;
+    opacity: 1;
+  }
+
+  .controls-buttons-hover--glow .ui-action--primary:hover {
+    filter: none;
+    opacity: 1;
+    transform: none;
+    box-shadow:
+      0 0 0 3px color-mix(in srgb, var(--color-primary) 28%, transparent),
+      0 0.75rem 1.75rem color-mix(in srgb, var(--color-primary) 32%, transparent);
+  }
+
+  .controls-buttons-hover--darken .ui-action--secondary:hover {
+    background-color: var(--color-surface-alt);
+    filter: none;
+    opacity: 1;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .controls-buttons-hover--brighten .ui-action--secondary:hover {
+    filter: brightness(1.04);
+    background-color: var(--color-surface-alt);
+    opacity: 1;
+  }
+
+  .controls-buttons-hover--glow .ui-action--secondary:hover {
+    box-shadow: 0 0 0 2px
+      color-mix(in srgb, var(--color-primary) 22%, transparent);
+  }
+
+  .controls-buttons-hover--lift.controls-buttons--outline
+    .hero-on-photo
+    .ui-action--primary:hover,
+  .controls-buttons-hover--darken.controls-buttons--outline
+    .hero-on-photo
+    .ui-action--primary:hover,
+  .controls-buttons-hover--brighten.controls-buttons--outline
+    .hero-on-photo
+    .ui-action--primary:hover,
+  .controls-buttons-hover--glow.controls-buttons--outline
+    .hero-on-photo
+    .ui-action--primary:hover {
+    color: var(--color-primary);
+    background-color: transparent;
+    border-color: var(--color-primary);
+  }
+
+  .controls-buttons-hover--darken.controls-buttons--outline
+    .hero-on-photo
+    .ui-action--primary:hover {
+    color: var(--color-ink-inverse);
+    background-color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  .ui-action:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  .ui-action:disabled,
+  .ui-action[aria-disabled="true"] {
+    cursor: not-allowed;
+    filter: none;
+    opacity: 0.55;
+  }
+
+  @media (min-width: 40rem) {
+    .ui-action {
+      width: auto;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-action {
+      transition-duration: 0.01ms;
+    }
+  }
+}

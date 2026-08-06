@@ -1,0 +1,18 @@
+mixin serviceHighlights(highlights, options)
+  - options = options || {}
+  - const listClass = options.listClass || "flex flex-col gap-2"
+  - const itemClass = options.itemClass || "grid grid-cols-[auto_1fr] items-start gap-3"
+  - const textClass = options.textClass || "font-body text-sm leading-relaxed text-ink-muted sm:text-base"
+  - const iconSet = options.iconSet || "lucide"
+
+  if highlights && highlights.length
+    ul(class=listClass role="list")
+      each highlight in highlights
+        li(class=itemClass)
+          span(
+            class="inline-flex size-5 shrink-0 items-center justify-center text-primary sm:size-6"
+            aria-hidden="true"
+          )
+            != libraryIcon("circle-check", iconSet)
+
+          span(class=textClass)= highlight

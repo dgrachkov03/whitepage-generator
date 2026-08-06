@@ -1,0 +1,116 @@
+include /mixins/blocks/reviews/header.pug
+include /mixins/ui/link-button.pug
+
+- const reviewsData = site.reviews || {}
+- const reviewItems = reviewsData.items || []
+- const featuredReview = reviewItems[0] || {}
+- const secondaryReviews = reviewItems.slice(1)
+- const reviewActions = reviewsData.actions || []
+- const reviewIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const featuredAuthor = featuredReview.author || {}
+- const featuredAuthorDisplay = featuredAuthor.display || "text"
+- const showFeaturedAuthorAvatar = featuredAuthorDisplay === "avatar" || featuredAuthorDisplay === "avatar-text"
+- const showFeaturedAuthorText = featuredAuthorDisplay === "text" || featuredAuthorDisplay === "avatar-text"
+- const featuredAuthorInitials = featuredAuthor.name ? featuredAuthor.name.trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join("") : ""
+- const reviewsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.reviews : undefined
+
+if reviewsData.title && reviewItems.length
+  section(
+    id="reviews"
+    class=["py-section", blockClasses(reviewsAppearance)]
+    aria-labelledby="reviews-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12 lg:px-8")
+      div(class="flex flex-col gap-6")
+        +reviewsHeader(reviewsData)
+
+        figure(class="flex flex-1 flex-col justify-between gap-8 rounded-card bg-primary p-6 text-ink-inverse shadow-card sm:p-8")
+          div(class="flex items-center text-sm leading-none text-current")
+            span(aria-hidden="true")= "★".repeat(featuredReview.rating)
+            if featuredReview.rating < 5
+              span(class="opacity-35" aria-hidden="true")= "★".repeat(5 - featuredReview.rating)
+            span(class="sr-only")= `${featuredReview.rating}/5`
+
+          blockquote
+            p(class="font-display text-2xl leading-snug text-current sm:text-3xl")= `“${featuredReview.quote}”`
+
+          figcaption(class=["flex items-center", showFeaturedAuthorAvatar && showFeaturedAuthorText ? "gap-3" : null])
+            if showFeaturedAuthorAvatar
+              if featuredAuthor.photo
+                img(
+                  class="size-11 shrink-0 rounded-full object-cover"
+                  src=featuredAuthor.photo
+                  alt=showFeaturedAuthorText ? "" : featuredAuthor.name
+                  width="44"
+                  height="44"
+                  loading="lazy"
+                  decoding="async"
+                )
+              else
+                span(class="inline-flex size-11 shrink-0 items-center justify-center rounded-full bg-surface font-body text-sm font-semibold uppercase text-ink")
+                  span(aria-hidden="true")= featuredAuthorInitials
+                  if !showFeaturedAuthorText
+                    span(class="sr-only")= featuredAuthor.name
+
+            if showFeaturedAuthorText
+              div(class="flex min-w-0 flex-col")
+                span(class="truncate font-body text-sm font-semibold text-current")= featuredAuthor.name
+                if featuredAuthor.meta
+                  span(class="truncate font-body text-xs text-current opacity-70")= featuredAuthor.meta
+
+        if reviewActions.length
+          div(class="flex flex-wrap gap-3")
+            each action in reviewActions
+              +linkButton(action.text, action.href, {
+                variant: action.variant,
+                icon: action.icon,
+                iconPosition: action.iconPosition,
+                iconSet: reviewIconSet
+              })
+
+      div(class="flex flex-col")
+        ul(class="flex flex-col")
+          each review in secondaryReviews
+            - const author = review.author || {}
+            - const authorDisplay = author.display || "text"
+            - const showAuthorAvatar = authorDisplay === "avatar" || authorDisplay === "avatar-text"
+            - const showAuthorText = authorDisplay === "text" || authorDisplay === "avatar-text"
+            - const authorInitials = author.name.trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join("")
+
+            li(class="border-b border-ink/10 py-6 first:pt-0 last:border-b-0 last:pb-0 sm:py-8")
+              figure(class="flex flex-col gap-4")
+                div(class="flex items-center text-sm leading-none text-primary")
+                  span(aria-hidden="true")= "★".repeat(review.rating)
+                  if review.rating < 5
+                    span(class="text-ink/20" aria-hidden="true")= "★".repeat(5 - review.rating)
+                  span(class="sr-only")= `${review.rating}/5`
+
+                blockquote
+                  p(class="font-body text-base leading-relaxed text-ink sm:text-lg")= `“${review.quote}”`
+
+                figcaption(class=["flex items-center", showAuthorAvatar && showAuthorText ? "gap-3" : null])
+                  if showAuthorAvatar
+                    if author.photo
+                      img(
+                        class="size-10 shrink-0 rounded-full object-cover"
+                        src=author.photo
+                        alt=showAuthorText ? "" : author.name
+                        width="40"
+                        height="40"
+                        loading="lazy"
+                        decoding="async"
+                      )
+                    else
+                      span(class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary font-body text-sm font-semibold uppercase text-ink-inverse")
+                        span(aria-hidden="true")= authorInitials
+                        if !showAuthorText
+                          span(class="sr-only")= author.name
+
+                  if showAuthorText
+                    div(class="flex min-w-0 flex-col")
+                      span(class="truncate font-body text-sm font-semibold text-ink")= author.name
+                      if author.meta
+                        span(class="truncate font-body text-xs text-ink-muted")= author.meta
+
+        if reviewsData.note
+          p(class="mt-6 font-body text-xs leading-relaxed text-ink-muted")= reviewsData.note

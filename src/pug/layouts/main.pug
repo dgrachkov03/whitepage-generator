@@ -1,0 +1,33 @@
+doctype html
+html(lang=site.lang || "en")
+  head
+    block pageVars
+    meta(charset="UTF-8")
+    meta(name="viewport" content="width=device-width, initial-scale=1.0")
+    title
+      block pageTitle
+        = site.title
+    - const pageDescription = typeof pageMetaDescription !== "undefined" ? pageMetaDescription : site.description
+    meta(name="description" content=pageDescription)
+
+    if site.favicon
+      link(rel="icon" href=site.favicon)
+
+    link(rel="stylesheet" href="/src/styles/main.css")
+
+    - var pageAppearance
+
+    block themeSetup
+
+    block font
+
+    block design
+
+    block interactions
+
+  body
+    block content
+
+    include /layouts/overlays.pug
+
+    script(type="module" src="/src/scripts/main.js")

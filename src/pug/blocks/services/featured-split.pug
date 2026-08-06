@@ -1,0 +1,79 @@
+include /mixins/blocks/services/header.pug
+include /mixins/blocks/services/meta.pug
+include /mixins/blocks/services/highlights.pug
+include /mixins/blocks/services/compact-row.pug
+include /mixins/blocks/features/media.pug
+include /mixins/ui/link-button.pug
+
+- const servicesData = site.services || {}
+- const serviceItems = servicesData.items || []
+- const servicesIconSet = servicesData.iconSet || site.design?.iconSet || "lucide"
+- const servicesAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.services : undefined
+-
+  let featuredService = serviceItems[0]
+  for (let serviceIndex = 0; serviceIndex < serviceItems.length; serviceIndex += 1) {
+    if (serviceItems[serviceIndex].featured) {
+      featuredService = serviceItems[serviceIndex]
+      break
+    }
+  }
+
+  const secondaryServices = []
+  serviceItems.forEach(function (item) {
+    if (item !== featuredService) {
+      secondaryServices.push(item)
+    }
+  })
+- const featuredMedia = featuredService ? featuredService.media || {} : {}
+
+if servicesData.title && serviceItems.length && featuredService
+  section(
+    id="services"
+    class=["py-section", blockClasses(servicesAppearance)]
+    aria-labelledby="services-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-12 lg:px-8")
+      div(class="flex flex-col gap-6")
+        +servicesHeader(servicesData, { align: "start" })
+
+        article(
+          class="flex flex-1 flex-col overflow-hidden rounded-card bg-primary text-ink-inverse shadow-card"
+          aria-label=featuredService.title
+        )
+          if featuredMedia.src
+            div(class="overflow-hidden")
+              +featureMedia(featuredMedia, { aspectClass: "aspect-16/10" })
+
+          div(class="flex flex-col gap-5 p-6 sm:p-8")
+            div(class="flex items-start gap-4")
+              if featuredService.icon
+                span(
+                  class="inline-flex size-11 shrink-0 items-center justify-center rounded-button bg-surface-alt text-xl text-primary"
+                  aria-hidden="true"
+                )!= libraryIcon(featuredService.icon, servicesIconSet)
+
+              div(class="flex min-w-0 flex-col gap-2")
+                h3(class="type-card-title text-current")= featuredService.title
+                +serviceMeta(featuredService, {
+                  metaClass: "flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-xs text-current opacity-75 sm:text-sm",
+                  priceClass: "font-semibold text-current"
+                })
+
+            if featuredService.description
+              p(class="font-body text-base leading-relaxed text-current opacity-85 sm:text-lg")= featuredService.description
+
+            +serviceHighlights(featuredService.highlights, {
+              iconSet: servicesIconSet,
+              textClass: "font-body text-sm leading-relaxed text-current opacity-85 sm:text-base"
+            })
+
+            +linkButton(featuredService.ctaText, featuredService.ctaLink, {
+              variant: featuredService.ctaVariant || "inverse"
+            })(class="w-full justify-center sm:w-auto")
+
+      if secondaryServices.length
+        div(class="flex flex-col")
+          ul(class="flex flex-col rounded-card border border-ink/10 p-5 sm:p-6" role="list")
+            each item in secondaryServices
+              li
+                +serviceCompactRow(item, { iconSet: servicesIconSet })

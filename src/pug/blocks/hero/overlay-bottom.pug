@@ -1,0 +1,36 @@
+include /mixins/blocks/hero/content.pug
+
+- const heroData = site.hero || {}
+- const heroIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const heroAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.hero : undefined
+
+section(
+  id="hero"
+  class=["hero-on-photo", "relative isolate overflow-hidden", blockClasses(heroAppearance)]
+  aria-labelledby="hero-title"
+)
+  img(
+    class="absolute inset-0 -z-20 size-full object-cover"
+    src=heroData.image || placeholder(1600, 900)
+    alt=heroData.imageAlt || ""
+    width="1600"
+    height="900"
+    decoding="async"
+    fetchpriority="high"
+  )
+
+  div(
+    class="hero-photo-overlay hero-photo-overlay--bottom absolute inset-0 -z-10"
+    aria-hidden="true"
+  )
+
+  div(class="hero-photo-shell hero-photo-shell--bottom items-end")
+    +heroContent(heroData, {
+      rootClass: "flex max-w-4xl flex-col items-start gap-4 sm:gap-5 lg:gap-6",
+      onPhoto: true,
+      titleClass: "type-hero-title type-hero-title--display max-w-4xl text-hero-on-photo",
+      subtitleClass: "type-hero-subtitle max-w-3xl text-hero-on-photo",
+      descriptionClass: "type-hero-body max-w-2xl text-hero-on-photo/85",
+      actionsClass: "flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row sm:gap-4",
+      iconSet: heroIconSet
+    })

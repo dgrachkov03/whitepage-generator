@@ -1,0 +1,882 @@
+{
+  "$schema": "./site.schema.json",
+  "lang": "en",
+  "title": "Your Company — Landing Page",
+  "description": "Replace this with your site description.",
+  "favicon": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>",
+  "design": {
+    "iconSet": "tabler"
+  },
+  "brand": {
+    "name": "Your Company",
+    "text": "Your Company",
+    "imageAlt": "Your Company Logo",
+    "href": "/",
+    "width": 140,
+    "height": 50
+  },
+  "navigation": {
+    "primary": {
+      "label": "Main navigation",
+      "items": [
+        {
+          "text": "Home",
+          "href": "/"
+        },
+        {
+          "text": "Services",
+          "href": "#services"
+        },
+        {
+          "text": "About",
+          "href": "#about"
+        },
+        {
+          "text": "Pricing",
+          "href": "#pricing"
+        },
+        {
+          "text": "Contact",
+          "href": "#contact"
+        }
+      ]
+    },
+    "legal": {
+      "label": "Legal",
+      "items": [
+        {
+          "text": "Terms of Use",
+          "href": "/terms.html"
+        },
+        {
+          "text": "Privacy Policy",
+          "href": "/privacy.html"
+        },
+        {
+          "text": "Cookie Policy",
+          "href": "/cookies.html"
+        }
+      ]
+    }
+  },
+  "contactInfo": {
+    "items": [
+      {
+        "type": "phone",
+        "label": "Phone",
+        "text": "+44 20 8000 1234",
+        "shortText": "+44 20 8000 1234",
+        "icon": "phone",
+        "href": "tel:+442080001234"
+      },
+      {
+        "type": "email",
+        "label": "Email",
+        "text": "hello@example.com",
+        "icon": "mail",
+        "href": "mailto:hello@example.com"
+      },
+      {
+        "type": "address",
+        "label": "Address",
+        "text": "123 Example Street, City, Country, Your Region",
+        "icon": "map-pin"
+      },
+      {
+        "type": "hours",
+        "label": "Trading Hours",
+        "text": "Monday – Friday, 8:00 AM – 6:00 PM (GMT/BST)",
+        "shortText": "Mon–Fri · 8am–6pm GMT",
+        "icon": "clock"
+      }
+    ]
+  },
+  "topbar": {
+    "label": "Announcement",
+    "message": "New New product launch available — limited-time offer available!",
+    "icon": "sparkles",
+    "contactTypes": [
+      "phone",
+      "email"
+    ],
+    "actionText": "Claim offer",
+    "actionLink": "#contact"
+  },
+  "header": {
+    "ctaText": "Get Started",
+    "ctaLink": "#contact",
+    "contactTypes": [
+      "phone",
+      "email"
+    ],
+    "menuOpenLabel": "Open menu",
+    "menuCloseLabel": "Close menu"
+  },
+  "hero": {
+    "eyebrow": "Your tagline",
+    "title": "Your Company — Headline Goes Here",
+    "subtitle": "A short supporting line for your headline.",
+    "description": "Replace this hero description with your main value proposition.",
+    "ctaText": "Get Started",
+    "ctaLink": "#pricing",
+    "ctaIcon": "arrow-right",
+    "ctaIconPosition": "end",
+    "secondaryCtaText": "Learn More",
+    "secondaryCtaLink": "#about",
+    "image": "",
+    "imageAlt": "Financial market data charts"
+  },
+  "about": {
+    "eyebrow": "About Us",
+    "title": "Your Story",
+    "paragraphs": [
+      "Founded in 2012, Your Company has grown into a trusted financial partner for thousands of investors. Our team of experienced advisors combines local market knowledge with global investment insights.",
+      "We are fully licensed by the the relevant regulator and adhere to the highest standards of transparency and client care. Whether you're a first‑time investor or a seasoned trader, we provide tailored solutions to meet your goals."
+    ],
+    "image": "",
+    "imageAlt": "Team collaborating in the office",
+    "iconSet": "tabler",
+    "quote": {
+      "text": "Our clients' success is our success. We measure ourselves by the wealth we help create.",
+      "author": "Sarah Mitchell",
+      "role": "CEO, Your Company"
+    },
+    "highlights": [
+      {
+        "icon": "shield",
+        "title": "Fully Licensed",
+        "text": "We operate under strict applicable regulations, ensuring your funds are always safe."
+      },
+      {
+        "icon": "globe",
+        "title": "Global Access",
+        "text": "Trade on LSE, NYSE, NASDAQ, and major global exchanges with a single account."
+      },
+      {
+        "icon": "users",
+        "title": "Personalised Advice",
+        "text": "Every client gets a dedicated advisor who understands your unique financial situation."
+      }
+    ]
+  },
+  "features": {
+    "eyebrow": "Why Us",
+    "title": "Five Pillars of Our Service",
+    "description": "We combine cutting‑edge technology with human expertise to deliver exceptional value.",
+    "iconSet": "tabler",
+    "items": [
+      {
+        "icon": "trending-up",
+        "title": "Low Cost Trading",
+        "description": "Pay as little as $4.95 per trade on LSE stocks, with no hidden fees or account minimums.",
+        "media": {
+          "src": "",
+          "alt": "Stock market graph on a screen",
+          "width": 600,
+          "height": 400
+        }
+      },
+      {
+        "icon": "device-mobile",
+        "title": "Mobile & Web Platform",
+        "description": "Trade anytime, anywhere with our intuitive app – live quotes, alerts, and instant execution.",
+        "media": {
+          "src": "",
+          "alt": "Smartphone showing trading app",
+          "width": 600,
+          "height": 400
+        }
+      },
+      {
+        "icon": "book",
+        "title": "Educational Resources",
+        "description": "Access webinars, articles, and daily market insights to make informed decisions.",
+        "media": {
+          "src": "",
+          "alt": "Educational books and laptop",
+          "width": 600,
+          "height": 400
+        }
+      },
+      {
+        "icon": "headset",
+        "title": "24/7 Support",
+        "description": "Our Locally based client support team is available round‑the‑clock to assist you.",
+        "media": {
+          "src": "",
+          "alt": "Customer support headset and phone",
+          "width": 600,
+          "height": 400
+        }
+      }
+    ]
+  },
+  "services": {
+    "eyebrow": "Our Services",
+    "title": "Comprehensive Financial Solutions",
+    "description": "From stock trading to retirement planning, we offer a full suite of services to help you achieve financial freedom.",
+    "iconSet": "tabler",
+    "offerServiceLabel": "Service",
+    "offerDetailsLabel": "Details",
+    "offerDurationLabel": "Timeframe",
+    "offerPriceLabel": "Price",
+    "items": [
+      {
+        "icon": "chart-bar",
+        "title": "Online Stock Trading",
+        "description": "Trade LSE, US, and international shares with real‑time data and competitive brokerage.",
+        "highlights": [
+          "Zero minimum deposit",
+          "$4.95 flat brokerage on LSE trades",
+          "Free live streaming quotes"
+        ],
+        "priceHint": "from $4.95/trade",
+        "duration": "Instant execution",
+        "featured": true,
+        "ctaText": "Start Trading",
+        "ctaLink": "#contact",
+        "ctaVariant": "primary"
+      },
+      {
+        "icon": "chart-pie",
+        "title": "Portfolio Management",
+        "description": "Let our experts build and manage a diversified portfolio aligned with your risk profile and goals.",
+        "highlights": [
+          "Risk‑adjusted strategy",
+          "Quarterly rebalancing",
+          "Transparent reporting"
+        ],
+        "priceHint": "0.5% p.a. fee",
+        "duration": "Ongoing",
+        "ctaText": "Enquire Now",
+        "ctaLink": "#contact",
+        "ctaVariant": "secondary"
+      },
+      {
+        "icon": "compass",
+        "title": "Financial Planning",
+        "description": "Holistic advice on ISAs, SIPPs, retirement, tax, and estate planning for your future.",
+        "highlights": [
+          "Personalised roadmap",
+          "ISA & SIPP optimisation",
+          "Regular reviews"
+        ],
+        "priceHint": "by consultation",
+        "duration": "Ongoing",
+        "ctaText": "Book a session",
+        "ctaLink": "#contact",
+        "ctaVariant": "secondary"
+      },
+      {
+        "icon": "shield",
+        "title": "Wealth Management",
+        "description": "Complete support for high‑net‑worth individuals, including tax optimisation and estate planning.",
+        "highlights": [
+          "Tax‑efficient strategies",
+          "Estate planning",
+          "Family wealth transfer"
+        ],
+        "priceHint": "by consultation",
+        "duration": "Ongoing",
+        "media": {
+          "src": "",
+          "alt": "Documents and financial reports",
+          "width": 720,
+          "height": 480
+        },
+        "ctaText": "Get Started",
+        "ctaLink": "#contact",
+        "ctaVariant": "secondary"
+      }
+    ]
+  },
+  "whyUs": {
+    "eyebrow": "Why Choose Us",
+    "title": "Built for You",
+    "description": "We understand the local market and deliver global opportunities with a personal touch.",
+    "iconSet": "tabler",
+    "items": [
+      {
+        "icon": "award",
+        "title": "Proven Track Record",
+        "description": "Over a decade of experience, with more than 10,000 active clients in your region."
+      },
+      {
+        "icon": "lock",
+        "title": "Security & Compliance",
+        "description": "Client funds are held in segregated accounts with top‑tier partner banks."
+      },
+      {
+        "icon": "clock",
+        "title": "Fast Execution",
+        "description": "Our systems are optimised for low latency – you get the best possible price, every time."
+      },
+      {
+        "icon": "users",
+        "title": "Human Touch",
+        "description": "We combine AI tools with dedicated advisors, because investing is personal."
+      },
+      {
+        "icon": "map-pin",
+        "title": "Local Expertise",
+        "description": "Our Our headquarters means we understand local regulations and market nuances."
+      },
+      {
+        "icon": "trending-up",
+        "title": "Competitive Pricing",
+        "description": "Transparent fee structure with no surprise charges – we keep costs low."
+      }
+    ],
+    "gallery": [
+      {
+        "src": "",
+        "alt": "City skyline",
+        "width": 640,
+        "height": 800
+      },
+      {
+        "src": "",
+        "alt": "Team meeting in modern office",
+        "width": 640,
+        "height": 360
+      },
+      {
+        "src": "",
+        "alt": "pound coins and stock charts",
+        "width": 640,
+        "height": 480
+      }
+    ]
+  },
+  "process": {
+    "eyebrow": "How It Works",
+    "title": "Your Path to Investing",
+    "description": "Getting started with us is simple. Follow these four steps and begin your investment journey.",
+    "items": [
+      {
+        "title": "1. Open Your Account",
+        "description": "Complete our online application in 5 minutes. We verify your identity and set up your trading account."
+      },
+      {
+        "title": "2. Fund Your Account",
+        "description": "Transfer funds securely via bank transfer or Faster Payments. Your money is ready for trading immediately."
+      },
+      {
+        "title": "3. Research & Plan",
+        "description": "Use our research tools, market data, and advisor insights to build your customised investment plan."
+      },
+      {
+        "title": "4. Trade & Grow",
+        "description": "Execute trades with ease, monitor your performance, and adjust your strategy as you go."
+      }
+    ]
+  },
+  "pricing": {
+    "eyebrow": "Pricing",
+    "title": "Simple, Transparent Fees",
+    "description": "We believe in clarity. Here are our standard rates – no surprises, just fair value.",
+    "note": "All fees are in pounds (USD) and inclusive of applicable taxes. Additional exchange fees may apply for international trades.",
+    "comparisonLabel": "Features",
+    "plans": [
+      {
+        "name": "Basic",
+        "description": "For casual investors who want low‑cost trading.",
+        "price": "$4.95",
+        "pricePrefix": "from",
+        "period": "per trade",
+        "featured": false,
+        "features": [
+          {
+            "text": "Share trading",
+            "included": true
+          },
+          {
+            "text": "Real‑time quotes",
+            "included": true
+          },
+          {
+            "text": "Mobile app access",
+            "included": true
+          },
+          {
+            "text": "Email support",
+            "included": true
+          },
+          {
+            "text": "Dedicated advisor",
+            "included": false
+          }
+        ],
+        "ctaText": "Sign Up",
+        "ctaLink": "#contact",
+        "ctaVariant": "secondary"
+      },
+      {
+        "name": "Pro",
+        "description": "Our most popular plan – ideal for active traders.",
+        "price": "$9.99",
+        "pricePrefix": "from",
+        "period": "per month + $3.95/trade",
+        "badge": "Most Popular",
+        "featured": true,
+        "features": [
+          {
+            "text": "All Basic features",
+            "included": true
+          },
+          {
+            "text": "Advanced charting tools",
+            "included": true
+          },
+          {
+            "text": "Priority phone support",
+            "included": true
+          },
+          {
+            "text": "Quarterly portfolio review",
+            "included": true
+          },
+          {
+            "text": "Access to analyst reports",
+            "included": true
+          }
+        ],
+        "ctaText": "Start Pro",
+        "ctaLink": "#contact",
+        "ctaVariant": "primary"
+      },
+      {
+        "name": "Premium",
+        "description": "Full‑service wealth management for high‑net‑worth individuals.",
+        "price": "0.40%",
+        "pricePrefix": "from",
+        "period": "p.a. of AUM",
+        "featured": false,
+        "features": [
+          {
+            "text": "All Pro features",
+            "included": true
+          },
+          {
+            "text": "Dedicated financial advisor",
+            "included": true
+          },
+          {
+            "text": "Tax & estate planning",
+            "included": true
+          },
+          {
+            "text": "ISA & SIPP optimisation",
+            "included": true
+          },
+          {
+            "text": "Annual face‑to‑face review",
+            "included": true
+          }
+        ],
+        "ctaText": "Book a Consultation",
+        "ctaLink": "#contact",
+        "ctaVariant": "secondary"
+      }
+    ]
+  },
+  "reviews": {
+    "eyebrow": "Client Testimonials",
+    "title": "What Our Clients Say",
+    "description": "Real feedback from customers who have grown their wealth with us.",
+    "items": [
+      {
+        "author": {
+          "name": "David H.",
+          "meta": "City, Country",
+          "display": "avatar-text"
+        },
+        "quote": "I've been with us for three years – their platform is intuitive and their support team is always helpful. My portfolio has grown 20% annually.",
+        "rating": 5
+      },
+      {
+        "author": {
+          "name": "Jessica T.",
+          "meta": "City, Country",
+          "display": "avatar-text"
+        },
+        "quote": "The financial planning advice I received was life‑changing. I now feel confident about my retirement. Highly recommended.",
+        "rating": 5
+      },
+      {
+        "author": {
+          "name": "Michael R.",
+          "meta": "City, Country",
+          "display": "avatar-text"
+        },
+        "quote": "Low fees, great research tools, and a mobile app that works flawlessly. This is the best service I have ever used.",
+        "rating": 5
+      },
+      {
+        "author": {
+          "name": "Linda K.",
+          "meta": "City, Country",
+          "display": "avatar-text"
+        },
+        "quote": "I was a beginner, but the educational webinars and advisor support made everything easy. I'm now a confident investor.",
+        "rating": 5
+      }
+    ],
+    "actions": [
+      {
+        "text": "See more reviews",
+        "href": "#",
+        "variant": "secondary"
+      },
+      {
+        "text": "Get started today",
+        "href": "#contact",
+        "variant": "primary",
+        "icon": "arrow-right",
+        "iconPosition": "end"
+      }
+    ]
+  },
+  "faq": {
+    "eyebrow": "FAQ",
+    "title": "Frequently Asked Questions",
+    "description": "Quick answers to the most common questions about our services and trading platform.",
+    "image": "",
+    "imageAlt": "People discussing questions",
+    "items": [
+      {
+        "question": "Is Your Company fully licensed?",
+        "answer": "Yes, we are regulated by the the relevant regulator and are fully compliant with applicable regulations."
+      },
+      {
+        "question": "What markets can I trade on?",
+        "answer": "You can trade on the LSE, AIM, NYSE, NASDAQ, and several other global markets."
+      },
+      {
+        "question": "How much does it cost to open an account?",
+        "answer": "Opening an account is completely free. There are no setup fees or minimum deposit requirements."
+      },
+      {
+        "question": "What if I need help with my investments?",
+        "answer": "Every client gets a dedicated advisor. You can also access our 24/7 support via phone, email, or live chat."
+      },
+      {
+        "question": "How are my funds protected?",
+        "answer": "Client funds are held in segregated trust accounts with major partner banks and protected by the FSCS up to $85,000."
+      },
+      {
+        "question": "Do you offer a mobile app?",
+        "answer": "Yes, we have a fully featured mobile app for iOS and Android – trade, track, and manage your portfolio on the go."
+      },
+      {
+        "question": "What educational resources do you provide?",
+        "answer": "We offer a library of articles, video tutorials, weekly webinars, and daily market commentary to help you invest wisely."
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "Get in Touch",
+    "title": "Ready to Get Started?",
+    "description": "Fill in the form below or call us directly. Our team is here to answer your questions and guide you through the process.",
+    "sectionId": "contact",
+    "iconSet": "tabler",
+    "benefits": [
+      {
+        "icon": "clock",
+        "text": "Response within 2 business hours"
+      },
+      {
+        "icon": "shield",
+        "text": "Your data is safe and secure"
+      },
+      {
+        "icon": "users",
+        "text": "Speak with a real specialist"
+      }
+    ],
+    "form": {
+      "label": "Contact form",
+      "nameLabel": "Full Name",
+      "namePlaceholder": "John Smith",
+      "companyLabel": "Company (optional)",
+      "companyPlaceholder": "Your company name",
+      "emailLabel": "Email Address",
+      "emailPlaceholder": "john.smith@example.com",
+      "phoneLabel": "Phone Number",
+      "phonePlaceholder": "+44 20 XXX XXXX",
+      "phoneCountry": "gb",
+      "select": {
+        "label": "I'm interested in",
+        "placeholder": "Select a topic",
+        "name": "interest",
+        "required": true,
+        "options": [
+          {
+            "value": "trading",
+            "text": "Online trading"
+          },
+          {
+            "value": "portfolio",
+            "text": "Portfolio management"
+          },
+          {
+            "value": "planning",
+            "text": "Financial planning"
+          },
+          {
+            "value": "wealth",
+            "text": "Wealth management"
+          },
+          {
+            "value": "other",
+            "text": "Other"
+          }
+        ]
+      },
+      "messageLabel": "Message",
+      "messagePlaceholder": "Tell us about your goals or questions...",
+      "consentText": "I agree to Your Company processing my information as described in the",
+      "consentLinkText": "Privacy Policy",
+      "consentLink": "/privacy.html",
+      "newsletterText": "I would like to receive market insights and news (optional)",
+      "submitText": "Send Enquiry",
+      "footerNote": "We'll get back to you within 2 business hours."
+    }
+  },
+  "footer": {
+    "description": "Your Company – Replace this footer description with your own message.",
+    "navigationTitle": "Quick Links",
+    "legalTitle": "Legal",
+    "contactsTitle": "Contact",
+    "ctaTitle": "Join thousands of customers who trust us.",
+    "ctaText": "Open Account",
+    "ctaLink": "#contact",
+    "copyright": "© 2026 Your Company Ltd. All rights reserved.",
+    "legalNotice": [
+      "Your Company Ltd (REG-000000) is authorised and regulated by the the relevant regulator. 123 Example Street, City, Country.",
+      "Replace this legal notice with your own disclaimer.",
+      "This website provides general information only."
+    ]
+  },
+  "stats": {
+    "eyebrow": "Our Numbers",
+    "title": "Trusted by Thousands",
+    "stats": [
+      {
+        "value": "2012",
+        "label": "Founded in London"
+      },
+      {
+        "value": "10,000+",
+        "label": "Active Clients"
+      },
+      {
+        "value": "$1.8B",
+        "label": "Assets Under Administration"
+      },
+      {
+        "value": "98%",
+        "label": "Client Satisfaction Rate"
+      }
+    ]
+  },
+  "legalPages": {
+    "privacy": {
+      "metaTitle": "Privacy Policy – Your Company",
+      "metaDescription": "Learn how Your Company collects, uses, and protects your personal information in accordance with applicable privacy laws.",
+      "backLinkText": "← Back to home",
+      "eyebrow": "Legal",
+      "title": "Privacy Policy",
+      "updated": "Last updated: 1 August 2026",
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "At Your Company, we respect your privacy and are committed to protecting your personal information. This policy explains how we collect, use, and safeguard your data when you interact with our website and services in accordance with the applicable privacy laws."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "1. Information We Collect"
+        },
+        {
+          "type": "paragraph",
+          "text": "We may collect the following types of personal information:"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Name and contact details (email, phone, address)",
+            "Date of birth and government ID number (for account opening)",
+            "Financial information (income, assets, investment experience)",
+            "Device and usage data from our website and app"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "2. How We Use Your Information"
+        },
+        {
+          "type": "paragraph",
+          "text": "We use your information to:"
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            "Process your account application and transactions",
+            "Provide personalised financial advice and support",
+            "Comply with legal and regulatory obligations (e.g., AML, regulatory requirements)",
+            "Improve our products and services through analytics"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "3. Data Security"
+        },
+        {
+          "type": "paragraph",
+          "text": "We implement industry‑standard security measures, including encryption and access controls, to protect your data from unauthorised access or disclosure."
+        },
+        {
+          "type": "note",
+          "title": "Note",
+          "text": "You have the right to access, correct, or delete your personal information at any time by contacting us at privacy@example.com."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "4. Contact Us"
+        },
+        {
+          "type": "paragraph",
+          "text": "If you have any questions about this Privacy Policy, please email us at privacy@example.com or call +44 20 8000 1234."
+        }
+      ]
+    },
+    "terms": {
+      "metaTitle": "Terms of Use – Your Company",
+      "metaDescription": "Read the terms and conditions governing the use of Your Company's website and trading services.",
+      "backLinkText": "← Back to home",
+      "eyebrow": "Legal",
+      "title": "Terms of Use",
+      "updated": "Last updated: 1 August 2026",
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "These Terms of Use govern your access to and use of the Your Company website, mobile app, and trading platform. By using our services, you agree to be bound by these terms."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "1. Acceptance of Terms"
+        },
+        {
+          "type": "paragraph",
+          "text": "By creating an account or using our platform, you confirm that you have read, understood, and accept these terms. If you do not agree, please refrain from using our services."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "2. User Obligations"
+        },
+        {
+          "type": "list",
+          "items": [
+            "Provide accurate and up‑to‑date information",
+            "Maintain the security of your login credentials",
+            "Not use the platform for illegal activities",
+            "Comply with all applicable UK laws and regulations"
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "3. Risk Disclaimer"
+        },
+        {
+          "type": "paragraph",
+          "text": "Trading in financial markets carries significant risk. Past performance is not indicative of future results. Your Company does not guarantee any investment outcomes and strongly recommends seeking independent advice before making investment decisions."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "4. Limitation of Liability"
+        },
+        {
+          "type": "paragraph",
+          "text": "To the fullest extent permitted by law, Your Company is not liable for any direct, indirect, incidental, or consequential damages arising from your use of our platform, including but not limited to trading losses, system failures, or data breaches."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "5. Changes to Terms"
+        },
+        {
+          "type": "paragraph",
+          "text": "We reserve the right to update these terms at any time. We will notify you of significant changes via email or through our platform. Continued use constitutes acceptance of the revised terms."
+        }
+      ]
+    },
+    "cookies": {
+      "metaTitle": "Cookie Policy – Your Company",
+      "metaDescription": "Learn how Your Company uses cookies to enhance your experience on our website and app.",
+      "backLinkText": "← Back to home",
+      "eyebrow": "Legal",
+      "title": "Cookie Policy",
+      "updated": "Last updated: 1 August 2026",
+      "sections": [
+        {
+          "type": "paragraph",
+          "text": "This Cookie Policy explains what cookies are, how we use them, and how you can manage your preferences when visiting the Your Company website in compliance with applicable cookie laws."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "1. What Are Cookies?"
+        },
+        {
+          "type": "paragraph",
+          "text": "Cookies are small text files stored on your device that help us remember your preferences, analyse website traffic, and improve your user experience."
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "2. Types of Cookies We Use"
+        },
+        {
+          "type": "definitionList",
+          "items": [
+            {
+              "term": "Essential Cookies",
+              "definition": "Necessary for core functionality such as logging in, security, and session management. These cannot be disabled."
+            },
+            {
+              "term": "Analytics Cookies",
+              "definition": "Help us understand how visitors interact with our site, which pages are popular, and how we can improve performance."
+            },
+            {
+              "term": "Marketing Cookies",
+              "definition": "Used to deliver relevant advertisements and track the effectiveness of our campaigns. We only use these with your consent."
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "text": "3. Managing Your Preferences"
+        },
+        {
+          "type": "paragraph",
+          "text": "You can control cookie settings through your browser or our cookie consent tool. Blocking certain cookies may affect your experience on our site."
+        },
+        {
+          "type": "note",
+          "title": "Important",
+          "text": "We respect your privacy and only use cookies that are necessary for the proper functioning of our platform. For any questions, contact us at privacy@example.com."
+        }
+      ]
+    }
+  }
+}

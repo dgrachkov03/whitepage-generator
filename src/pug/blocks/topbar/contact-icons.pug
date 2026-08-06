@@ -1,0 +1,50 @@
+- const topbarData = site.topbar || {}
+- const topbarContactTypes = topbarData.contactTypes || []
+- const sharedContactItems = site.contactInfo?.items || []
+- const topbarContacts = topbarContactTypes.map((type) => sharedContactItems.find((item) => item.type === type)).filter(Boolean)
+- const topbarAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.topbar : undefined
+
+if topbarData.message
+  aside(
+    class=blockClasses(topbarAppearance)
+    aria-label=topbarData.label
+  )
+    div(class="mx-auto flex max-w-6xl flex-col items-center gap-3 px-4 py-2.5 font-body text-xs leading-relaxed sm:flex-row sm:justify-between sm:px-6 lg:px-8")
+      p(class="flex items-center gap-1.5 text-center sm:text-left")
+        if topbarData.icon
+          span(
+            class="inline-flex size-4 shrink-0 text-current"
+            aria-hidden="true"
+          )!= libraryIcon(topbarData.icon, topbarData.iconSet)
+
+        span= topbarData.message
+
+      if topbarContacts.length
+        ul(class="flex flex-wrap items-center justify-center gap-2 sm:justify-end")
+          each detail in topbarContacts
+            li(class="flex items-center justify-center")
+              if detail.href
+                a(
+                  class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-current/20 text-current transition-opacity hover:opacity-75 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+                  href=detail.href
+                  aria-label=`${detail.label}: ${detail.text}`
+                )
+                  if detail.icon
+                    span(
+                      class="inline-flex size-5 items-center justify-center [&>svg]:block [&>svg]:size-full"
+                      aria-hidden="true"
+                    )!= libraryIcon(detail.icon, topbarData.iconSet)
+                  else
+                    span(class="text-sm font-semibold leading-none")= (detail.shortText || detail.text).slice(0, 1)
+              else
+                span(
+                  class="inline-flex size-10 shrink-0 items-center justify-center rounded-full border border-current/20 text-current"
+                  aria-label=`${detail.label}: ${detail.text}`
+                )
+                  if detail.icon
+                    span(
+                      class="inline-flex size-5 items-center justify-center [&>svg]:block [&>svg]:size-full"
+                      aria-hidden="true"
+                    )!= libraryIcon(detail.icon, topbarData.iconSet)
+                  else
+                    span(class="text-sm font-semibold leading-none")= (detail.shortText || detail.text).slice(0, 1)

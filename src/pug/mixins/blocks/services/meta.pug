@@ -1,0 +1,23 @@
+mixin serviceMeta(item, options)
+  - options = options || {}
+  - const layout = options.layout || "inline"
+  - let metaClass = options.metaClass
+
+  if !metaClass
+    if layout === "stacked"
+      - metaClass = "flex flex-col gap-1 font-body text-xs text-ink-muted sm:text-sm"
+    else
+      - metaClass = "flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-xs text-ink-muted sm:text-sm"
+
+  - const priceClass = options.priceClass || "font-semibold text-ink"
+
+  if item.priceHint || item.duration
+    p(class=metaClass)
+      if item.priceHint
+        span(class=priceClass)= item.priceHint
+
+      if layout === "inline" && item.priceHint && item.duration
+        span(aria-hidden="true") ·
+
+      if item.duration
+        span= item.duration

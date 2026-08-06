@@ -1,0 +1,47 @@
+include /mixins/blocks/why-us/header.pug
+
+- const whyUsData = site.whyUs || {}
+- const whyUsItems = whyUsData.items || []
+- const whyUsGallery = whyUsData.gallery || []
+- const whyUsGalleryDefaults = [{ width: 640, height: 800, alt: "" }, { width: 640, height: 360, alt: "" }, { width: 640, height: 480, alt: "" }]
+- const whyUsGallerySlots = whyUsGalleryDefaults.map((defaults, index) => ({ ...defaults, ...whyUsGallery[index] }))
+- const whyUsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.whyUs : undefined
+
+if whyUsData.title && whyUsItems.length
+  section(
+    id="why-us"
+    class=["py-section", blockClasses(whyUsAppearance)]
+    aria-labelledby="why-us-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 items-center gap-10 px-4 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8")
+      div(class="flex flex-col items-start gap-8 sm:gap-10")
+        +whyUsHeader(whyUsData, {
+          headerClass: "flex max-w-xl flex-col items-start gap-3 sm:gap-4"
+        })
+
+        ul(class="grid w-full grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2")
+          each item in whyUsItems
+            li(class="flex items-start gap-3")
+              span(
+                class="inline-flex size-10 shrink-0 items-center justify-center rounded-button bg-surface-alt text-xl text-primary"
+                aria-hidden="true"
+              )!= libraryIcon(item.icon, whyUsData.iconSet)
+
+              div(class="flex flex-col gap-1")
+                h3(class="type-card-title text-ink")= item.title
+                p(class="font-body text-sm leading-relaxed text-ink-muted")= item.description
+
+      div(class="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:grid-rows-2 sm:gap-4")
+        each media, index in whyUsGallerySlots
+          img(
+            class=[
+              "w-full rounded-card object-cover shadow-card",
+              index === 0 ? "aspect-[4/3] sm:row-span-2 sm:h-full sm:aspect-auto" : "aspect-[4/3]"
+            ]
+            src=media.src || placeholder(media.width, media.height)
+            alt=media.alt
+            width=media.width
+            height=media.height
+            loading="lazy"
+            decoding="async"
+          )

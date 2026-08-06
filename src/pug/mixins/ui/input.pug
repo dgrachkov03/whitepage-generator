@@ -1,0 +1,13 @@
+mixin input(options)
+  - options = options || {}
+
+  input(
+    id=options.id
+    name=options.name
+    type=options.type || "text"
+    class="ui-input"
+    autocomplete=options.autocomplete
+    placeholder=options.placeholder
+    required=options.required
+    aria-describedby=options.describedBy
+  )&attributes(attributes)

@@ -1,0 +1,61 @@
+include /mixins/blocks/services/header.pug
+include /mixins/blocks/services/meta.pug
+include /mixins/blocks/services/highlights.pug
+include /mixins/blocks/features/media.pug
+include /mixins/ui/link-button.pug
+
+- const servicesData = site.services || {}
+- const serviceItems = servicesData.items || []
+- const servicesIconSet = servicesData.iconSet || site.design?.iconSet || "lucide"
+- const servicesAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.services : undefined
+
+if servicesData.title && serviceItems.length
+  section(
+    id="services"
+    class=["py-section", blockClasses(servicesAppearance)]
+    aria-labelledby="services-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +servicesHeader(servicesData, { align: "center" })
+
+      div(class="flex flex-col gap-8 sm:gap-10 lg:gap-14")
+        each item, index in serviceItems
+          - const media = item.media || {}
+          - const imageFirst = index % 2 === 0
+
+          article(
+            class="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-12"
+            aria-label=item.title
+          )
+            div(
+              class=[
+                "overflow-hidden rounded-card shadow-card",
+                imageFirst ? "lg:order-1" : "lg:order-2"
+              ]
+            )
+              +featureMedia(media, { aspectClass: "aspect-4/3" })
+
+            div(
+              class=[
+                "flex flex-col items-start gap-5 sm:gap-6",
+                imageFirst ? "lg:order-2" : "lg:order-1"
+              ]
+            )
+              div(class="flex items-start gap-4")
+                if item.icon
+                  span(
+                    class="inline-flex size-11 shrink-0 items-center justify-center rounded-button bg-surface-alt text-xl text-primary"
+                    aria-hidden="true"
+                  )!= libraryIcon(item.icon, servicesIconSet)
+
+                div(class="flex flex-col gap-2")
+                  h3(class="type-card-title type-card-title--lg text-ink")= item.title
+                  +serviceMeta(item)
+
+              p(class="font-body text-base leading-relaxed text-ink-muted sm:text-lg")= item.description
+
+              +serviceHighlights(item.highlights, { iconSet: servicesIconSet })
+
+              +linkButton(item.ctaText, item.ctaLink, {
+                variant: item.ctaVariant || "primary"
+              })

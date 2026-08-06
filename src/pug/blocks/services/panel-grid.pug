@@ -1,0 +1,61 @@
+include /mixins/blocks/services/header.pug
+include /mixins/blocks/services/highlights.pug
+include /mixins/blocks/services/action-bar.pug
+
+- const servicesData = site.services || {}
+- const serviceItems = servicesData.items || []
+- const servicesIconSet = servicesData.iconSet || site.design?.iconSet || "lucide"
+- const servicesAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.services : undefined
+
+if servicesData.title && serviceItems.length
+  section(
+    id="services"
+    class=["py-section", blockClasses(servicesAppearance)]
+    aria-labelledby="services-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +servicesHeader(servicesData, { align: "center" })
+
+      ul(
+        class=[
+          "grid grid-cols-1 gap-5",
+          serviceItems.length >= 3 ? "lg:grid-cols-3 lg:gap-6" : "sm:grid-cols-2 sm:gap-6"
+        ]
+        role="list"
+      )
+        each item, index in serviceItems
+          -
+            const bandClass = item.featured
+              ? "bg-accent text-ink-inverse"
+              : index % 2 === 0
+                ? "bg-primary text-ink-inverse"
+                : "bg-surface-alt text-ink"
+            const cardClass = item.featured ? "ring-2 ring-accent/40 shadow-card" : "shadow-card"
+
+          li
+            article(class=["ui-tile flex h-full flex-col overflow-hidden", cardClass] aria-label=item.title)
+              header(class=["flex items-start gap-4 px-5 py-5 sm:px-6", bandClass])
+                if item.icon
+                  span(
+                    class=[
+                      "inline-flex size-11 shrink-0 items-center justify-center rounded-button text-xl",
+                      item.featured || index % 2 === 0 ? "bg-surface-alt text-primary" : "bg-accent text-ink-inverse"
+                    ]
+                    aria-hidden="true"
+                  )!= libraryIcon(item.icon, servicesIconSet)
+
+                div(class="flex min-w-0 flex-col gap-1")
+                  h3(class="type-card-title text-current")= item.title
+
+                  if item.description
+                    p(
+                      class=[
+                        "font-body text-sm leading-relaxed sm:text-base",
+                        item.featured || index % 2 === 0 ? "text-current opacity-85" : "text-ink-muted"
+                      ]
+                    )= item.description
+
+              div(class="flex flex-1 flex-col gap-5 p-5 sm:p-6")
+                +serviceHighlights(item.highlights, { iconSet: servicesIconSet })
+
+              +serviceActionBar(item)

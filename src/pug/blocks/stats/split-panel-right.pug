@@ -1,0 +1,20 @@
+include /mixins/blocks/stats/header.pug
+include /mixins/blocks/stats/items.pug
+
+- const statsData = site.stats || {}
+- const statsItems = statsData.stats || []
+- const statsSectionId = statsData.sectionId || "stats"
+- const statsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.stats : undefined
+
+if statsData.title && statsItems.length
+  section(
+    id=statsSectionId
+    class=["py-section", blockClasses(statsAppearance)]
+    aria-labelledby="stats-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 items-start gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-2 lg:gap-16 lg:px-8")
+      div(class="order-2 lg:order-1")
+        +statsItems(statsItems, { variant: "tiles" })
+
+      div(class="order-1 lg:order-2")
+        +statsHeader(statsData)

@@ -1,0 +1,25 @@
+extends /layouts/theme.pug
+
+block content
+  -
+    const blockAppearance = {
+      header: {
+        tone: "base",
+        divider: "bottom",
+      },
+      document: {
+        tone: "base",
+      },
+      footer: {
+        tone: "base",
+        divider: "top",
+      },
+    }
+
+  div(class=pageBackgroundClasses(pageAppearance.background))
+    include /legal/header-brand-back.pug
+
+    main(class=["legal-main", blockClasses(blockAppearance.document)])
+      include /legal/document-indexed.pug
+
+    include /legal/footer-meta-stack.pug

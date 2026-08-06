@@ -1,0 +1,27 @@
+include /mixins/blocks/why-us/header.pug
+
+- const whyUsData = site.whyUs || {}
+- const whyUsItems = whyUsData.items || []
+- const whyUsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.whyUs : undefined
+
+if whyUsData.title && whyUsItems.length
+  section(
+    id="why-us"
+    class=["py-section", blockClasses(whyUsAppearance)]
+    aria-labelledby="why-us-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-16 lg:px-8")
+      ul(class="order-2 flex flex-col gap-4 sm:gap-5 lg:order-1")
+        each item in whyUsItems
+          li(class="ui-tile flex items-start gap-4 p-5 sm:gap-5 sm:p-6")
+            span(
+              class="inline-flex size-10 shrink-0 items-center justify-center rounded-button bg-primary/10 text-xl text-primary"
+              aria-hidden="true"
+            )!= libraryIcon(item.icon, whyUsData.iconSet)
+
+            div(class="flex min-w-0 flex-col gap-2")
+              h3(class="type-card-title text-ink")= item.title
+              p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.description
+
+      div(class="order-1 lg:sticky lg:top-8 lg:order-2 lg:self-start")
+        +whyUsHeader(whyUsData)

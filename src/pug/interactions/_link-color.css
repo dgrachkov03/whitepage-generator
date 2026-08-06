@@ -1,0 +1,15 @@
+.ui-link {
+  transition: color 200ms ease;
+}
+
+.ui-link:hover,
+.ui-link:focus-visible,
+.ui-link[aria-current="page"] {
+  color: var(--color-primary);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-link {
+    transition-duration: 0.01ms;
+  }
+}

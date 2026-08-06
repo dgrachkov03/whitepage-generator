@@ -1,0 +1,52 @@
+extends /layouts/main.pug
+
+//- Run `npm run generate` to replace design tokens and pageAppearance.
+
+block themeSetup
+  -
+    pageAppearance = {
+      background: {
+        style: "none",
+      },
+      controls: {
+        size: "medium",
+        button: {
+          style: "solid",
+          icon: "none",
+        },
+        input: {
+          style: "outlined",
+        },
+      },
+      eyebrow: {
+        enabled: true,
+        variant: "line",
+      },
+      header: {
+        menu: "drawer-right",
+        burger: "x",
+        sticky: false,
+      },
+    }
+
+block font
+  -
+    const selectedFonts = {
+      display: "inter",
+      body: "inter",
+      mono: "jetbrains-mono",
+    }
+
+  style!= renderFonts(selectedFonts)
+
+block design
+  style
+    include /design/palettes/tech/_saas-light.css
+    include /design/shapes/_rounded.css
+    include /design/shadows/_soft.css
+    include /design/spacing/_balanced.css
+    include /design/typography/_balanced.css
+
+block interactions
+  style
+    include /interactions/_link-underline.css

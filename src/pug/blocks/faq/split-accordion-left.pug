@@ -1,0 +1,29 @@
+include /mixins/blocks/faq/header.pug
+
+- const faqData = site.faq || {}
+- const faqItems = faqData.items || []
+- const faqAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.faq : undefined
+
+if faqData.title && faqItems.length
+  section(
+    id="faq"
+    class=["py-section", blockClasses(faqAppearance)]
+    aria-labelledby="faq-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,0.75fr)_minmax(0,1.25fr)] lg:gap-16 lg:px-8")
+      +faqHeader(faqData, {
+        headerClass: "order-1 flex max-w-xl flex-col items-start gap-3 sm:gap-4 lg:order-1 lg:sticky lg:top-8 lg:self-start"
+      })
+
+      div(class="accordion-group order-2 lg:order-2")
+        each item, index in faqItems
+          details(
+            class="ui-tile accordion__details"
+            name="faq"
+            open=index === 0
+          )
+            summary(class="accordion__summary")
+              h3(class="accordion__title")= item.question
+
+            div(class="accordion__content")
+              p= item.answer

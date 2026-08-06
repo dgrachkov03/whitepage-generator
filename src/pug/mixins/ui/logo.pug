@@ -1,0 +1,23 @@
+mixin logo(brand)
+  - brand = brand || {}
+  - const hasText = Boolean(brand.text)
+  - const hasImage = Boolean(brand.image)
+  - const accessibleName = brand.imageAlt || brand.name || ""
+  - if (!hasText && !hasImage) throw new Error("Logo requires brand.text or brand.image")
+  - if (hasImage && !hasText && !accessibleName) throw new Error("Image-only logo requires brand.name or brand.imageAlt")
+
+  a(
+    href=brand.href || "/"
+    class="inline-flex shrink-0 items-center gap-2 text-ink"
+  )&attributes(attributes)
+    if hasImage
+      img(
+        class="h-8 w-auto object-contain sm:h-10"
+        src=brand.image
+        alt=hasText ? "" : accessibleName
+        width=brand.width
+        height=brand.height
+      )
+
+    if hasText
+      span(class="type-brand")= brand.text

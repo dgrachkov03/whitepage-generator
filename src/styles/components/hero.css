@@ -1,0 +1,97 @@
+@layer components {
+  .hero-photo-overlay {
+    --hero-scrim: var(--design-hero-scrim);
+    background-color: color-mix(in srgb, var(--hero-scrim) 32%, transparent);
+  }
+
+  .hero-photo-overlay--bottom {
+    background-image: linear-gradient(
+      to top,
+      color-mix(in srgb, var(--hero-scrim) 92%, transparent) 0%,
+      color-mix(in srgb, var(--hero-scrim) 72%, transparent) 42%,
+      color-mix(in srgb, var(--hero-scrim) 36%, transparent) 100%
+    );
+  }
+
+  .hero-photo-overlay--left {
+    background-image: linear-gradient(
+      to right,
+      color-mix(in srgb, var(--hero-scrim) 92%, transparent) 0%,
+      color-mix(in srgb, var(--hero-scrim) 68%, transparent) 36%,
+      color-mix(in srgb, var(--hero-scrim) 28%, transparent) 62%,
+      transparent 100%
+    );
+  }
+
+  .hero-photo-shell {
+    margin-inline: auto;
+    display: flex;
+    max-width: 72rem;
+    padding-inline: 1rem;
+  }
+
+  .hero-photo-shell--bottom {
+    padding-top: calc(var(--spacing-section) * 1.875);
+    padding-bottom: calc(var(--spacing-section) * 1.125);
+  }
+
+  .hero-photo-shell--centered {
+    padding-top: calc(var(--spacing-section) * 1.75);
+    padding-bottom: calc(var(--spacing-section) * 1.6);
+  }
+
+  .hero-photo-shell--left {
+    padding-top: calc(var(--spacing-section) * 1.75);
+    padding-bottom: calc(var(--spacing-section) * 1.6);
+    justify-content: flex-start;
+  }
+
+  .hero-on-photo {
+    --hero-action-text: var(--color-hero-on-photo);
+    --hero-action-border: color-mix(
+      in srgb,
+      var(--color-hero-on-photo) 72%,
+      transparent
+    );
+    --hero-action-surface: color-mix(
+      in srgb,
+      var(--color-hero-on-photo) 12%,
+      transparent
+    );
+    --hero-action-surface-hover: color-mix(
+      in srgb,
+      var(--color-hero-on-photo) 20%,
+      transparent
+    );
+  }
+
+  .hero-on-photo .ui-action--secondary,
+  .hero-on-photo .ui-action--inverse-outline,
+  .controls-buttons--outline .hero-on-photo .ui-action--primary,
+  .controls-buttons--outline .hero-on-photo .ui-action--secondary {
+    color: var(--hero-action-text);
+    border-color: var(--hero-action-border);
+    background-color: transparent;
+  }
+
+  .hero-on-photo .ui-action--secondary:hover,
+  .hero-on-photo .ui-action--inverse-outline:hover,
+  .controls-buttons--outline .hero-on-photo .ui-action--primary:hover,
+  .controls-buttons--outline .hero-on-photo .ui-action--secondary:hover {
+    color: var(--hero-action-text);
+    border-color: var(--hero-action-text);
+    background-color: var(--hero-action-surface);
+  }
+
+  @media (min-width: 40rem) {
+    .hero-photo-shell {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .hero-photo-shell {
+      padding-inline: 2rem;
+    }
+  }
+}

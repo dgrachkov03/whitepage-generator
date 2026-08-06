@@ -1,0 +1,48 @@
+include /mixins/ui/logo.pug
+include /mixins/ui/text-link.pug
+
+- const footerData = site.footer || {}
+- const primaryNavigation = site.navigation?.primary || {}
+- const legalNavigation = site.navigation?.legal || {}
+- const primaryItems = primaryNavigation.items || []
+- const legalItems = legalNavigation.items || []
+- const contactItems = site.contactInfo?.items || []
+- const emailContact = contactItems.find((item) => item.type === "email")
+- const phoneContact = contactItems.find((item) => item.type === "phone")
+- const footerAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.footer : undefined
+
+footer(class=blockClasses(footerAppearance))
+  div(class="mx-auto flex max-w-6xl flex-col px-4 py-10 sm:px-6 sm:py-12 lg:px-8 lg:py-14")
+    div(class="flex flex-col items-center gap-6 sm:flex-row sm:items-start sm:justify-between sm:gap-8")
+      div(class="flex max-w-md flex-col items-center gap-3 text-center sm:items-start sm:text-left")
+        +logo(site.brand)
+
+        if footerData.description
+          p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= footerData.description
+
+      if emailContact || phoneContact
+        address(class="flex flex-col items-center gap-3 not-italic sm:items-end sm:gap-4")
+          if emailContact && emailContact.href
+            +textLink(emailContact.text, emailContact.href)(class="ui-link--accent-bar text-lg font-semibold text-primary")
+
+          if phoneContact && phoneContact.href
+            +textLink(phoneContact.text, phoneContact.href)(class="ui-link--accent-bar text-lg font-semibold text-primary font-mono")
+
+    div(class="mt-6 flex flex-col gap-6 border-t border-ink/10 pt-6 sm:mt-8 sm:gap-8 sm:pt-8")
+      div(class="flex w-full flex-col items-center gap-4 sm:flex-row sm:items-center sm:justify-between")
+        if primaryItems.length
+          nav(aria-label=primaryNavigation.label)
+            ul(class="flex flex-wrap justify-center gap-x-5 gap-y-2 sm:justify-start")
+              each item in primaryItems
+                li
+                  +textLink(item.text, item.href)
+
+        if legalItems.length
+          nav(aria-label=legalNavigation.label)
+            ul(class="flex flex-wrap justify-center gap-x-4 gap-y-2 sm:justify-end")
+              each item in legalItems
+                li
+                  +textLink(item.text, item.href)
+
+      if footerData.copyright
+        p(class="flex justify-center font-body text-sm text-ink-muted")= footerData.copyright

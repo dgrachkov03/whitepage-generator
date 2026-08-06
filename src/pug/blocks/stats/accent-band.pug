@@ -1,0 +1,23 @@
+include /mixins/blocks/stats/header.pug
+include /mixins/blocks/stats/items.pug
+
+- const statsData = site.stats || {}
+- const statsItems = statsData.stats || []
+- const statsSectionId = statsData.sectionId || "stats"
+- const statsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.stats : undefined
+
+if statsData.title && statsItems.length
+  section(
+    id=statsSectionId
+    class=["py-section", blockClasses(statsAppearance)]
+    aria-labelledby="stats-title"
+  )
+    div(class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8")
+      div(class="rounded-card bg-primary p-6 text-ink-inverse shadow-card sm:p-8 lg:p-10")
+        div(class="flex flex-col gap-8 sm:gap-10")
+          +statsHeader(statsData, {
+            align: "center",
+            titleClass: "type-section-title text-current",
+            descriptionClass: "font-body text-base leading-relaxed text-current opacity-80 sm:text-lg"
+          })
+          +statsItems(statsItems, { variant: "band" })

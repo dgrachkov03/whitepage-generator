@@ -1,0 +1,22 @@
+include /mixins/ui/eyebrow.pug
+
+mixin processHeader(processData, options)
+  - options = options || {}
+  - const eyebrowVariant = resolveEyebrowVariant(options, pageAppearance)
+  - const align = options.align || "start"
+  - const headerClass = options.headerClass || (align === "center" ? "mx-auto flex max-w-2xl flex-col items-center gap-3 text-center sm:gap-4" : align === "split" ? "flex max-w-xl flex-col items-start gap-3 sm:gap-4" : "flex max-w-2xl flex-col items-start gap-3 sm:gap-4")
+  - const titleClass = options.titleClass || (align === "split" ? "max-w-xl type-section-title text-ink" : "type-section-title text-ink")
+  - const titleId = options.titleId || "process-title"
+  - const descriptionClass = options.descriptionClass || (align === "center" ? "font-body text-base leading-relaxed text-ink-muted sm:text-lg" : align === "split" ? "max-w-lg font-body text-base leading-relaxed text-ink-muted sm:text-lg" : "font-body text-base leading-relaxed text-ink-muted sm:text-lg")
+
+  header(class=headerClass)
+    if processData.eyebrow
+      +eyebrow(processData.eyebrow, eyebrowVariant)
+
+    h2(
+      id=titleId
+      class=titleClass
+    )= processData.title
+
+    if processData.description
+      p(class=descriptionClass)= processData.description

@@ -1,0 +1,60 @@
+include /mixins/blocks/reviews/header.pug
+
+- const reviewsData = site.reviews || {}
+- const reviewItems = reviewsData.items || []
+- const reviewsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.reviews : undefined
+
+if reviewsData.title && reviewItems.length
+  section(
+    id="reviews"
+    class=["py-section", blockClasses(reviewsAppearance)]
+    aria-labelledby="reviews-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +reviewsHeader(reviewsData, { align: "center" })
+
+      ul(class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6")
+        each review in reviewItems
+          - const author = review.author || {}
+          - const authorDisplay = author.display || "text"
+          - const showAuthorAvatar = authorDisplay === "avatar" || authorDisplay === "avatar-text"
+          - const showAuthorText = authorDisplay === "text" || authorDisplay === "avatar-text"
+          - const authorInitials = author.name.trim().split(/\s+/).slice(0, 2).map((part) => part.charAt(0)).join("")
+
+          li
+            figure(class="ui-tile flex h-full flex-col gap-5 p-5 sm:p-6")
+              div(class="flex items-center text-sm leading-none text-primary")
+                span(aria-hidden="true")= "★".repeat(review.rating)
+                if review.rating < 5
+                  span(class="text-ink/20" aria-hidden="true")= "★".repeat(5 - review.rating)
+                span(class="sr-only")= `${review.rating}/5`
+
+              blockquote(class="flex-1")
+                p(class="font-body text-base leading-relaxed text-ink")= `“${review.quote}”`
+
+              figcaption(class=["flex items-center", showAuthorAvatar && showAuthorText ? "gap-3" : null])
+                if showAuthorAvatar
+                  if author.photo
+                    img(
+                      class="size-10 shrink-0 rounded-full object-cover"
+                      src=author.photo
+                      alt=showAuthorText ? "" : author.name
+                      width="40"
+                      height="40"
+                      loading="lazy"
+                      decoding="async"
+                    )
+                  else
+                    span(class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-primary font-body text-sm font-semibold uppercase text-ink-inverse")
+                      span(aria-hidden="true")= authorInitials
+                      if !showAuthorText
+                        span(class="sr-only")= author.name
+
+                if showAuthorText
+                  div(class="flex min-w-0 flex-col")
+                    span(class="truncate font-body text-sm font-semibold text-ink")= author.name
+                    if author.meta
+                      span(class="truncate font-body text-xs text-ink-muted")= author.meta
+
+      if reviewsData.note
+        p(class="text-center font-body text-xs leading-relaxed text-ink-muted")= reviewsData.note

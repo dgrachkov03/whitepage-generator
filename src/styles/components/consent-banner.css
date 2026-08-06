@@ -1,0 +1,66 @@
+@layer components {
+  .consent-banner {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 50;
+    padding: 1rem;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transition:
+      opacity 250ms ease,
+      visibility 0s linear 250ms;
+  }
+
+  .consent-banner.is-visible {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition-delay: 0s;
+  }
+
+  .consent-banner[hidden] {
+    display: none;
+  }
+
+  .consent-banner--strip {
+    padding: 0;
+  }
+
+  .consent-banner--corner {
+    inset-inline: auto;
+    width: auto;
+  }
+
+  .consent-banner--corner-end {
+    inset-inline-end: 0;
+  }
+
+  .consent-banner--corner-start {
+    inset-inline-start: 0;
+  }
+
+  .consent-banner__link-action {
+    width: auto;
+    min-height: 0;
+    padding: 0;
+    font-family: var(--font-body);
+    font-size: inherit;
+    line-height: inherit;
+    background: none;
+    border: none;
+    cursor: pointer;
+  }
+
+  .consent-banner__link-action:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .consent-banner {
+      transition: none;
+    }
+  }
+}

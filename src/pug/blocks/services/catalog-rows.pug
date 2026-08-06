@@ -1,0 +1,47 @@
+include /mixins/blocks/services/header.pug
+include /mixins/blocks/services/meta.pug
+include /mixins/blocks/services/highlights.pug
+include /mixins/ui/link-button.pug
+
+- const servicesData = site.services || {}
+- const serviceItems = servicesData.items || []
+- const servicesIconSet = servicesData.iconSet || site.design?.iconSet || "lucide"
+- const servicesAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.services : undefined
+
+if servicesData.title && serviceItems.length
+  section(
+    id="services"
+    class=["py-section", blockClasses(servicesAppearance)]
+    aria-labelledby="services-title"
+  )
+    div(class="mx-auto flex max-w-5xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +servicesHeader(servicesData, { align: "split" })
+
+      ul(class="flex flex-col" role="list")
+        each item, index in serviceItems
+          li(class=["py-6 sm:py-8", index < serviceItems.length - 1 ? "border-b border-ink/10" : null])
+            article(
+              class="grid grid-cols-1 gap-5 sm:grid-cols-[auto_1fr_auto] sm:items-start sm:gap-6 lg:gap-8"
+              aria-label=item.title
+            )
+              if item.icon
+                span(
+                  class="inline-flex size-12 shrink-0 items-center justify-center rounded-button bg-surface-alt text-xl text-primary"
+                  aria-hidden="true"
+                )!= libraryIcon(item.icon, servicesIconSet)
+
+              div(class="flex min-w-0 flex-col gap-3")
+                h3(class="type-card-title text-ink")= item.title
+
+                p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.description
+
+                +serviceHighlights(item.highlights, { iconSet: servicesIconSet })
+
+              div(class="flex flex-col gap-4 sm:items-end sm:text-right")
+                +serviceMeta(item, {
+                  metaClass: "flex flex-wrap items-center gap-x-3 gap-y-1 font-body text-xs text-ink-muted sm:justify-end sm:text-sm"
+                })
+
+                +linkButton(item.ctaText, item.ctaLink, {
+                  variant: item.ctaVariant || "secondary"
+                })(class="w-full justify-center sm:w-auto")

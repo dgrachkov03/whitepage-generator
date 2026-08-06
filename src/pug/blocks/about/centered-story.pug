@@ -1,0 +1,16 @@
+include /mixins/blocks/about/header.pug
+include /mixins/blocks/about/paragraphs.pug
+
+- const aboutData = site.about || {}
+- const aboutParagraphs = aboutData.paragraphs || []
+- const aboutAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.about : undefined
+
+if aboutData.title && aboutParagraphs.length
+  section(
+    id="about"
+    class=["py-section", blockClasses(aboutAppearance)]
+    aria-labelledby="about-title"
+  )
+    div(class="mx-auto flex max-w-4xl flex-col items-center gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +aboutHeader(aboutData, { align: "center" })
+      +aboutParagraphs(aboutParagraphs, { align: "center" })

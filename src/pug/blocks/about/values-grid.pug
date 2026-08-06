@@ -1,0 +1,22 @@
+include /mixins/blocks/about/header.pug
+include /mixins/blocks/about/paragraphs.pug
+include /mixins/blocks/about/highlights.pug
+
+- const aboutData = site.about || {}
+- const aboutParagraphs = aboutData.paragraphs || []
+- const aboutHighlights = aboutData.highlights || []
+- const aboutIconSet = aboutData.iconSet || site.design?.iconSet || "lucide"
+- const aboutAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.about : undefined
+
+if aboutData.title && aboutParagraphs.length && aboutHighlights.length >= 2
+  section(
+    id="about"
+    class=["py-section", blockClasses(aboutAppearance)]
+    aria-labelledby="about-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      div(class="mx-auto flex max-w-3xl flex-col items-center gap-6 text-center sm:gap-8")
+        +aboutHeader(aboutData, { align: "center" })
+        +aboutParagraphs(aboutParagraphs, { align: "center" })
+
+      +aboutHighlights(aboutHighlights, aboutIconSet)

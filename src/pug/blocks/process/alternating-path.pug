@@ -1,0 +1,38 @@
+include /mixins/blocks/process/header.pug
+
+- const processData = site.process || {}
+- const processSteps = processData.items || []
+- const processAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.process : undefined
+
+if processData.title && processSteps.length
+  section(
+    id="process"
+    class=["py-section", blockClasses(processAppearance)]
+    aria-labelledby="process-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +processHeader(processData, { align: "center" })
+
+      div(class="relative")
+        ol(class="relative flex flex-col gap-6 lg:gap-8")
+          each step, index in processSteps
+            li(class="relative grid grid-cols-[auto_1fr] items-start gap-4 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1fr)] lg:gap-8")
+              if index < processSteps.length - 1
+                span(
+                  class="absolute top-5 -bottom-11 left-5 w-px bg-ink/15 lg:-bottom-13 lg:left-1/2 lg:-translate-x-1/2"
+                  aria-hidden="true"
+                )
+
+              span(
+                class="relative z-10 col-start-1 row-start-1 inline-flex size-10 items-center justify-center rounded-full bg-primary font-display text-sm text-ink-inverse lg:col-start-2"
+                aria-hidden="true"
+              )= String(index + 1).padStart(2, "0")
+
+              article(
+                class=[
+                  "ui-tile col-start-2 row-start-1 flex flex-col gap-2 p-5 sm:p-6 lg:col-span-1",
+                  index % 2 === 0 ? "lg:col-start-1 lg:items-end lg:text-right" : "lg:col-start-3"
+                ]
+              )
+                h3(class="type-card-title text-ink")= step.title
+                p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= step.description

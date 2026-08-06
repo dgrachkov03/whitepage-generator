@@ -1,0 +1,84 @@
+include /mixins/blocks/pricing/header.pug
+include /mixins/blocks/pricing/price-display.pug
+include /mixins/blocks/pricing/feature-list.pug
+include /mixins/ui/link-button.pug
+include /mixins/ui/badge.pug
+
+- const pricingData = site.pricing || {}
+- const pricingPlans = pricingData.plans || []
+- const pricingAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.pricing : undefined
+-
+  let featuredPlan = pricingPlans[0]
+  for (let planIndex = 0; planIndex < pricingPlans.length; planIndex += 1) {
+    if (pricingPlans[planIndex].featured) {
+      featuredPlan = pricingPlans[planIndex]
+      break
+    }
+  }
+
+  const secondaryPlans = []
+  pricingPlans.forEach(function (plan) {
+    if (plan !== featuredPlan) {
+      secondaryPlans.push(plan)
+    }
+  })
+
+if pricingData.title && pricingPlans.length
+  section(
+    id="pricing"
+    class=["py-section", blockClasses(pricingAppearance)]
+    aria-labelledby="pricing-title"
+  )
+    div(class="mx-auto grid max-w-6xl grid-cols-1 gap-8 px-4 sm:gap-10 sm:px-6 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.15fr)] lg:gap-16 lg:px-8")
+      div(class="flex flex-col items-start gap-6 lg:sticky lg:top-8 lg:self-start")
+        +pricingHeader(pricingData)
+
+        +pricingNote(pricingData)
+
+      div(class="flex flex-col gap-4")
+        article(
+          class="ui-tile flex flex-col gap-6 rounded-card bg-primary p-6 text-ink-inverse shadow-card sm:p-8"
+          aria-label=featuredPlan.name
+        )
+          div(class="flex flex-col gap-3")
+            div(class="flex flex-wrap items-center gap-2")
+              h3(class="type-card-title text-current")= featuredPlan.name
+
+              if featuredPlan.badge
+                +badge(featuredPlan.badge, { variant: "inverse" })
+
+            if featuredPlan.description
+              p(class="font-body text-sm leading-relaxed text-current opacity-80 sm:text-base")= featuredPlan.description
+
+          +pricingPriceDisplay(featuredPlan, { tone: "inverse" })
+
+          +pricingFeatureList(featuredPlan.features, {
+            textClass: "font-body text-sm leading-relaxed text-current opacity-85 sm:text-base",
+            iconIncludedClass: "text-ink-inverse"
+          })
+
+          +linkButton(featuredPlan.ctaText, featuredPlan.ctaLink, {
+            variant: "inverse-outline"
+          })(class="w-full justify-center sm:w-auto")
+
+        if secondaryPlans.length
+          ul(class="flex flex-col" role="list")
+            each plan in secondaryPlans
+              li(class="border-b border-ink/10 py-5 last:border-b-0 sm:py-6")
+                article(class="grid grid-cols-1 gap-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center sm:gap-6")
+                  div(class="flex flex-col gap-2")
+                    h3(class="type-card-title text-ink")= plan.name
+
+                    if plan.description
+                      p(class="font-body text-sm leading-relaxed text-ink-muted")= plan.description
+
+                    ul(class="flex flex-wrap gap-x-4 gap-y-1" role="list")
+                      each feature in plan.features.slice(0, 3)
+                        li(class="font-body text-xs text-ink-muted sm:text-sm")= feature.text
+
+                  div(class="flex flex-col items-start gap-3 sm:items-end")
+                    +pricingPriceDisplay(plan, { align: "end" })
+
+                    +linkButton(plan.ctaText, plan.ctaLink, {
+                      variant: plan.ctaVariant || "secondary"
+                    })(class="w-full justify-center sm:w-auto")

@@ -1,0 +1,18 @@
+include meta.pug
+include /mixins/ui/link-button.pug
+
+mixin serviceActionBar(item, options)
+  - options = options || {}
+  - const barClass = options.barClass || "flex flex-col gap-4 border-t border-ink/10 px-5 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6"
+  - const metaClass = options.metaClass
+
+  div(class=barClass)
+    if item.priceHint || item.duration
+      +serviceMeta(item, {
+        layout: "stacked",
+        metaClass: metaClass || "flex flex-col gap-1 font-body text-sm text-ink-muted"
+      })
+
+    +linkButton(item.ctaText, item.ctaLink, {
+      variant: item.ctaVariant || "primary"
+    })(class="w-full justify-center sm:w-auto")

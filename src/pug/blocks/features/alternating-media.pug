@@ -1,0 +1,44 @@
+include /mixins/blocks/features/header.pug
+include /mixins/blocks/features/icon.pug
+include /mixins/blocks/features/media.pug
+
+- const featuresData = site.features || {}
+- const featureItems = featuresData.items || []
+- const featuresAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.features : undefined
+
+if featuresData.title && featureItems.length
+  section(
+    id="features"
+    class=["py-section", blockClasses(featuresAppearance)]
+    aria-labelledby="features-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +featuresHeader(featuresData, { align: "center" })
+
+      div(class="flex flex-col gap-8 sm:gap-10 lg:gap-12")
+        each item, index in featureItems
+          - const media = item.media || {}
+          - const imageFirst = index % 2 === 0
+
+          article(
+            class="grid grid-cols-1 items-center gap-6 lg:grid-cols-2 lg:gap-12"
+          )
+            div(
+              class=[
+                "overflow-hidden rounded-card shadow-card",
+                imageFirst ? "lg:order-1" : "lg:order-2"
+              ]
+            )
+              +featureMedia(media, { aspectClass: "aspect-4/3" })
+
+            div(
+              class=[
+                "flex flex-col items-start gap-4 sm:gap-5",
+                imageFirst ? "lg:order-2" : "lg:order-1"
+              ]
+            )
+              +featureIcon(item, featuresData.iconSet, index, { sizeClass: "size-10" })
+
+              div(class="flex flex-col gap-3")
+                h3(class="type-card-title type-card-title--lg text-ink")= item.title
+                p(class="font-body text-base leading-relaxed text-ink-muted")= item.description

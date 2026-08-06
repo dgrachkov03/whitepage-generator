@@ -1,0 +1,9 @@
+extends /layouts/legal.pug
+
+block pageVars
+  -
+    const legalPage = site.legalPages.privacy
+    const pageMetaDescription = legalPage.metaDescription
+
+block pageTitle
+  = legalPage.metaTitle

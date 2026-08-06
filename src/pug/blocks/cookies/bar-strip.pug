@@ -1,0 +1,46 @@
+include /mixins/ui/button.pug
+include /mixins/ui/text-link.pug
+include /mixins/blocks/cookies/content.pug
+include /mixins/blocks/cookies/preferences.pug
+
+- const cookieBanner = site.cookieBanner || {}
+- const cookieCategories = cookieBanner.categories || []
+
+if cookieBanner.title && cookieCategories.length
+  div(
+    class=["consent-banner", "consent-banner--strip"]
+    data-js-consent-banner
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="consent-banner-title"
+    aria-hidden="true"
+    hidden
+  )
+    div(class="consent-banner__panel border-t border-border bg-surface px-4 py-4 sm:px-6 sm:py-5 lg:px-8")
+      div(class="mx-auto flex w-full max-w-6xl flex-col gap-4 lg:flex-row lg:items-end lg:justify-between lg:gap-8")
+        div(class="flex min-w-0 flex-1 flex-col gap-3")
+          +consentBannerContent(cookieBanner)
+          +consentBannerPreferences(cookieCategories)
+
+        div(class="flex w-full shrink-0 flex-col gap-3 lg:max-w-xl")
+          div(
+            class="flex flex-col gap-3 sm:flex-row sm:flex-wrap"
+            data-js-consent-banner-actions=""
+          )
+            +button(cookieBanner.acceptAllText, { variant: "primary" })(
+              class="sm:flex-1"
+              data-js-consent-banner-accept-all=""
+            )
+            +button(cookieBanner.rejectAllText, { variant: "secondary" })(
+              class="sm:flex-1"
+              data-js-consent-banner-reject-all=""
+            )
+            +button(cookieBanner.configureText, { variant: "secondary" })(
+              class="sm:flex-1"
+              data-js-consent-banner-configure=""
+              aria-expanded="false"
+            )
+
+          +button(cookieBanner.saveText, { variant: "secondary" })(
+            data-js-consent-banner-save=""
+          )

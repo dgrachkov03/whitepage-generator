@@ -1,0 +1,126 @@
+@layer base {
+  :root {
+    --design-type-hero: clamp(1.875rem, 2.5vw + 1rem, 3rem);
+    --design-type-hero-display: clamp(2.25rem, 4vw + 1rem, 3.75rem);
+    --design-type-section: clamp(1.875rem, 2vw + 1rem, 2.25rem);
+    --design-type-section-wide: clamp(1.875rem, 2.5vw + 1rem, 3rem);
+    --design-type-subtitle: clamp(1.25rem, 1.5vw + 0.75rem, 1.5rem);
+    --design-type-card: clamp(1.125rem, 1vw + 0.75rem, 1.25rem);
+    --design-type-card-lg: clamp(1.25rem, 1.5vw + 0.75rem, 1.875rem);
+    --design-type-stat: clamp(1.875rem, 2vw + 1rem, 2.25rem);
+    --design-type-stat-lg: clamp(2.25rem, 3vw + 1rem, 3rem);
+    --design-type-stat-sm: clamp(1.5rem, 1.5vw + 0.75rem, 1.875rem);
+    --design-type-brand: clamp(1.125rem, 1vw + 0.75rem, 1.25rem);
+    --design-type-body: 1rem;
+    --design-type-body-lg: 1.125rem;
+    --design-type-eyebrow: 0.75rem;
+    --design-type-eyebrow-sm: 0.875rem;
+
+    --design-leading-hero: 1.1;
+    --design-leading-hero-display: 1.05;
+    --design-leading-section: 1.15;
+    --design-leading-subtitle: 1.375;
+    --design-leading-body: 1.625;
+    --design-leading-card: 1.375;
+
+    --design-tracking-eyebrow: 0.05em;
+    --design-tracking-eyebrow-wide: 0.16em;
+  }
+}
+
+@layer components {
+  .type-hero-title {
+    font-family: var(--font-display);
+    font-size: var(--design-type-hero);
+    font-weight: var(--font-weight-display-heading);
+    line-height: var(--design-leading-hero);
+  }
+
+  .type-hero-title--display {
+    font-size: var(--design-type-hero-display);
+    line-height: var(--design-leading-hero-display);
+  }
+
+  .type-hero-subtitle {
+    font-family: var(--font-display);
+    font-size: var(--design-type-subtitle);
+    font-weight: var(--font-weight-display-subtitle);
+    line-height: var(--design-leading-subtitle);
+  }
+
+  .type-hero-body {
+    font-family: var(--font-body);
+    font-size: var(--design-type-body-lg);
+    line-height: var(--design-leading-body);
+  }
+
+  .type-section-title {
+    font-family: var(--font-display);
+    font-size: var(--design-type-section);
+    font-weight: var(--font-weight-display-heading);
+    line-height: var(--design-leading-section);
+  }
+
+  .type-section-title--wide {
+    font-size: var(--design-type-section-wide);
+  }
+
+  .type-card-title {
+    font-family: var(--font-display);
+    font-size: var(--design-type-card);
+    font-weight: var(--font-weight-display-subtitle);
+    line-height: var(--design-leading-card);
+  }
+
+  .type-card-title--lg {
+    font-size: var(--design-type-card-lg);
+  }
+
+  .type-stat-value {
+    font-family: var(--font-mono);
+    font-size: var(--design-type-stat);
+    font-weight: 600;
+    line-height: 1;
+  }
+
+  .type-stat-value--lg {
+    font-size: var(--design-type-stat-lg);
+  }
+
+  .type-stat-value--sm {
+    font-size: var(--design-type-stat-sm);
+    font-weight: 500;
+  }
+
+  .type-brand {
+    font-family: var(--font-display);
+    font-size: var(--design-type-brand);
+    font-weight: var(--font-weight-display-heading);
+    line-height: 1;
+  }
+
+  .type-eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--design-type-eyebrow);
+    letter-spacing: var(--design-tracking-eyebrow);
+    text-transform: uppercase;
+  }
+
+  .type-eyebrow--wide {
+    font-size: var(--design-type-eyebrow-sm);
+    font-weight: 600;
+    letter-spacing: var(--design-tracking-eyebrow-wide);
+  }
+
+  .type-body {
+    font-family: var(--font-body);
+    font-size: var(--design-type-body);
+    line-height: var(--design-leading-body);
+  }
+
+  .type-body-lg {
+    font-family: var(--font-body);
+    font-size: var(--design-type-body-lg);
+    line-height: var(--design-leading-body);
+  }
+}

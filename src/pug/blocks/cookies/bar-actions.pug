@@ -1,0 +1,41 @@
+include /mixins/ui/button.pug
+include /mixins/ui/text-link.pug
+include /mixins/blocks/cookies/content.pug
+include /mixins/blocks/cookies/preferences.pug
+
+- const cookieBanner = site.cookieBanner || {}
+- const cookieCategories = cookieBanner.categories || []
+
+if cookieBanner.title && cookieCategories.length
+  div(
+    class=["consent-banner", "consent-banner--actions"]
+    data-js-consent-banner
+    role="dialog"
+    aria-modal="false"
+    aria-labelledby="consent-banner-title"
+    aria-hidden="true"
+    hidden
+  )
+    div(class="consent-banner__panel mx-auto flex w-full max-w-3xl flex-col gap-4 rounded-card border border-border bg-surface p-5 shadow-card sm:gap-5 sm:p-6")
+      +consentBannerContent(cookieBanner)
+      +consentBannerPreferences(cookieCategories)
+
+      div(class="flex flex-col gap-3")
+        div(
+          class="grid grid-cols-1 gap-3 sm:grid-cols-3"
+          data-js-consent-banner-actions=""
+        )
+          +button(cookieBanner.acceptAllText, { variant: "primary" })(
+            data-js-consent-banner-accept-all=""
+          )
+          +button(cookieBanner.rejectAllText, { variant: "primary" })(
+            data-js-consent-banner-reject-all=""
+          )
+          +button(cookieBanner.configureText, { variant: "secondary" })(
+            data-js-consent-banner-configure=""
+            aria-expanded="false"
+          )
+
+        +button(cookieBanner.saveText, { variant: "secondary" })(
+          data-js-consent-banner-save=""
+        )

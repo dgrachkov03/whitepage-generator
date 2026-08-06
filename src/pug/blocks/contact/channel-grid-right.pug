@@ -1,0 +1,31 @@
+include /mixins/blocks/contact/header.pug
+include /mixins/blocks/contact/form.pug
+include /mixins/blocks/contact/channel-card.pug
+
+- const contactData = site.contact || {}
+- const contactDetails = (site.contactInfo && site.contactInfo.items) || []
+- const formData = contactData.form || {}
+- const contactIconSet = contactData.iconSet || (site.design && site.design.iconSet) || "lucide"
+- const contactSectionId = contactData.sectionId || "contact"
+- const contactAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.contact : undefined
+
+if contactData.title && formData.label
+  section(
+    id=contactSectionId
+    class=["py-section", blockClasses(contactAppearance)]
+    aria-labelledby="contact-title"
+  )
+    div(class="flex justify-center px-4 sm:px-6 lg:px-8")
+      div(class="flex w-full max-w-6xl flex-col items-center gap-8 sm:gap-10 lg:gap-12")
+        +contactHeader(contactData, { align: "center" })
+
+        div(class="grid w-full grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:gap-16")
+          +contactForm(formData, {
+            layout: "stacked",
+            formClass: "ui-tile flex w-full flex-col gap-5 self-start p-5 sm:p-6 lg:p-8"
+          })
+
+          if contactDetails.length
+            ul(class="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5" role="list")
+              each detail in contactDetails
+                +contactChannelCard(detail, contactIconSet)

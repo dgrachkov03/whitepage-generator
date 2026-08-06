@@ -1,0 +1,32 @@
+include /mixins/blocks/about/header.pug
+
+- const aboutData = site.about || {}
+- const aboutParagraphs = aboutData.paragraphs || []
+- const aboutAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.about : undefined
+
+if aboutData.title && aboutParagraphs.length
+  section(
+    id="about"
+    class=["py-section", blockClasses(aboutAppearance)]
+    aria-labelledby="about-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      div(class="grid grid-cols-1 gap-6 lg:grid-cols-2 lg:gap-16")
+        +aboutHeader(aboutData, {
+          align: "start",
+          titleClass: "max-w-xl type-section-title text-ink lg:text-5xl"
+        })
+
+        div(class="flex max-w-xl flex-col gap-4 lg:pt-7")
+          each paragraph in aboutParagraphs
+            p(class="font-body text-base leading-relaxed text-ink-muted")= paragraph
+
+      img(
+        class="aspect-2/1 h-auto w-full rounded-card object-cover shadow-card"
+        src=aboutData.image || placeholder(1200, 600)
+        alt=aboutData.imageAlt || ""
+        width="1200"
+        height="600"
+        loading="lazy"
+        decoding="async"
+      )

@@ -1,0 +1,14 @@
+mixin linkButton(text, href, options)
+  - options = options || {}
+  - const variants = ['primary', 'secondary', 'inverse', 'inverse-outline']
+  - const variant = variants.includes(options.variant) ? options.variant : 'primary'
+  - const icon = resolveButtonIcon({ ...options, variant }, pageAppearance)
+  - const iconSet = options.iconSet || (typeof site !== "undefined" && site.design && site.design.iconSet) || "lucide"
+
+  a(
+    href=href
+    class=["ui-action", `ui-action--${variant}`]
+  )&attributes(attributes)
+    span= text
+    if icon
+      span.ui-action__icon(aria-hidden="true")!= libraryIcon(resolveButtonLibraryIcon(icon, iconSet), iconSet)

@@ -1,0 +1,29 @@
+mixin pricingPriceDisplay(plan, options)
+  - options = options || {}
+  - const size = options.size || "default"
+  - const tone = options.tone || "default"
+  - const align = options.align || "start"
+  - const onPrimary = tone === "inverse"
+  - let priceClass = "font-display text-3xl font-semibold tracking-tight sm:text-4xl"
+  - let prefixClass = "font-body text-xs sm:text-sm"
+  - let metaClass = "font-body text-xs sm:text-sm"
+
+  if size === "large"
+    - priceClass = onPrimary ? "type-section-title text-current" : "type-section-title text-ink"
+    - prefixClass = onPrimary ? "font-body text-sm text-current opacity-70 sm:text-base" : "font-body text-sm text-ink-muted sm:text-base"
+    - metaClass = onPrimary ? "font-body text-sm text-current opacity-70 sm:text-base" : "font-body text-sm text-ink-muted sm:text-base"
+  else
+    - priceClass = onPrimary ? `${priceClass} text-current` : `${priceClass} text-ink`
+    - prefixClass = onPrimary ? `${prefixClass} text-current opacity-70` : `${prefixClass} text-ink-muted`
+    - metaClass = onPrimary ? `${metaClass} text-current opacity-70` : `${metaClass} text-ink-muted`
+
+  - const alignClass = align === "end" ? "items-start sm:items-end sm:text-right" : "items-start"
+
+  div(class=["flex flex-col gap-1", alignClass])
+    if plan.pricePrefix
+      p(class=prefixClass)= plan.pricePrefix
+
+    p(class=priceClass)= plan.price
+
+    if plan.period
+      p(class=metaClass)= plan.period

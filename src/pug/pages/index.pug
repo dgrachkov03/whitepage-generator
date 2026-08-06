@@ -1,0 +1,22 @@
+extends /layouts/theme.pug
+
+block content
+  -
+    const blockAppearance = {
+      header: {
+        tone: "base",
+      },
+    }
+
+  div(class=pageBackgroundClasses(pageAppearance.background))
+    include /blocks/header/nav-end.pug
+
+    main(class="py-section")
+      div(class="mx-auto max-w-2xl px-4 text-center sm:px-6")
+        h1(class="type-section-title mb-4") Landing page not generated yet
+        p(class="font-body text-base leading-relaxed text-ink-muted")
+          | Run
+          |
+          code(class="rounded bg-surface-alt px-2 py-1 text-sm") npm run generate
+          |
+          | to assemble blocks, design tokens, and page appearance.

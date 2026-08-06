@@ -1,0 +1,37 @@
+- const footerData = site.footer || {}
+- const footerLegalNavigation = (site.navigation && site.navigation.legal) || {}
+- const footerLegalNavigationItems = footerLegalNavigation.items || []
+- const footerLegalNotice = footerData.legalNotice || []
+- const footerContactItems = (site.contactInfo && site.contactInfo.items) || []
+- const footerEmailContact = footerContactItems.find((item) => item.type === "email")
+- const footerAddressContact = footerContactItems.find((item) => item.type === "address")
+- const footerBrandName = site.brand && (site.brand.name || site.brand.text)
+
+footer(class=["legal-footer", blockClasses(blockAppearance.footer)])
+  div(class="legal-footer__inner")
+    if footerLegalNotice.length
+      p(class="legal-footer__meta")
+        strong= footerBrandName
+        |  · 
+        = footerLegalNotice[0]
+
+    if footerAddressContact || footerEmailContact
+      p(class="legal-footer__contact")
+        if footerAddressContact
+          span= footerAddressContact.text
+        if footerAddressContact && footerEmailContact
+          |  · 
+        if footerEmailContact
+          a(href=footerEmailContact.href)= footerEmailContact.text
+
+    if footerLegalNotice.length > 1
+      p(class="legal-footer__notice")= footerLegalNotice[1]
+
+    div(class="legal-footer__bar")
+      if footerData.copyright
+        span= footerData.copyright
+
+      if footerLegalNavigationItems.length
+        nav(class="legal-footer__links" aria-label=footerLegalNavigation.label)
+          each item in footerLegalNavigationItems
+            a(href=item.href)= item.text

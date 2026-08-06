@@ -1,0 +1,35 @@
+include /mixins/blocks/features/header.pug
+
+- const featuresData = site.features || {}
+- const featureItems = featuresData.items || []
+- const featuresAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.features : undefined
+
+if featuresData.title && featureItems.length
+  section(
+    id="features"
+    class=["py-section", blockClasses(featuresAppearance)]
+    aria-labelledby="features-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +featuresHeader(featuresData, { align: "center" })
+
+      ul(class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6")
+        each item in featureItems
+          - const media = item.media || {}
+          - const mediaWidth = media.width || 640
+          - const mediaHeight = media.height || 420
+
+          li(class="ui-tile flex min-h-full flex-col overflow-hidden")
+            img(
+              class="aspect-3/2 h-auto w-full object-cover"
+              src=media.src || placeholder(mediaWidth, mediaHeight)
+              alt=media.alt || ""
+              width=mediaWidth
+              height=mediaHeight
+              loading="lazy"
+              decoding="async"
+            )
+
+            div(class="flex flex-1 flex-col gap-3 p-5 sm:p-6")
+              h3(class="type-card-title text-ink")= item.title
+              p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.description

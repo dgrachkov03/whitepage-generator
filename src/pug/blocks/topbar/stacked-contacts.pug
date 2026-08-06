@@ -1,0 +1,41 @@
+- const topbarData = site.topbar || {}
+- const topbarContactTypes = topbarData.contactTypes || []
+- const sharedContactItems = site.contactInfo?.items || []
+- const topbarContacts = topbarContactTypes.map((type) => sharedContactItems.find((item) => item.type === type)).filter(Boolean)
+- const topbarAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.topbar : undefined
+
+if topbarData.message
+  aside(
+    class=[blockClasses(topbarAppearance), "font-body text-xs leading-relaxed"]
+    aria-label=topbarData.label
+  )
+    div(class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-4 gap-y-2 px-4 py-2.5 text-center sm:px-6 lg:px-8")
+      p(class="flex items-center gap-1.5 font-semibold")
+        if topbarData.icon
+          span(
+            class="inline-flex size-4 shrink-0 text-current"
+            aria-hidden="true"
+          )!= libraryIcon(topbarData.icon, topbarData.iconSet)
+
+        span= topbarData.message
+
+      if topbarData.actionText && topbarData.actionLink
+        a(
+          class="rounded-button border border-current/25 px-3 py-1 text-current transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+          href=topbarData.actionLink
+        )= topbarData.actionText
+
+    if topbarContacts.length
+      div(class="border-t border-current/15")
+        ul(class="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-x-5 gap-y-1 px-4 py-2 sm:px-6 lg:px-8")
+          each detail in topbarContacts
+            li(class="flex items-center gap-1.5")
+              span(class="font-semibold")= `${detail.label}:`
+
+              if detail.href
+                a(
+                  class="text-current transition-opacity hover:opacity-70 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current"
+                  href=detail.href
+                )= detail.shortText || detail.text
+              else
+                span= detail.shortText || detail.text

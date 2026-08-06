@@ -1,0 +1,126 @@
+include /mixins/blocks/pricing/header.pug
+include /mixins/blocks/pricing/price-display.pug
+include /mixins/blocks/pricing/feature-list.pug
+include /mixins/ui/link-button.pug
+include /mixins/ui/badge.pug
+
+- const pricingData = site.pricing || {}
+- const pricingPlans = pricingData.plans || []
+- const pricingIconSet = pricingData.iconSet || site.design?.iconSet || "lucide"
+- const pricingAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.pricing : undefined
+-
+  const comparisonFeatureTexts = []
+  pricingPlans.forEach(function (plan) {
+    plan.features.forEach(function (feature) {
+      if (!comparisonFeatureTexts.includes(feature.text)) {
+        comparisonFeatureTexts.push(feature.text)
+      }
+    })
+  })
+- const comparisonLabel = pricingData.comparisonLabel || "Features"
+
+if pricingData.title && pricingPlans.length && comparisonFeatureTexts.length
+  section(
+    id="pricing"
+    class=["py-section", blockClasses(pricingAppearance)]
+    aria-labelledby="pricing-title"
+  )
+    div(class="mx-auto flex min-w-0 max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +pricingHeader(pricingData, { align: "split" })
+
+      ul(class="flex flex-col gap-5 md:hidden" role="list")
+        each plan in pricingPlans
+          li
+            article(
+              class=[
+                "ui-tile flex flex-col gap-5 p-5 sm:p-6",
+                plan.featured ? "ring-2 ring-accent shadow-card" : null
+              ]
+              aria-label=plan.name
+            )
+              div(class="flex flex-col gap-3")
+                div(class="flex flex-wrap items-center gap-2")
+                  h3(class="type-card-title text-ink")= plan.name
+
+                  if plan.badge
+                    +badge(plan.badge)
+
+                if plan.description
+                  p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= plan.description
+
+              +pricingPriceDisplay(plan, { size: plan.featured ? "large" : "default" })
+
+              +pricingFeatureList(plan.features)
+
+              +linkButton(plan.ctaText, plan.ctaLink, {
+                variant: plan.ctaVariant || (plan.featured ? "primary" : "secondary")
+              })(class="mt-auto w-full justify-center")
+
+      div(class="hidden min-w-0 max-w-full overflow-x-auto rounded-card border border-ink/10 md:block")
+        table(class="min-w-160 w-full border-collapse text-left")
+          caption(class="sr-only")= pricingData.title
+
+          thead
+            tr(class="border-b border-ink/10")
+              th(
+                scope="col"
+                class="w-[min(40%,18rem)] p-4 font-body text-sm font-semibold text-ink sm:p-5"
+              )= comparisonLabel
+
+              each plan in pricingPlans
+                th(
+                  scope="col"
+                  class=[
+                    "h-px min-w-[10rem] align-top p-0",
+                    plan.featured ? "bg-surface-alt" : null
+                  ]
+                )
+                  div(class="flex h-full flex-col gap-3 p-4 sm:p-5")
+                    div(class="flex flex-col gap-1")
+                      if plan.badge
+                        +badge(plan.badge)
+
+                      span(class="type-card-title text-ink")= plan.name
+
+                      if plan.description
+                        span(class="font-body text-xs leading-relaxed text-ink-muted sm:text-sm")= plan.description
+
+                    +pricingPriceDisplay(plan)
+
+                    +linkButton(plan.ctaText, plan.ctaLink, {
+                      variant: plan.ctaVariant || (plan.featured ? "primary" : "secondary")
+                    })(class="mt-auto w-full justify-center")
+
+          tbody
+            each featureText in comparisonFeatureTexts
+              tr(class="border-b border-ink/10 last:border-b-0")
+                th(
+                  scope="row"
+                  class="p-4 font-body text-sm font-medium text-ink sm:p-5"
+                )= featureText
+
+                each plan in pricingPlans
+                  -
+                    let planFeature = null
+                    for (let featureIndex = 0; featureIndex < plan.features.length; featureIndex += 1) {
+                      if (plan.features[featureIndex].text === featureText) {
+                        planFeature = plan.features[featureIndex]
+                        break
+                      }
+                    }
+                    const included = planFeature ? planFeature.included !== false : false
+                  td(
+                    class=[
+                      "p-4 text-center sm:p-5",
+                      plan.featured ? "bg-surface-alt" : null
+                    ]
+                  )
+                    span(class="inline-flex size-6 items-center justify-center text-primary" aria-hidden="true")
+                      if included
+                        != libraryIcon("circle-check", pricingIconSet)
+                      else
+                        != libraryIcon("minus", pricingIconSet)
+
+                    span(class="sr-only")= included ? "Enthalten" : "Nicht enthalten"
+
+      +pricingNote(pricingData)

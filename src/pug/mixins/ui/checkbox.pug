@@ -1,0 +1,18 @@
+mixin checkbox(label, id, options)
+  - options = options || {}
+
+  div(class="ui-checkbox")
+    input(
+      id=id
+      name=options.name
+      type="checkbox"
+      class="ui-checkbox__input"
+      required=options.required
+    )&attributes(attributes)
+
+    div(class="ui-checkbox__content")
+      label(for=id)= label
+
+      if options.linkText && options.linkHref
+        = " "
+        a(class="ui-checkbox__link" href=options.linkHref)= options.linkText

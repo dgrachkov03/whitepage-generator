@@ -1,0 +1,61 @@
+mixin statsItems(stats, options)
+  - options = options || {}
+  - const variant = options.variant || "tiles"
+
+  case variant
+    when "centered"
+      dl(class="grid w-full grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4 sm:gap-y-4")
+        each stat in stats
+          div(class="flex flex-col items-center gap-2 text-center")
+            dt(class="type-stat-value text-primary")= stat.value
+            dd(class="font-body text-sm leading-relaxed text-ink-muted")= stat.label
+
+    when "inline"
+      dl(class="grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2 lg:grid-cols-4")
+        each stat in stats
+          div(
+            class="flex flex-col gap-2 border-b border-ink/10 pb-4 last:border-b-0 last:pb-0 lg:border-r lg:border-b-0 lg:pb-0 lg:pr-6 lg:last:border-r-0 lg:last:pr-0"
+          )
+            dt(class="type-stat-value text-primary")= stat.value
+            dd(class="font-body text-sm leading-relaxed text-ink-muted")= stat.label
+
+    when "highlight"
+      dl(class="grid grid-cols-2 gap-x-6 gap-y-6 sm:grid-cols-4 lg:gap-x-8")
+        each stat in stats
+          div(
+            class="flex flex-col gap-2 border-b border-ink/10 pb-6 sm:border-b-0 sm:pb-0 lg:border-r lg:pr-8 lg:last:border-r-0 lg:last:pr-0"
+          )
+            dt(class="type-stat-value type-stat-value--lg text-primary")= stat.value
+            dd(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= stat.label
+
+    when "bento"
+      - const spotlightStat = stats[0]
+      - const secondaryStats = stats.slice(1)
+
+      div(class="grid grid-cols-1 gap-4 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,0.85fr)] lg:gap-5")
+        dl(class="ui-tile flex min-h-full flex-col justify-center gap-3 p-6 sm:p-8 lg:min-h-[16rem]")
+          dt(class="type-stat-value type-stat-value--lg text-primary")= spotlightStat.value
+          dd(class="font-body text-base leading-relaxed text-ink-muted sm:text-lg")= spotlightStat.label
+
+        dl(class="grid grid-cols-1 gap-4 sm:grid-cols-3 lg:grid-cols-1")
+          each stat in secondaryStats
+            div(class="ui-tile flex flex-col gap-2 p-5 sm:p-6")
+              dt(class="type-stat-value text-primary")= stat.value
+              dd(class="font-body text-sm leading-relaxed text-ink-muted")= stat.label
+
+    when "band"
+      dl(class="grid grid-cols-2 gap-6 sm:grid-cols-4 sm:gap-8")
+        each stat in stats
+          div(class="flex flex-col gap-2 text-center sm:items-start sm:text-left")
+            dt(class="type-stat-value type-stat-value--lg text-current")= stat.value
+            dd(class="font-body text-sm leading-relaxed text-current opacity-80")= stat.label
+
+    when "tiles"
+      dl(class="grid w-full grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4")
+        each stat in stats
+          div(class="ui-tile flex flex-col gap-2 p-4 sm:p-5")
+            dt(class="type-stat-value type-stat-value--sm text-primary")= stat.value
+            dd(class="font-body text-sm leading-relaxed text-ink-muted")= stat.label
+
+    default
+      +statsItems(stats, { variant: "tiles" })

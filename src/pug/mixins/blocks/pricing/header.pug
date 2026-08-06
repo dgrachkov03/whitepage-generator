@@ -1,0 +1,42 @@
+include /mixins/ui/eyebrow.pug
+
+mixin pricingHeader(pricingData, options)
+  - options = options || {}
+  - const eyebrowVariant = resolveEyebrowVariant(options, pageAppearance)
+  - const align = options.align || "start"
+  - const headerClass = options.headerClass || (align === "center" ? "mx-auto flex max-w-2xl flex-col items-center gap-3 text-center sm:gap-4" : align === "split" ? "grid grid-cols-1 gap-4 lg:grid-cols-2 lg:items-end lg:gap-12" : "flex max-w-2xl flex-col items-start gap-3 sm:gap-4")
+  - const titleClass = options.titleClass || (align === "split" ? "max-w-xl type-section-title text-ink" : "type-section-title text-ink")
+  - const descriptionClass = options.descriptionClass || (align === "split" ? "max-w-xl font-body text-base leading-relaxed text-ink-muted sm:text-lg" : "font-body text-base leading-relaxed text-ink-muted sm:text-lg")
+
+  if align === "split"
+    header(class=headerClass)
+      div(class="flex flex-col items-start gap-3 sm:gap-4")
+        if pricingData.eyebrow
+          +eyebrow(pricingData.eyebrow, eyebrowVariant)
+
+        h2(
+          id="pricing-title"
+          class=titleClass
+        )= pricingData.title
+
+      if pricingData.description
+        p(class=descriptionClass)= pricingData.description
+  else
+    header(class=headerClass)
+      if pricingData.eyebrow
+        +eyebrow(pricingData.eyebrow, eyebrowVariant)
+
+      h2(
+        id="pricing-title"
+        class=titleClass
+      )= pricingData.title
+
+      if pricingData.description
+        p(class=descriptionClass)= pricingData.description
+
+mixin pricingNote(pricingData, options)
+  - options = options || {}
+  - const noteClass = options.noteClass || "font-body text-xs leading-relaxed text-ink-muted sm:text-sm"
+
+  if pricingData.note
+    p(class=noteClass)= pricingData.note

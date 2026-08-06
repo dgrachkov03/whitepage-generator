@@ -1,0 +1,23 @@
+.ui-link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 100% 100%;
+  background-size: 0 2px;
+  transition:
+    color 200ms ease,
+    background-size 200ms ease;
+}
+
+.ui-link:hover,
+.ui-link:focus-visible,
+.ui-link[aria-current="page"] {
+  color: var(--color-primary);
+  background-position: 0 100%;
+  background-size: 100% 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-link {
+    transition-duration: 0.01ms;
+  }
+}

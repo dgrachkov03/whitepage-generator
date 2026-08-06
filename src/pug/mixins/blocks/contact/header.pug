@@ -1,0 +1,21 @@
+include /mixins/ui/eyebrow.pug
+
+mixin contactHeader(contactData, options)
+  - options = options || {}
+  - const eyebrowVariant = resolveEyebrowVariant(options, pageAppearance)
+  - const align = options.align || "start"
+  - const headerClass = options.headerClass || (align === "center" ? "flex w-full max-w-2xl flex-col items-center gap-3 text-center sm:gap-4" : "flex max-w-2xl flex-col items-start gap-3 sm:gap-4")
+  - const titleClass = options.titleClass || "type-section-title text-ink"
+  - const descriptionClass = options.descriptionClass || "font-body text-base leading-relaxed text-ink-muted sm:text-lg"
+
+  header(class=headerClass)
+    if contactData.eyebrow
+      +eyebrow(contactData.eyebrow, eyebrowVariant)
+
+    h2(
+      id="contact-title"
+      class=titleClass
+    )= contactData.title
+
+    if contactData.description
+      p(class=[descriptionClass, align === "center" ? null : "max-w-xl"].filter(Boolean).join(" "))= contactData.description

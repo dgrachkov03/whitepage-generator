@@ -1,0 +1,28 @@
+include /mixins/blocks/faq/accordion-items.pug
+include /mixins/blocks/faq/header.pug
+
+- const faqData = site.faq || {}
+- const faqItems = faqData.items || []
+- const faqAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.faq : undefined
+
+if faqData.title && faqItems.length
+  section(
+    id="faq"
+    class=["py-section", blockClasses(faqAppearance)]
+    aria-labelledby="faq-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +faqHeader(faqData)
+
+      div(class="grid grid-cols-1 items-start gap-8 md:gap-10 md:grid-cols-2 lg:gap-16")
+        +faqAccordionItems(faqItems)
+
+        img(
+          class="aspect-4/5 h-auto w-full rounded-card object-cover shadow-card"
+          src=faqData.image || placeholder(640, 800)
+          alt=faqData.imageAlt || ""
+          width="640"
+          height="800"
+          loading="lazy"
+          decoding="async"
+        )

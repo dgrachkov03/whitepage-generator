@@ -1,0 +1,22 @@
+include /mixins/blocks/contact/header.pug
+include /mixins/blocks/contact/form.pug
+
+- const contactData = site.contact || {}
+- const formData = contactData.form || {}
+- const contactSectionId = contactData.sectionId || "contact"
+- const contactAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.contact : undefined
+
+if contactData.title && formData.label
+  section(
+    id=contactSectionId
+    class=["py-section", blockClasses(contactAppearance)]
+    aria-labelledby="contact-title"
+  )
+    div(class="flex justify-center px-4 sm:px-6 lg:px-8")
+      div(class="flex w-full max-w-5xl flex-col items-center gap-8 sm:gap-10 lg:gap-12")
+        +contactHeader(contactData, { align: "center" })
+
+        +contactForm(formData, {
+          layout: "stacked",
+          formClass: "ui-tile flex w-full max-w-4xl flex-col gap-5 p-5 sm:p-7 lg:p-10"
+        })

@@ -1,0 +1,31 @@
+@layer components {
+  .block-tone--surface {
+    background-color: var(--color-surface);
+  }
+
+  .block-tone--alt {
+    background-color: var(--color-surface-alt);
+  }
+
+  .block-tone--primary {
+    color: var(--color-ink-inverse);
+    background-color: var(--color-primary);
+  }
+
+  .block-tone--transparent {
+    background-color: transparent;
+  }
+
+  .block-divider--top {
+    border-top: 1px solid var(--color-border);
+  }
+
+  .block-divider--bottom {
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .block-divider--both {
+    border-top: 1px solid var(--color-border);
+    border-bottom: 1px solid var(--color-border);
+  }
+}

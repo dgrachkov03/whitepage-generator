@@ -1,0 +1,16 @@
+mixin featureMedia(media, options)
+  - options = options || {}
+  - const mediaWidth = media.width || options.width || 640
+  - const mediaHeight = media.height || options.height || 420
+  - const aspectClass = options.aspectClass || "aspect-3/2"
+  - const imageClass = options.imageClass || ""
+
+  img(
+    class=[aspectClass, "h-auto w-full object-cover", imageClass]
+    src=media.src || placeholder(mediaWidth, mediaHeight)
+    alt=media.alt || ""
+    width=mediaWidth
+    height=mediaHeight
+    loading="lazy"
+    decoding="async"
+  )

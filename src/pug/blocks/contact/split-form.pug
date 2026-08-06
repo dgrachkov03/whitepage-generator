@@ -1,0 +1,37 @@
+include /mixins/blocks/contact/header.pug
+include /mixins/blocks/contact/form.pug
+
+- const contactData = site.contact || {}
+- const contactInfo = site.contactInfo || {}
+- const contactDetails = contactInfo.items || []
+- const formData = contactData.form || {}
+- const contactSectionId = contactData.sectionId || "contact"
+- const contactAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.contact : undefined
+
+if contactData.title && formData.label
+  section(
+    id=contactSectionId
+    class=["py-section", blockClasses(contactAppearance)]
+    aria-labelledby="contact-title"
+  )
+    div(class="flex justify-center px-4 sm:px-6 lg:px-8")
+      div(class="grid w-full max-w-6xl grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-16")
+        div(class="flex flex-col items-start gap-6")
+          +contactHeader(contactData)
+
+          if contactDetails.length
+            dl(class="flex flex-col gap-4")
+              each detail in contactDetails
+                div(class="flex flex-col gap-1")
+                  dt(class="font-body text-sm font-semibold text-ink")= detail.label
+                  dd(class="font-body text-sm leading-relaxed text-ink-muted")
+                    if detail.href
+                      a(class="ui-link" href=detail.href)
+                        span= detail.text
+                    else
+                      = detail.text
+
+        +contactForm(formData, {
+          layout: "split-company-email",
+          formClass: "ui-tile flex w-full flex-col gap-5 self-start p-5 sm:p-6 lg:p-8"
+        })

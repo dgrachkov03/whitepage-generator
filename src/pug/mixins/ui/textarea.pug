@@ -1,0 +1,12 @@
+mixin textarea(options)
+  - options = options || {}
+
+  textarea(
+    id=options.id
+    name=options.name
+    class="ui-textarea"
+    rows=options.rows || 5
+    placeholder=options.placeholder
+    required=options.required
+    aria-describedby=options.describedBy
+  )&attributes(attributes)

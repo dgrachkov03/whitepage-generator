@@ -1,0 +1,64 @@
+@layer components {
+  [class*="block-pattern--"] {
+    position: relative;
+    isolation: isolate;
+  }
+
+  [class*="block-pattern--"]::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-repeat: repeat;
+  }
+
+  [class*="block-pattern--"] > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .block-pattern--subtle-grid::before {
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--color-ink) 9%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-ink) 9%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 2.75rem 2.75rem;
+  }
+
+  .block-pattern--dots::before {
+    background-image:
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--color-ink) 10%, transparent) 1.1px,
+        transparent 1.4px
+      ),
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--color-primary) 16%, transparent) 1.5px,
+        transparent 1.85px
+      );
+    background-position:
+      0 0,
+      0.75rem 0.75rem;
+    background-size:
+      1.5rem 1.5rem,
+      6rem 6rem;
+  }
+
+  .block-pattern--diamond::before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpath d='M0 0 H44 M0 0 V44' fill='none' stroke='%23000' stroke-opacity='0.1' stroke-width='1'/%3E%3Cpath d='M22 7 37 22 22 37 7 22Z' fill='none' stroke='%23000' stroke-opacity='0.08' stroke-width='1'/%3E%3C/svg%3E");
+    background-size: 2.75rem 2.75rem;
+  }
+
+  .page-background--strong-borders [class*="block-pattern--"] {
+    --color-border: color-mix(in srgb, var(--color-ink) 22%, transparent);
+    --color-border-strong: color-mix(in srgb, var(--color-ink) 36%, transparent);
+  }
+}

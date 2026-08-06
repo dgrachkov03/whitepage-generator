@@ -1,0 +1,32 @@
+mixin legalIntro(legalPage)
+  header(class="legal-document__intro")
+    if legalPage.eyebrow
+      p(class="type-eyebrow--wide text-ink-muted")= legalPage.eyebrow
+
+    h1#legal-document-title(class="type-hero-title text-ink")= legalPage.title
+
+    if legalPage.updated
+      p(class="legal-updated")= legalPage.updated
+
+mixin legalIntroCompact(legalPage)
+  header(class="legal-document__intro legal-document__intro--compact")
+    if legalPage.eyebrow || legalPage.updated
+      div(class="legal-document__intro-meta")
+        if legalPage.eyebrow
+          p(class="type-eyebrow--wide text-ink-muted")= legalPage.eyebrow
+
+        if legalPage.updated
+          p(class="legal-updated legal-updated--plain")= legalPage.updated
+
+    h1#legal-document-title(class="type-hero-title text-ink")= legalPage.title
+
+mixin legalIntroSplit(legalPage)
+  header(class="legal-document__intro legal-document__intro--split")
+    div(class="legal-document__intro-grid")
+      if legalPage.eyebrow
+        p(class="legal-document__intro-eyebrow type-eyebrow--wide text-ink-muted")= legalPage.eyebrow
+
+      h1#legal-document-title(class="legal-document__intro-title type-hero-title text-ink")= legalPage.title
+
+      if legalPage.updated
+        p(class="legal-document__intro-date legal-updated legal-updated--plain")= legalPage.updated

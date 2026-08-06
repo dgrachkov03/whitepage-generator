@@ -1,0 +1,72 @@
+@import "tailwindcss";
+@import "./components/accordion.css";
+@import "./components/consent-banner.css";
+@import "./components/header.css";
+@import "./components/hero.css";
+@import "./components/process.css";
+@import "./components/legal-document.css";
+@import "./layout/backgrounds.css";
+@import "./layout/block-appearance.css";
+@import "./layout/block-patterns.css";
+@import "./layout/strong-borders.css";
+@import "./layout/typography.css";
+@import "./ui/badge.css";
+@import "./ui/controls.css";
+@import "./ui/actions.css";
+@import "./ui/forms.css";
+@import "./ui/icons.css";
+@import "./ui/links.css";
+@import "./ui/surfaces.css";
+
+@theme {
+  --color-primary: var(--design-primary);
+  --color-primary-hover: var(--design-primary-hover);
+  --color-secondary: var(--design-secondary);
+  --color-accent: var(--design-accent);
+
+  --color-surface: var(--design-surface);
+  --color-surface-alt: var(--design-surface-alt);
+
+  --color-ink: var(--design-ink);
+  --color-ink-muted: var(--design-ink-muted);
+  --color-ink-inverse: var(--design-ink-inverse);
+  --color-border: var(--design-border);
+  --color-border-strong: var(--design-border-strong);
+  --color-hero-on-photo: var(--design-hero-on-photo);
+
+  --font-display: var(--site-font-display);
+  --font-body: var(--site-font-body);
+  --font-mono: var(--site-font-mono);
+  --font-weight-display-heading: var(
+    --site-font-display-heading-weight,
+    700
+  );
+  --font-weight-display-subtitle: var(
+    --site-font-display-subtitle-weight,
+    600
+  );
+
+  --radius-card: var(--design-radius);
+  --radius-button: var(--design-radius);
+
+  --shadow-card: var(--design-shadow-card);
+
+  --spacing-section: var(--design-spacing-section);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    color: var(--color-ink);
+    background-color: var(--color-surface);
+  }
+}

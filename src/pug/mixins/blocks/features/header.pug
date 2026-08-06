@@ -1,0 +1,35 @@
+include /mixins/ui/eyebrow.pug
+
+mixin featuresHeader(featuresData, options)
+  - options = options || {}
+  - const eyebrowVariant = resolveEyebrowVariant(options, pageAppearance)
+  - const align = options.align || "start"
+  - const headerClass = options.headerClass || (align === "center" ? "mx-auto flex max-w-2xl flex-col items-center gap-3 text-center sm:gap-4" : align === "split" ? "grid grid-cols-1 gap-4 lg:grid-cols-2 lg:items-end lg:gap-12" : "flex max-w-2xl flex-col items-start gap-3 sm:gap-4")
+  - const titleClass = options.titleClass || (align === "split" ? "max-w-xl type-section-title text-ink" : "type-section-title text-ink")
+  - const descriptionClass = options.descriptionClass || (align === "split" ? "max-w-xl font-body text-base leading-relaxed text-ink-muted sm:text-lg" : "font-body text-base leading-relaxed text-ink-muted sm:text-lg")
+
+  if align === "split"
+    header(class=headerClass)
+      div(class="flex flex-col items-start gap-3 sm:gap-4")
+        if featuresData.eyebrow
+          +eyebrow(featuresData.eyebrow, eyebrowVariant)
+
+        h2(
+          id="features-title"
+          class=titleClass
+        )= featuresData.title
+
+      if featuresData.description
+        p(class=descriptionClass)= featuresData.description
+  else
+    header(class=headerClass)
+      if featuresData.eyebrow
+        +eyebrow(featuresData.eyebrow, eyebrowVariant)
+
+      h2(
+        id="features-title"
+        class=titleClass
+      )= featuresData.title
+
+      if featuresData.description
+        p(class=descriptionClass)= featuresData.description

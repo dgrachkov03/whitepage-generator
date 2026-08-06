@@ -1,0 +1,9 @@
+mixin aboutParagraphs(paragraphs, options)
+  - options = options || {}
+  - const align = options.align || "start"
+  - const containerClass = options.containerClass || (align === "center" ? "flex max-w-2xl flex-col gap-4 text-center" : "flex flex-col gap-4")
+  - const paragraphClass = options.paragraphClass || "font-body text-base leading-relaxed text-ink-muted"
+
+  div(class=containerClass)
+    each paragraph in paragraphs
+      p(class=paragraphClass)= paragraph

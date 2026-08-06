@@ -1,0 +1,16 @@
+---
+description: Modern layout conventions for project styles and Pug templates
+globs: "src/**/*.{css,pug}"
+alwaysApply: false
+---
+
+# Layout conventions
+
+- Prefer normal document flow with Flexbox or Grid for component layout.
+- Use `gap` for spacing between siblings instead of margins.
+- Use `display: contents` when wrappers are needed for semantics or JS but should not affect layout.
+- Prefer responsive, content-driven sizing (`minmax`, `auto`, intrinsic sizes) over fixed offsets.
+- Avoid absolute positioning, negative margins, and manual spacer elements for regular layout.
+- Use `position: absolute` or `fixed` only for genuine overlays, drawers, decorative layers, and controls that must leave normal flow.
+- Keep mobile layouts simple and flow-based; progressively enhance them at larger breakpoints.
+- Preserve semantic HTML, keyboard access, reduced-motion support, and readable DOM order.

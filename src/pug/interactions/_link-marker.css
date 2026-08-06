@@ -1,0 +1,38 @@
+.ui-link {
+  transition: color 200ms ease;
+}
+
+.ui-link::before {
+  flex: none;
+  width: 0;
+  height: 2px;
+  margin-right: 0;
+  background-color: var(--color-primary);
+  content: "";
+  opacity: 0;
+  transition:
+    width 200ms ease,
+    margin-right 200ms ease,
+    opacity 200ms ease;
+}
+
+.ui-link:hover,
+.ui-link:focus-visible,
+.ui-link[aria-current="page"] {
+  color: var(--color-primary);
+}
+
+.ui-link:hover::before,
+.ui-link:focus-visible::before,
+.ui-link[aria-current="page"]::before {
+  width: 0.5rem;
+  margin-right: 0.25rem;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-link,
+  .ui-link::before {
+    transition-duration: 0.01ms;
+  }
+}

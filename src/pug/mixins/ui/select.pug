@@ -1,0 +1,13 @@
+mixin selectField(options)
+  - options = options || {}
+
+  select(
+    id=options.id
+    name=options.name
+    class="ui-select"
+    required=options.required
+    aria-describedby=options.describedBy
+  )&attributes(attributes)
+    option(value="" disabled selected)= options.placeholder
+    each option in options.options
+      option(value=option.value)= option.text

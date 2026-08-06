@@ -1,0 +1,41 @@
+include /mixins/ui/eyebrow.pug
+include /mixins/ui/link-button.pug
+
+mixin heroContent(hero, options)
+  - options = options || {}
+  - const titleId = options.titleId || "hero-title"
+  - const eyebrowVariant = options.onPhoto ? "photo" : resolveEyebrowVariant(options, pageAppearance)
+  - const primaryVariant = options.primaryVariant || "primary"
+  - const secondaryVariant = options.secondaryVariant || "secondary"
+  - const iconSet = options.iconSet || "lucide"
+  - const hasActions = (hero.ctaText && hero.ctaLink) || (hero.secondaryCtaText && hero.secondaryCtaLink)
+
+  div(class=options.rootClass)
+    if hero.eyebrow
+      +eyebrow(hero.eyebrow, eyebrowVariant)
+
+    h1(id=titleId class=options.titleClass)= hero.title
+
+    if hero.subtitle
+      p(class=options.subtitleClass)= hero.subtitle
+
+    if hero.description
+      p(class=options.descriptionClass)= hero.description
+
+    if hasActions
+      div(class=options.actionsClass)
+        if hero.ctaText && hero.ctaLink
+          +linkButton(hero.ctaText, hero.ctaLink, {
+            variant: primaryVariant,
+            icon: hero.ctaIcon,
+            iconPosition: hero.ctaIconPosition,
+            iconSet: iconSet
+          })
+
+        if hero.secondaryCtaText && hero.secondaryCtaLink
+          +linkButton(hero.secondaryCtaText, hero.secondaryCtaLink, {
+            variant: secondaryVariant,
+            icon: hero.secondaryCtaIcon,
+            iconPosition: hero.secondaryCtaIconPosition,
+            iconSet: iconSet
+          })

@@ -1,0 +1,23 @@
+- const topbarData = site.topbar || {}
+- const topbarAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.topbar : undefined
+
+if topbarData.message
+  aside(
+    class=blockClasses(topbarAppearance)
+    aria-label=topbarData.label
+  )
+    div(class="mx-auto grid max-w-6xl items-center gap-3 px-4 py-2.5 font-body text-xs leading-relaxed sm:px-6 md:grid-cols-[minmax(0,1fr)_auto] lg:px-8")
+      p(class="flex items-center gap-1.5 text-center md:text-left")
+        if topbarData.icon
+          span(
+            class="inline-flex size-4 shrink-0 text-current"
+            aria-hidden="true"
+          )!= libraryIcon(topbarData.icon, topbarData.iconSet)
+
+        span= topbarData.message
+
+      if topbarData.actionText && topbarData.actionLink
+        a(
+          class="inline-flex min-h-8 shrink-0 items-center justify-center self-center rounded-button border border-current/25 px-3 py-1 font-semibold text-current transition-opacity hover:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current md:justify-self-end"
+          href=topbarData.actionLink
+        )= topbarData.actionText

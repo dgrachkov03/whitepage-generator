@@ -1,0 +1,29 @@
+include /mixins/ui/badge.pug
+
+mixin eyebrow(text, variant)
+  if isEyebrowEnabled(pageAppearance)
+    - variant = variant != null && variant !== "" ? variant : resolveEyebrowVariant({}, pageAppearance)
+
+    case variant
+      when 'dot'
+        span(class="type-eyebrow inline-flex items-center gap-1 text-primary sm:gap-1.5")
+          span(class="size-1 shrink-0 rounded-full bg-primary sm:size-1.5")
+          = text
+      when 'badge'
+        +badge(text, { variant: "primary" })
+      when 'photo'
+        span(class="type-eyebrow type-eyebrow--wide inline-flex items-center gap-3 text-hero-on-photo/80 sm:gap-4")
+          span(class="h-0.25 w-6 shrink-0 rounded-full bg-hero-on-photo/80 sm:h-0.5 sm:w-10" aria-hidden="true")
+          = text
+      when 'inverse'
+        span(class="type-eyebrow type-eyebrow--wide inline-flex items-center gap-3 text-current opacity-80 sm:gap-4")
+          span(class="h-0.25 w-6 shrink-0 rounded-full bg-current opacity-80 sm:h-0.5 sm:w-10" aria-hidden="true")
+          = text
+      when 'line'
+        span(class="type-eyebrow type-eyebrow--wide inline-flex items-center gap-3 text-primary sm:gap-4")
+          span(class="h-0.25 w-6 shrink-0 rounded-full bg-primary sm:h-0.5 sm:w-10" aria-hidden="true")
+          = text
+      default
+        span(class="type-eyebrow type-eyebrow--wide inline-flex items-center gap-3 text-primary sm:gap-4")
+          span(class="h-0.25 w-6 shrink-0 rounded-full bg-primary sm:h-0.5 sm:w-10" aria-hidden="true")
+          = text

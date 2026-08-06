@@ -1,0 +1,56 @@
+include /mixins/blocks/contact/header.pug
+include /mixins/blocks/contact/form.pug
+
+- const contactData = site.contact || {}
+- const contactDetails = site.contactInfo?.items || []
+- const contactBenefits = contactData.benefits || []
+- const formData = contactData.form || {}
+- const contactSectionId = contactData.sectionId || "contact"
+- const contactAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.contact : undefined
+
+if contactData.title && formData.label
+  section(
+    id=contactSectionId
+    class=["py-section", blockClasses(contactAppearance)]
+    aria-labelledby="contact-title"
+  )
+    div(class="flex justify-center px-4 sm:px-6 lg:px-8")
+      div(class="grid w-full max-w-6xl grid-cols-1 items-start gap-8 sm:gap-10 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.9fr)] lg:gap-16")
+        +contactForm(formData, {
+          layout: "stacked",
+          formClass: "ui-tile order-2 flex w-full flex-col gap-5 self-start p-5 sm:p-6 lg:order-none lg:p-8"
+        })
+
+        div(class="contents lg:col-start-2 lg:block lg:flex lg:flex-col lg:gap-7")
+          +contactHeader(contactData, {
+            headerClass: "order-1 flex flex-col items-start gap-3 sm:gap-4 lg:order-none"
+          })
+
+          div(class="order-3 flex flex-col items-start gap-7 lg:order-none")
+            if contactDetails.length
+              address(class="not-italic")
+                dl(class="grid grid-cols-1 gap-4 sm:grid-cols-2")
+                  each detail in contactDetails
+                    div(class="grid grid-cols-[auto_1fr] items-start gap-3")
+                      if detail.icon
+                        span(
+                          class="inline-flex size-10 items-center justify-center rounded-button bg-surface-alt text-xl text-primary"
+                          aria-hidden="true"
+                        )!= libraryIcon(detail.icon, contactData.iconSet)
+
+                      div(class=detail.icon ? null : "col-start-2")
+                        dt(class="font-body text-sm font-semibold text-ink")= detail.label
+                        dd(class="font-body text-sm leading-relaxed text-ink-muted")
+                          if detail.href
+                            a(class="ui-link" href=detail.href)
+                              span= detail.text
+                          else
+                            = detail.text
+
+            if contactBenefits.length
+              ul(class="flex flex-wrap gap-2")
+                each benefit in contactBenefits
+                  li(class="inline-flex items-center gap-2 rounded-button bg-surface-alt px-3 py-2 font-body text-xs font-semibold text-ink")
+                    if benefit.icon
+                      span(class="inline-flex size-4 text-primary" aria-hidden="true")!= libraryIcon(benefit.icon, contactData.iconSet)
+                    span= benefit.text

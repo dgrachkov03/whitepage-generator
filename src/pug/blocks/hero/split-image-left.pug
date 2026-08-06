@@ -1,0 +1,28 @@
+include /mixins/blocks/hero/content.pug
+
+- const heroIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const heroAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.hero : undefined
+
+section(id="hero" class=["py-section", blockClasses(heroAppearance)])
+  div(class="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8")
+    div(class="grid grid-cols-1 items-center gap-8 md:grid-cols-2 md:gap-10 lg:gap-12")
+
+      .relative
+        img(
+          class="h-auto w-full rounded-card shadow-card"
+          src=site.hero.image || placeholder(600, 400)
+          alt=site.hero.imageAlt || ""
+          width="600"
+          height="400"
+          decoding="async"
+          fetchpriority="high"
+        )
+
+      +heroContent(site.hero, {
+        rootClass: "flex flex-col items-start gap-4 sm:gap-5 lg:gap-6",
+        titleClass: "type-hero-title text-ink",
+        subtitleClass: "type-card-title text-ink",
+        descriptionClass: "font-body text-base text-ink-muted sm:text-lg",
+        actionsClass: "flex w-full flex-col gap-3 pt-2 sm:w-auto sm:flex-row sm:gap-4",
+        iconSet: heroIconSet
+      })

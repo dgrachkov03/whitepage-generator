@@ -1,0 +1,23 @@
+include /mixins/blocks/reviews/header.pug
+include /mixins/blocks/reviews/card.pug
+
+- const reviewsData = site.reviews || {}
+- const reviewItems = reviewsData.items || []
+- const reviewsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.reviews : undefined
+
+if reviewsData.title && reviewItems.length
+  section(
+    id="reviews"
+    class=["py-section", blockClasses(reviewsAppearance)]
+    aria-labelledby="reviews-title"
+  )
+    div(class="mx-auto flex max-w-5xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:px-8")
+      +reviewsHeader(reviewsData)
+
+      ul(class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-5")
+        each review in reviewItems
+          li
+            +reviewCard(review)
+
+      if reviewsData.note
+        p(class="font-body text-xs leading-relaxed text-ink-muted")= reviewsData.note

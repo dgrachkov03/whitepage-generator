@@ -1,0 +1,14 @@
+mixin button(text, options)
+  - options = options || {}
+  - const variants = ['primary', 'secondary', 'inverse']
+  - const variant = variants.includes(options.variant) ? options.variant : 'primary'
+  - const icon = options.icon || null
+  - const iconSet = options.iconSet || (typeof site !== "undefined" && site.design && site.design.iconSet) || "lucide"
+
+  button(
+    type=options.type || 'button'
+    class=["ui-action", `ui-action--${variant}`]
+  )&attributes(attributes)
+    span= text
+    if icon
+      span.ui-action__icon(aria-hidden="true")!= libraryIcon(icon, iconSet)

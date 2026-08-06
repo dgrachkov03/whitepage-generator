@@ -1,0 +1,10 @@
+mixin featureIcon(item, iconSet, index, options)
+  - options = options || {}
+  - const sizeClass = options.sizeClass || "size-11"
+  - const wrapperClass = options.wrapperClass || `inline-flex ${sizeClass} shrink-0 items-center justify-center rounded-button bg-surface-alt text-primary`
+
+  span(class=wrapperClass aria-hidden="true")
+    if item.icon
+      != libraryIcon(item.icon, iconSet)
+    else
+      = String(index + 1).padStart(2, "0")

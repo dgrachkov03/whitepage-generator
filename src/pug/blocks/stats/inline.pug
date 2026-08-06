@@ -1,0 +1,17 @@
+include /mixins/blocks/stats/header.pug
+include /mixins/blocks/stats/items.pug
+
+- const statsData = site.stats || {}
+- const statsItems = statsData.stats || []
+- const statsSectionId = statsData.sectionId || "stats"
+- const statsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.stats : undefined
+
+if statsData.title && statsItems.length
+  section(
+    id=statsSectionId
+    class=["py-section", blockClasses(statsAppearance)]
+    aria-labelledby="stats-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +statsHeader(statsData)
+      +statsItems(statsItems, { variant: "inline" })

@@ -1,0 +1,25 @@
+@layer components {
+  .ui-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    line-height: 1.5;
+    text-decoration: none;
+  }
+
+  .ui-link:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 4px;
+  }
+
+  .ui-link--accent-bar {
+    font-weight: 500;
+    background-image: none;
+  }
+
+  .ui-link--accent-bar > span {
+    border-bottom: 2px solid var(--color-primary);
+  }
+}

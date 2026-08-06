@@ -1,0 +1,13 @@
+mixin field(label, id, options)
+  - options = options || {}
+
+  div(class="ui-field")
+    label(class="ui-field__label" for=id)
+      = label
+      if options.required
+        span(aria-hidden="true")= " *"
+
+    block
+
+    if options.hint
+      span(class="ui-field__hint" id=`${id}-hint`)= options.hint

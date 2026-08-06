@@ -1,0 +1,6 @@
+mixin badge(text, options)
+  - options = options || {}
+  - const variants = ["primary", "accent", "inverse"]
+  - const variant = variants.includes(options.variant) ? options.variant : "accent"
+
+  span(class=["ui-badge", `ui-badge--${variant}`])&attributes(attributes)= text

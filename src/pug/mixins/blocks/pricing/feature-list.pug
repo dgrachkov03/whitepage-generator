@@ -1,0 +1,25 @@
+mixin pricingFeatureList(features, options)
+  - options = options || {}
+  - const listClass = options.listClass || "flex flex-col gap-3"
+  - const itemClass = options.itemClass || "grid grid-cols-[auto_1fr] items-start gap-3"
+  - const textClass = options.textClass || "font-body text-sm leading-relaxed text-ink-muted sm:text-base"
+  - const iconIncludedClass = options.iconIncludedClass || "text-primary"
+  - const iconSet = options.iconSet || "lucide"
+
+  ul(class=listClass role="list")
+    each feature in features
+      - const included = feature.included !== false
+      li(class=itemClass)
+        span(
+          class=[
+            "inline-flex size-5 shrink-0 items-center justify-center sm:size-6",
+            included ? iconIncludedClass : "text-ink/25"
+          ]
+          aria-hidden="true"
+        )
+          if included
+            != libraryIcon("circle-check", iconSet)
+          else
+            != libraryIcon("minus", iconSet)
+
+        span(class=[textClass, !included ? "text-ink/45 line-through" : null])= feature.text

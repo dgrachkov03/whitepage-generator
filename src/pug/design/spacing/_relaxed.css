@@ -1,0 +1,15 @@
+:root {
+  --design-spacing-section: 3rem;
+}
+
+@media (min-width: 40rem) {
+  :root {
+    --design-spacing-section: 4rem;
+  }
+}
+
+@media (min-width: 64rem) {
+  :root {
+    --design-spacing-section: 6rem;
+  }
+}

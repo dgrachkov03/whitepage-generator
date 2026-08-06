@@ -1,0 +1,14 @@
+@layer components {
+  .process-timeline-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (min-width: 64rem) {
+    .process-timeline-grid {
+      grid-template-columns: repeat(
+        var(--process-columns),
+        minmax(0, 1fr)
+      );
+    }
+  }
+}

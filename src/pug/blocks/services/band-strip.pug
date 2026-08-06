@@ -1,0 +1,56 @@
+include /mixins/blocks/services/header.pug
+include /mixins/blocks/services/meta.pug
+include /mixins/ui/link-button.pug
+
+- const servicesData = site.services || {}
+- const serviceItems = servicesData.items || []
+- const servicesIconSet = servicesData.iconSet || site.design?.iconSet || "lucide"
+- const servicesAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.services : undefined
+
+if servicesData.title && serviceItems.length
+  section(
+    id="services"
+    class=["py-section", blockClasses(servicesAppearance)]
+    aria-labelledby="services-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +servicesHeader(servicesData, { align: "center" })
+
+      ul(class="flex flex-col overflow-hidden rounded-card border border-ink/10" role="list")
+        each item, index in serviceItems
+          li(
+            class=[
+              index % 2 === 0 ? "bg-surface-alt/50" : "bg-surface",
+              index < serviceItems.length - 1 ? "border-b border-ink/10" : null
+            ]
+          )
+            article(
+              class="mx-auto grid max-w-6xl grid-cols-1 gap-5 px-4 py-6 sm:grid-cols-[minmax(0,1.2fr)_auto_auto] sm:items-center sm:gap-6 sm:px-6 sm:py-7 lg:gap-10"
+              aria-label=item.title
+            )
+              div(class="flex min-w-0 items-start gap-4")
+                if item.icon
+                  span(
+                    class="inline-flex size-11 shrink-0 items-center justify-center rounded-button bg-surface-alt text-xl text-primary"
+                    aria-hidden="true"
+                  )!= libraryIcon(item.icon, servicesIconSet)
+
+                div(class="flex min-w-0 flex-col gap-2")
+                  h3(class="type-card-title text-ink")= item.title
+
+                  p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= item.description
+
+                  if item.highlights && item.highlights.length
+                    ul(class="flex flex-wrap gap-2 pt-1" role="list")
+                      each highlight in item.highlights.slice(0, 3)
+                        li(
+                          class="rounded-button bg-surface-alt px-2.5 py-1 font-body text-[0.6875rem] text-ink-muted sm:text-xs"
+                        )= highlight
+
+              +serviceMeta(item, {
+                metaClass: "flex flex-wrap items-center gap-x-2 gap-y-1 font-body text-sm text-ink-muted sm:justify-end sm:text-right"
+              })
+
+              +linkButton(item.ctaText, item.ctaLink, {
+                variant: item.ctaVariant || "secondary"
+              })(class="w-full justify-center sm:w-auto")

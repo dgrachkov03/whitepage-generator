@@ -1,0 +1,41 @@
+include /mixins/blocks/legal/intro.pug
+include /mixins/blocks/legal/sections.pug
+
+- const legalSections = legalPage.sections || []
+- const legalSectionGroups = groupLegalSectionsByH2(legalSections)
+- const legalTocItems = legalSectionGroups.filter((group) => group.heading).map((group) => ({ text: group.heading.text, id: legalSectionSlug(group.heading.text) }))
+
+if !legalPage.title
+  throw new Error("Legal document requires legalPage.title")
+
+article(class="legal-document legal-document--indexed" aria-labelledby="legal-document-title")
+  +legalIntro(legalPage)
+
+  div(class="legal-document__layout")
+    if legalTocItems.length
+      nav(class="legal-document__toc" aria-label="Table des matières")
+        p(class="legal-document__toc-label type-eyebrow--wide text-ink-muted") Sommaire
+        ol(class="legal-document__toc-list" role="list")
+          each item in legalTocItems
+            li
+              a(class="legal-document__toc-link" href=`#${item.id}`)= item.text
+
+    div(class="legal-document__content")
+      each group in legalSectionGroups
+        if group.heading
+          - const sectionId = legalSectionSlug(group.heading.text)
+          section(
+            id=sectionId
+            class="legal-document__section"
+            aria-labelledby=`${sectionId}-title`
+          )
+            h2(
+              id=`${sectionId}-title`
+              class="legal-section-title"
+            )= group.heading.text
+
+            div(class="legal-document__body")
+              +legalSections(group.sections)
+        else
+          div(class="legal-document__body legal-document__body--lead")
+            +legalSections(group.sections)

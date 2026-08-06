@@ -1,0 +1,60 @@
+mixin legalSection(section)
+  case section.type
+    when "paragraph"
+      p= section.text
+
+    when "heading"
+      if section.level === 3
+        h3(class="legal-subsection-title")= section.text
+      else
+        h2(class="legal-section-title")= section.text
+
+    when "list"
+      if section.ordered
+        ol
+          each item in section.items
+            li= item
+      else
+        ul
+          each item in section.items
+            li= item
+
+    when "definitionList"
+      div(class="legal-card")
+        dl(class="legal-card__list")
+          each item in section.items
+            dt(class="legal-card__term")= item.term
+            dd(class="legal-card__definition")
+              if item.href
+                a(href=item.href)= item.definition
+              else
+                = item.definition
+
+    when "table"
+      div(class="legal-table-wrap")
+        table(class="legal-table")
+          if section.caption
+            caption= section.caption
+          thead
+            tr
+              each headerCell in section.headers
+                th(scope="col")= headerCell
+          tbody
+            each row in section.rows
+              tr
+                each cell in row
+                  td= cell
+
+    when "note"
+      div(class="legal-note" role="note")
+        if section.title
+          strong= section.title
+          | 
+        = section.text
+
+    default
+      - throw new Error(`Unknown legal section type: ${section.type}`)
+
+mixin legalSections(sections)
+  each section in sections || []
+    +legalSection(section)

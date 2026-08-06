@@ -1,0 +1,225 @@
+@layer components {
+  .page-background {
+    min-height: 100vh;
+    background-color: var(--color-surface);
+  }
+
+  .page-background--none {
+    background-image: none;
+  }
+
+  .page-background--subtle-grid {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .page-background--subtle-grid::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-color: var(--color-surface);
+    background-image:
+      linear-gradient(
+        color-mix(in srgb, var(--color-ink) 9%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        90deg,
+        color-mix(in srgb, var(--color-ink) 9%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 2.75rem 2.75rem;
+  }
+
+  .page-background--subtle-grid > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Base sections stay transparent so the fixed grid stays visible. */
+  .page-background--subtle-grid .block-tone--surface:not(.is-scrolled) {
+    background-color: transparent;
+  }
+
+  /* Alternate sections scroll as solid bands over the fixed grid. */
+  .page-background--subtle-grid .block-tone--alt {
+    background-color: var(--color-surface-alt);
+    background-image: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-background--subtle-grid::before {
+      position: absolute;
+      height: 100%;
+    }
+  }
+
+  .page-background--block-glow .block-tone--surface {
+    background-color: var(--color-surface);
+  }
+
+  .page-background--block-glow .block-tone--alt {
+    background-color: var(--color-surface-alt);
+    background-image: radial-gradient(
+      40rem 30rem at 100% 0%,
+      color-mix(in srgb, var(--color-primary) 20%, transparent) 0%,
+      transparent 68%
+    );
+    background-repeat: no-repeat;
+  }
+
+  .page-background--mesh-blocks .block-tone--surface {
+    background-color: var(--color-surface);
+  }
+
+  .page-background--mesh-blocks .block-tone--alt {
+    background-color: var(--color-surface-alt);
+    background-image:
+      radial-gradient(
+        32rem 24rem at 0% 0%,
+        color-mix(in srgb, var(--color-primary) 18%, transparent) 0%,
+        transparent 70%
+      ),
+      radial-gradient(
+        28rem 22rem at 100% 100%,
+        color-mix(in srgb, var(--color-accent) 14%, transparent) 0%,
+        transparent 68%
+      );
+    background-repeat: no-repeat;
+  }
+
+  .page-background--gradient {
+    background-image:
+      radial-gradient(
+        60rem 45rem at 8% 0%,
+        color-mix(
+            in oklab,
+            var(--design-gradient-primary, var(--color-primary))
+              var(--design-gradient-primary-strength, 38%),
+            transparent
+          )
+          0%,
+        transparent 72%
+      ),
+      radial-gradient(
+        55rem 40rem at 100% 35%,
+        color-mix(
+            in oklab,
+            var(--design-gradient-secondary, var(--color-accent))
+              var(--design-gradient-secondary-strength, 32%),
+            transparent
+          )
+          0%,
+        transparent 72%
+      ),
+      radial-gradient(
+        50rem 38rem at 15% 92%,
+        color-mix(
+            in oklab,
+            var(--design-gradient-accent, var(--color-secondary))
+              var(--design-gradient-accent-strength, 26%),
+            transparent
+          )
+          0%,
+        transparent 75%
+      );
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+
+  .page-background--dots-on-alt .block-tone--surface {
+    background-color: var(--color-surface);
+  }
+
+  .page-background--dots-on-base .block-tone--alt {
+    background-color: var(--color-surface-alt);
+  }
+
+  .page-background--dots-on-alt .block-tone--alt,
+  .page-background--dots-on-base .block-tone--surface {
+    background-image:
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--color-ink) 10%, transparent) 1.1px,
+        transparent 1.4px
+      ),
+      radial-gradient(
+        circle,
+        color-mix(in srgb, var(--color-primary) 16%, transparent) 1.5px,
+        transparent 1.85px
+      );
+    background-position:
+      0 0,
+      0.75rem 0.75rem;
+    background-repeat: repeat;
+    background-size:
+      1.5rem 1.5rem,
+      6rem 6rem;
+  }
+
+  .page-background--dots-on-alt .block-tone--alt {
+    background-color: var(--color-surface-alt);
+  }
+
+  .page-background--dots-on-base .block-tone--surface {
+    background-color: var(--color-surface);
+  }
+
+  .page-background--gradient .block-tone--surface {
+    background-color: color-mix(
+      in srgb,
+      var(--color-surface) 48%,
+      transparent
+    );
+  }
+
+  .page-background--gradient .block-tone--alt {
+    background-color: color-mix(
+      in srgb,
+      var(--color-surface-alt) 56%,
+      transparent
+    );
+  }
+
+  .page-background--gradient .block-tone--primary {
+    background-color: color-mix(
+      in srgb,
+      var(--color-primary) 86%,
+      transparent
+    );
+  }
+
+  .page-background--gradient .block-surface--transparent {
+    background-color: transparent;
+  }
+
+  .page-background--gradient .block-surface--solid.block-tone--surface {
+    background-color: var(--color-surface);
+  }
+
+  .page-background--gradient .block-surface--solid.block-tone--alt {
+    background-color: var(--color-surface-alt);
+  }
+
+  .page-background--gradient .block-surface--solid.block-tone--primary {
+    background-color: var(--color-primary);
+  }
+
+  .page-background--subtle-grid > header.site-header.site-header--sticky.is-scrolled.block-tone--surface,
+  .page-background--subtle-grid > header.site-header.site-header--sticky.is-scrolled.block-tone--transparent {
+    background-color: var(--color-surface);
+    box-shadow: 0 1px 0 var(--color-border);
+  }
+
+  .page-background--subtle-grid > header.site-header.site-header--sticky.is-scrolled.block-tone--alt {
+    background-color: var(--color-surface-alt);
+    box-shadow: 0 1px 0 var(--color-border);
+  }
+
+  .page-background--subtle-grid > header.site-header.site-header--sticky.is-scrolled.block-tone--primary {
+    background-color: var(--color-primary);
+    box-shadow: 0 1px 0 var(--color-border);
+  }
+}

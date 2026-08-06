@@ -1,0 +1,21 @@
+:root {
+  --design-type-hero: clamp(1.625rem, 2vw + 0.875rem, 2.5rem);
+  --design-type-hero-display: clamp(2rem, 3.25vw + 0.875rem, 3.25rem);
+  --design-type-section: clamp(1.625rem, 1.75vw + 0.875rem, 2rem);
+  --design-type-section-wide: clamp(1.625rem, 2vw + 0.875rem, 2.5rem);
+  --design-type-subtitle: clamp(1.125rem, 1.25vw + 0.625rem, 1.375rem);
+  --design-type-card: clamp(1rem, 0.75vw + 0.75rem, 1.125rem);
+  --design-type-card-lg: clamp(1.125rem, 1.25vw + 0.625rem, 1.625rem);
+  --design-type-stat: clamp(1.625rem, 1.75vw + 0.875rem, 2rem);
+  --design-type-stat-lg: clamp(2rem, 2.5vw + 0.875rem, 2.75rem);
+  --design-type-stat-sm: clamp(1.375rem, 1.25vw + 0.625rem, 1.625rem);
+  --design-type-brand: clamp(1rem, 0.75vw + 0.75rem, 1.125rem);
+  --design-type-body: 0.9375rem;
+  --design-type-body-lg: 1rem;
+  --design-leading-hero: 1.08;
+  --design-leading-hero-display: 1.02;
+  --design-leading-section: 1.12;
+  --design-leading-subtitle: 1.325;
+  --design-leading-body: 1.55;
+  --design-leading-card: 1.325;
+}

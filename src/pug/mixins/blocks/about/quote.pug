@@ -1,0 +1,28 @@
+mixin aboutQuote(quote, options)
+  - options = options || {}
+  - const panelClass = options.panelClass || "flex min-h-full flex-col justify-center gap-5 rounded-card bg-primary p-6 text-ink-inverse shadow-card sm:p-8 lg:p-10"
+
+  figure(class=panelClass)
+    blockquote(class="font-display text-2xl leading-snug text-current sm:text-3xl lg:text-4xl")
+      p= `“${quote.text}”`
+
+    if quote.author || quote.role || quote.photo
+      figcaption(class="flex items-center gap-3")
+        if quote.photo
+          img(
+            class="size-10 shrink-0 rounded-full object-cover ring-2 ring-current/20 sm:size-11"
+            src=quote.photo
+            alt=""
+            width="44"
+            height="44"
+            loading="lazy"
+            decoding="async"
+          )
+
+        if quote.author || quote.role
+          div(class="flex min-w-0 flex-col gap-0.5")
+            if quote.author
+              cite(class="font-body text-sm font-semibold not-italic text-current sm:text-base")= quote.author
+
+            if quote.role
+              span(class="font-body text-sm text-current opacity-80 sm:text-base")= quote.role

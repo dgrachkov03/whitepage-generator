@@ -1,0 +1,43 @@
+include /mixins/blocks/pricing/header.pug
+include /mixins/blocks/pricing/menu-line.pug
+include /mixins/blocks/pricing/feature-list.pug
+include /mixins/ui/link-button.pug
+include /mixins/ui/badge.pug
+
+- const pricingData = site.pricing || {}
+- const pricingPlans = pricingData.plans || []
+- const pricingAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.pricing : undefined
+
+if pricingData.title && pricingPlans.length
+  section(
+    id="pricing"
+    class=["py-section", blockClasses(pricingAppearance)]
+    aria-labelledby="pricing-title"
+  )
+    div(class="mx-auto flex max-w-3xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +pricingHeader(pricingData, { align: "center" })
+
+      div(class="rounded-card border border-ink/10 bg-surface-alt/40 px-5 py-6 sm:px-8 sm:py-8")
+        ul(class="flex flex-col gap-8 sm:gap-10" role="list")
+          each plan, index in pricingPlans
+            li(class=index < pricingPlans.length - 1 ? "border-b border-ink/10 pb-8 sm:pb-10" : null)
+              article(class="flex flex-col gap-4 sm:gap-5" aria-label=plan.name)
+                div(class="flex flex-wrap items-center gap-2")
+                  +pricingMenuLine(plan)
+
+                  if plan.badge
+                    +badge(plan.badge)
+
+                if plan.period
+                  p(class="font-body text-xs text-ink-muted sm:text-sm")= plan.period
+
+                if plan.description
+                  p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")= plan.description
+
+                +pricingFeatureList(plan.features)
+
+                +linkButton(plan.ctaText, plan.ctaLink, {
+                  variant: plan.ctaVariant || (plan.featured ? "primary" : "secondary")
+                })(class="w-full justify-center sm:w-auto")
+
+      +pricingNote(pricingData, { noteClass: "text-center font-body text-xs leading-relaxed text-ink-muted sm:text-sm" })

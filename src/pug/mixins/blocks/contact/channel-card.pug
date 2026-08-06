@@ -1,0 +1,28 @@
+mixin contactChannelCard(detail, iconSet, options)
+  - options = options || {}
+  - const cardClass = options.cardClass || "ui-tile flex h-full flex-col gap-4 p-5 transition-colors sm:p-6"
+  - const interactiveClass = detail.href ? "group block no-underline hover:border-primary/30" : "block"
+
+  li(class="h-full")
+    if detail.href
+      a(class=[interactiveClass, cardClass] href=detail.href)
+        if detail.icon
+          span(
+            class="inline-flex size-12 items-center justify-center rounded-button bg-surface-alt text-2xl text-primary"
+            aria-hidden="true"
+          )!= libraryIcon(detail.icon, iconSet)
+
+        div(class="flex flex-col gap-2")
+          span(class="font-body text-sm font-semibold text-ink")= detail.label
+          p(class="font-body text-base leading-relaxed text-ink-muted group-hover:text-ink")= detail.text
+    else
+      div(class=[interactiveClass, cardClass])
+        if detail.icon
+          span(
+            class="inline-flex size-12 items-center justify-center rounded-button bg-surface-alt text-2xl text-primary"
+            aria-hidden="true"
+          )!= libraryIcon(detail.icon, iconSet)
+
+        div(class="flex flex-col gap-2")
+          span(class="font-body text-sm font-semibold text-ink")= detail.label
+          p(class="font-body text-base leading-relaxed text-ink-muted")= detail.text

@@ -1,0 +1,74 @@
+include /mixins/ui/logo.pug
+include /mixins/ui/text-link.pug
+include /mixins/blocks/header/burger.pug
+
+- const header = site.header || {}
+- const headerIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const headerNavigation = (site.navigation && site.navigation.primary) || {}
+- const headerNavigationItems = headerNavigation.items || []
+- const headerContactTypes = header.contactTypes || ["phone", "email"]
+- const headerContacts = headerContactTypes.map((type) => (site.contactInfo?.items || []).find((item) => item.type === type)).filter(Boolean)
+- const headerAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.header : undefined
+- const headerMenu = resolveHeaderMenu(typeof pageAppearance !== "undefined" ? pageAppearance : {})
+
+header(
+  class=["site-header", "site-header--layout-split", headerMenuClass(pageAppearance), headerStickyClass(pageAppearance), blockClasses(headerAppearance)].filter(Boolean)
+  data-js-header
+  data-header-menu=headerMenu
+)
+  div(class="mx-auto flex min-h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:min-h-20 sm:px-6 lg:px-8")
+    +logo(site.brand)(data-js-header-logo)
+
+    div(class="header-toolbar flex min-w-0 flex-1 items-center justify-end gap-4")
+      div(
+        id="header-navigation"
+        class="header-overlay header-overlay--split"
+        data-js-header-overlay
+      )
+        div(
+          class="header-overlay__panel"
+          data-js-header-overlay-wrapper
+        )
+          if headerNavigationItems.length
+            nav(class="min-w-0" aria-label=headerNavigation.label)
+              ul(class="flex flex-col gap-1 lg:flex-row lg:items-center lg:gap-1")
+                each item in headerNavigationItems
+                  li
+                    +textLink(item.text, item.href)(
+                      class="min-h-11 px-2"
+                    )
+
+          if headerContacts.length || (header.ctaText && header.ctaLink)
+            div(class="flex flex-col gap-4 lg:ml-auto lg:shrink-0 lg:flex-row lg:items-center lg:gap-4")
+              if headerContacts.length
+                ul(class="flex flex-wrap items-center gap-2")
+                  each detail in headerContacts
+                    li
+                      if detail.href
+                        a(
+                          class="inline-flex size-10 shrink-0 items-center justify-center text-ink transition-colors hover:text-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                          href=detail.href
+                          aria-label=`${detail.label}: ${detail.text}`
+                        )
+                          if detail.icon
+                            span(
+                              class="inline-flex size-5 items-center justify-center [&>svg]:block [&>svg]:size-full"
+                              aria-hidden="true"
+                            )!= libraryIcon(detail.icon, headerIconSet)
+                      else
+                        span(
+                          class="inline-flex size-10 shrink-0 items-center justify-center text-ink"
+                          aria-label=`${detail.label}: ${detail.text}`
+                        )
+                          if detail.icon
+                            span(
+                              class="inline-flex size-5 items-center justify-center [&>svg]:block [&>svg]:size-full"
+                              aria-hidden="true"
+                            )!= libraryIcon(detail.icon, headerIconSet)
+
+              if header.ctaText && header.ctaLink
+                +textLink(header.ctaText, header.ctaLink)(
+                  class="ui-link--accent-bar min-h-11 shrink-0 px-2"
+                )
+
+      +headerBurger(header, { plain: true })

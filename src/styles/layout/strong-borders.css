@@ -1,0 +1,45 @@
+@layer components {
+  .page-background--strong-borders {
+    --color-border: color-mix(in srgb, var(--color-ink) 22%, transparent);
+    --color-border-strong: color-mix(in srgb, var(--color-ink) 36%, transparent);
+  }
+
+  .page-background--strong-borders .ui-tile {
+    border-color: var(--color-border-strong);
+  }
+
+  .page-background--strong-borders .block-divider--top {
+    border-top: 1px solid var(--color-border-strong);
+  }
+
+  .page-background--strong-borders .block-divider--bottom {
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .page-background--strong-borders .block-divider--both {
+    border-top: 1px solid var(--color-border-strong);
+    border-bottom: 1px solid var(--color-border-strong);
+  }
+
+  .page-background--strong-borders .accordion__content::before {
+    background-color: var(--color-border);
+  }
+}
+
+@layer utilities {
+  .page-background--strong-borders .border-ink\/10 {
+    border-color: var(--color-border);
+  }
+
+  .page-background--strong-borders .border-ink\/25 {
+    border-color: color-mix(in srgb, var(--color-ink) 32%, transparent);
+  }
+
+  .page-background--strong-borders .divide-ink\/10 > :not(:last-child) {
+    border-color: var(--color-border);
+  }
+
+  .page-background--strong-borders .bg-ink\/15 {
+    background-color: color-mix(in srgb, var(--color-ink) 22%, transparent);
+  }
+}

@@ -1,0 +1,22 @@
+include /mixins/blocks/faq/accordion-items.pug
+include /mixins/blocks/faq/header.pug
+
+- const faqData = site.faq || {}
+- const faqItems = faqData.items || []
+- const faqSplitIndex = Math.ceil(faqItems.length / 2)
+- const faqPrimaryColumn = faqItems.slice(0, faqSplitIndex)
+- const faqSecondaryColumn = faqItems.slice(faqSplitIndex)
+- const faqAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.faq : undefined
+
+if faqData.title && faqItems.length
+  section(
+    id="faq"
+    class=["py-section", blockClasses(faqAppearance)]
+    aria-labelledby="faq-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +faqHeader(faqData)
+
+      div(class="grid grid-cols-1 items-start gap-3 md:grid-cols-2 md:gap-x-6 lg:gap-x-10")
+        +faqAccordionItems(faqPrimaryColumn, { openIndex: 0 })
+        +faqAccordionItems(faqSecondaryColumn, { openIndex: -1 })

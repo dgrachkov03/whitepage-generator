@@ -1,0 +1,17 @@
+include /mixins/ui/eyebrow.pug
+
+mixin aboutHeader(aboutData, options)
+  - options = options || {}
+  - const eyebrowVariant = resolveEyebrowVariant(options, pageAppearance)
+  - const align = options.align || "start"
+  - const headerClass = options.headerClass || (align === "center" ? "flex flex-col items-center gap-3 text-center sm:gap-4" : "flex flex-col items-start gap-3 sm:gap-4")
+  - const titleClass = options.titleClass || (align === "center" ? "max-w-2xl type-section-title text-ink lg:text-5xl" : "type-section-title text-ink")
+
+  header(class=headerClass)
+    if aboutData.eyebrow
+      +eyebrow(aboutData.eyebrow, eyebrowVariant)
+
+    h2(
+      id="about-title"
+      class=titleClass
+    )= aboutData.title

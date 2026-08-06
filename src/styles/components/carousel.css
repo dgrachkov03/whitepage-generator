@@ -1,0 +1,248 @@
+@layer components {
+  .ui-carousel {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto;
+    row-gap: 1.5rem;
+    align-items: center;
+  }
+
+  .ui-carousel__swiper {
+    grid-column: 1;
+    grid-row: 1;
+    width: 100%;
+    min-width: 0;
+  }
+
+  .ui-carousel .swiper-wrapper {
+    height: auto;
+  }
+
+  .ui-carousel__nav {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    color: var(--color-ink);
+    background-color: var(--color-surface-alt);
+    box-shadow: var(--shadow-card);
+    cursor: pointer;
+    transition:
+      color 200ms ease,
+      background-color 200ms ease,
+      border-color 200ms ease,
+      box-shadow 200ms ease,
+      transform 200ms ease;
+  }
+
+  .ui-carousel__nav:hover {
+    color: var(--color-primary);
+    border-color: color-mix(in srgb, var(--color-primary) 35%, transparent);
+    background-color: var(--color-surface);
+  }
+
+  .ui-carousel__nav:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 3px;
+  }
+
+  .ui-carousel__nav:disabled,
+  .ui-carousel__nav.swiper-button-disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+    transform: none;
+    box-shadow: none;
+  }
+
+  .ui-carousel__nav-icon {
+    display: inline-flex;
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .ui-carousel__nav-icon > svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .ui-carousel__pagination {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: center;
+    display: flex;
+    justify-content: center;
+    min-height: 0.75rem;
+  }
+
+  .ui-carousel__pagination .swiper-pagination-bullet {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin: 0 0.25rem;
+    border-radius: 999px;
+    background-color: color-mix(in srgb, var(--color-ink) 24%, transparent);
+    opacity: 1;
+    transition:
+      width 200ms ease,
+      background-color 200ms ease;
+  }
+
+  .ui-carousel__pagination .swiper-pagination-bullet-active {
+    width: 1.5rem;
+    background-color: var(--color-primary);
+  }
+
+  .ui-carousel .swiper-slide {
+    height: auto !important;
+  }
+
+  .ui-carousel__nav--toolbar {
+    display: inline-flex;
+  }
+
+  .ui-carousel--toolbar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .ui-carousel--toolbar .ui-carousel__nav {
+    display: none;
+  }
+
+  .ui-carousel--spotlight {
+    row-gap: 1.25rem;
+  }
+
+  .ui-carousel--spotlight .ui-carousel__swiper {
+    width: 100%;
+  }
+
+  .ui-carousel--spotlight .swiper-wrapper,
+  .ui-carousel--spotlight .swiper-slide {
+    height: 100% !important;
+  }
+
+  .ui-spotlight-slide {
+    border-radius: var(--radius-card);
+    border: 1px solid var(--color-border);
+    background-color: color-mix(in srgb, var(--color-surface-alt) 55%, transparent);
+    min-height: 100%;
+  }
+
+  .ui-carousel--spotlight .ui-spotlight-quote {
+    display: inline-flex;
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .ui-carousel--spotlight .ui-spotlight-quote svg {
+    width: 1em;
+    height: 1em;
+  }
+
+  @media (min-width: 40rem) {
+    .ui-carousel:not(.ui-carousel--toolbar) {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+      column-gap: 0.75rem;
+    }
+
+    .ui-carousel:not(.ui-carousel--toolbar) .ui-carousel__nav {
+      display: inline-flex;
+    }
+
+    .ui-carousel:not(.ui-carousel--toolbar) .ui-carousel__nav--prev {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+    .ui-carousel:not(.ui-carousel--toolbar) .ui-carousel__swiper {
+      grid-column: 2;
+    }
+
+    .ui-carousel:not(.ui-carousel--toolbar) .ui-carousel__nav--next {
+      grid-column: 3;
+      grid-row: 1;
+    }
+
+    .ui-carousel__pagination {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ui-carousel__nav,
+    .ui-carousel__pagination .swiper-pagination-bullet {
+      transition-duration: 0.01ms;
+    }
+  }
+}
+
+/* Swiper CSS is unlayered — pagination overrides must stay outside @layer. */
+.ui-carousel--dot-pagination {
+  --carousel-pagination-bullet-size: 0.5rem;
+  --carousel-pagination-bullet-gap: 0.3125rem;
+  --carousel-pagination-bullet-active-width: 0.5rem;
+  --carousel-pagination-track-min-height: 0.75rem;
+  --carousel-pagination-bullet-color: color-mix(
+    in srgb,
+    var(--color-primary) 35%,
+    transparent
+  );
+  --carousel-pagination-bullet-active-color: var(--color-primary);
+  --carousel-pagination-bullet-transition: background-color 200ms ease;
+}
+
+.ui-carousel--bar-pagination {
+  --carousel-pagination-bullet-size: 0.375rem;
+  --carousel-pagination-bullet-gap: 0.3125rem;
+  --carousel-pagination-bullet-active-width: 2.75rem;
+  --carousel-pagination-track-min-height: 0.375rem;
+  --carousel-pagination-bullet-color: color-mix(
+    in srgb,
+    var(--color-primary) 35%,
+    transparent
+  );
+  --carousel-pagination-bullet-active-color: var(--color-primary);
+  --carousel-pagination-bullet-transition:
+    width 200ms ease,
+    background-color 200ms ease;
+}
+
+.ui-carousel--dot-pagination .ui-carousel__pagination,
+.ui-carousel--bar-pagination .ui-carousel__pagination {
+  min-height: var(--carousel-pagination-track-min-height);
+}
+
+.ui-carousel--dot-pagination .ui-carousel__pagination .swiper-pagination-bullet,
+.ui-carousel--bar-pagination .ui-carousel__pagination .swiper-pagination-bullet {
+  width: var(--carousel-pagination-bullet-size);
+  height: var(--carousel-pagination-bullet-size);
+  margin: 0 var(--carousel-pagination-bullet-gap);
+  border-radius: 999px;
+  opacity: 1;
+  background-color: var(--carousel-pagination-bullet-color);
+  transition: var(--carousel-pagination-bullet-transition);
+}
+
+.ui-carousel--dot-pagination
+  .ui-carousel__pagination
+  .swiper-pagination-bullet-active,
+.ui-carousel--bar-pagination
+  .ui-carousel__pagination
+  .swiper-pagination-bullet-active {
+  width: var(--carousel-pagination-bullet-active-width);
+  height: var(--carousel-pagination-bullet-size);
+  border-radius: 999px;
+  opacity: 1;
+  background-color: var(--carousel-pagination-bullet-active-color);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ui-carousel--dot-pagination .ui-carousel__pagination .swiper-pagination-bullet,
+  .ui-carousel--bar-pagination .ui-carousel__pagination .swiper-pagination-bullet {
+    transition-duration: 0.01ms;
+  }
+}

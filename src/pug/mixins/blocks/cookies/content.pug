@@ -1,0 +1,13 @@
+include /mixins/ui/text-link.pug
+
+mixin consentBannerContent(cookieBanner)
+  h2#consent-banner-title(class="type-card-title text-ink")= cookieBanner.title
+
+  p(class="font-body text-sm leading-relaxed text-ink-muted sm:text-base")
+    = cookieBanner.descriptionBefore
+    +textLink(
+      cookieBanner.policyLinkText,
+      cookieBanner.policyLinkHref || "/cookies.html"
+    )(class="underline underline-offset-2")
+    if cookieBanner.descriptionAfter
+      = cookieBanner.descriptionAfter

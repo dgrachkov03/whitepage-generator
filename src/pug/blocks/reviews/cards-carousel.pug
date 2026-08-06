@@ -1,0 +1,53 @@
+include /mixins/blocks/reviews/header.pug
+include /mixins/blocks/reviews/card.pug
+
+- const reviewsData = site.reviews || {}
+- const reviewItems = reviewsData.items || []
+- const reviewsAppearance = typeof blockAppearance !== "undefined" ? blockAppearance.reviews : undefined
+- const reviewIconSet = site.design && site.design.iconSet ? site.design.iconSet : "lucide"
+- const carouselLabelsByLang = { fr: { prev: "Avis précédent", next: "Avis suivant" }, en: { prev: "Previous review", next: "Next review" }, de: { prev: "Vorherige Bewertung", next: "Nächste Bewertung" }, es: { prev: "Reseña anterior", next: "Reseña siguiente" }, it: { prev: "Recensione precedente", next: "Recensione successiva" }, pt: { prev: "Avaliação anterior", next: "Próxima avaliação" } }
+- const carouselLang = (site.lang || "en").slice(0, 2)
+- const carouselNavLabels = carouselLabelsByLang[carouselLang] || carouselLabelsByLang.en
+
+if reviewsData.title && reviewItems.length
+  section(
+    id="reviews"
+    class=["py-section", blockClasses(reviewsAppearance)]
+    aria-labelledby="reviews-title"
+  )
+    div(class="mx-auto flex max-w-6xl flex-col gap-8 px-4 sm:gap-10 sm:px-6 lg:gap-12 lg:px-8")
+      +reviewsHeader(reviewsData, { align: "center" })
+
+      div(
+        class="ui-carousel ui-carousel--dot-pagination"
+        data-js-carousel
+        data-carousel-slides="1,2,3"
+        data-carousel-prev-label=carouselNavLabels.prev
+        data-carousel-next-label=carouselNavLabels.next
+      )
+        button(
+          class="ui-carousel__nav ui-carousel__nav--prev"
+          type="button"
+          data-js-carousel-prev
+          aria-label=carouselNavLabels.prev
+        )
+          span(class="ui-carousel__nav-icon" aria-hidden="true")!= libraryIcon("chevron-left", reviewIconSet)
+
+        div(class="swiper ui-carousel__swiper")
+          ul(class="swiper-wrapper")
+            each review in reviewItems
+              li(class="swiper-slide h-auto")
+                +reviewCard(review)
+
+        button(
+          class="ui-carousel__nav ui-carousel__nav--next"
+          type="button"
+          data-js-carousel-next
+          aria-label=carouselNavLabels.next
+        )
+          span(class="ui-carousel__nav-icon" aria-hidden="true")!= libraryIcon("chevron-right", reviewIconSet)
+
+        div(class="ui-carousel__pagination" data-js-carousel-pagination)
+
+      if reviewsData.note
+        p(class="text-center font-body text-xs leading-relaxed text-ink-muted")= reviewsData.note

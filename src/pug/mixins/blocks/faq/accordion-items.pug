@@ -1,0 +1,25 @@
+mixin faqAccordionItems(items, options)
+  - options = options || {}
+  - const openIndex = typeof options.openIndex === "number" ? options.openIndex : 0
+  - const isCompact = options.variant === "compact"
+  - const useChevron = options.icon === "chevron"
+  - let groupClass = options.groupClass || (isCompact ? "accordion-group accordion-group--compact" : "accordion-group")
+  - if (useChevron) groupClass += " accordion-group--chevron"
+  - const detailsClass = isCompact ? "accordion__details" : "ui-tile accordion__details"
+  - const iconSet = options.iconSet || (typeof site !== "undefined" && site.design && site.design.iconSet) || "lucide"
+
+  div(class=groupClass)
+    each item, index in items
+      details(
+        class=detailsClass
+        name="faq"
+        open=index === openIndex
+      )
+        summary(class="accordion__summary")
+          h3(class="accordion__title")= item.question
+          if useChevron
+            span(class="accordion__icon" aria-hidden="true")
+              span(class="accordion__icon-mark")!= libraryIcon("chevron-right", iconSet)
+
+        div(class="accordion__content")
+          p= item.answer

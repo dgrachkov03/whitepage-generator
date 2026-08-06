@@ -1,0 +1,18 @@
+mixin pricingMenuLine(plan, options)
+  - options = options || {}
+  - const nameClass = options.nameClass || "type-card-title text-ink"
+  - const priceClass = options.priceClass || "font-display text-xl font-semibold tracking-tight text-ink tabular-nums sm:text-2xl"
+  - const prefixClass = options.prefixClass || "font-body text-sm font-normal text-ink-muted sm:text-base"
+
+  div(class="flex items-baseline gap-3")
+    h3(class=[nameClass, "shrink-0"])= plan.name
+
+    span(
+      class="min-w-8 flex-1 border-b border-dotted border-ink/25"
+      aria-hidden="true"
+    )
+
+    p(class=[priceClass, "shrink-0 text-right"])
+      if plan.pricePrefix
+        span(class=prefixClass)= `${plan.pricePrefix} `
+      span= plan.price

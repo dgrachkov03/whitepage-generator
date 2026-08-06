@@ -1,0 +1,14 @@
+- const footerData = site.footer || {}
+- const footerLegalNavigation = (site.navigation && site.navigation.legal) || {}
+- const footerLegalNavigationItems = footerLegalNavigation.items || []
+
+footer(class=["legal-footer", "legal-footer--compact", blockClasses(blockAppearance.footer)])
+  div(class="legal-footer__inner legal-footer__inner--compact")
+    div(class="legal-footer__bar legal-footer__bar--compact")
+      if footerData.copyright
+        span= footerData.copyright
+
+      if footerLegalNavigationItems.length
+        nav(class="legal-footer__links" aria-label=footerLegalNavigation.label)
+          each item in footerLegalNavigationItems
+            a(href=item.href)= item.text
