@@ -52,7 +52,7 @@ function printSelection(selection) {
     `[generate] Controls: size=${controls.size}, buttons=${controls.button.style}, inputs=${controls.input.style}`,
   );
   console.log(
-    `[generate] Header: menu=${selection.pageAppearance.header.menu}, burger=${selection.pageAppearance.header.burger}, sticky=${selection.pageAppearance.header.sticky}`,
+    `[generate] Header: menu=${selection.pageAppearance.header.menu}, burger=${selection.pageAppearance.header.burger}, burgerBorder=${selection.pageAppearance.header.burgerBorder !== false}, sticky=${selection.pageAppearance.header.sticky}`,
   );
   console.log(
     `[generate] Shape: ${toVariantName(selection.shape, optionRoots.shapesDirectory)}`,

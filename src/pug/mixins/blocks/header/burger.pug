@@ -1,10 +1,11 @@
-mixin headerBurger(header, options)
-  - options = options || {}
+mixin headerBurger(header)
   - const pageAppearanceRef = typeof pageAppearance !== "undefined" ? pageAppearance : {}
+  - const burgerVariant = resolveHeaderBurger(pageAppearanceRef)
+  - const burgerItemCount = burgerVariant === "dots" ? HEADER_BURGER_DOT_COUNT : 3
 
   button(
     type="button"
-    class=headerBurgerClasses(pageAppearanceRef, options)
+    class=headerBurgerClasses(pageAppearanceRef)
     aria-controls="header-navigation"
     aria-expanded="false"
     aria-label=header.menuOpenLabel
@@ -12,6 +13,5 @@ mixin headerBurger(header, options)
     data-close-label=header.menuCloseLabel
     data-js-header-burger-button
   )
-    span.header-burger__line
-    span.header-burger__line
-    span.header-burger__line
+    - for (let itemIndex = 0; itemIndex < burgerItemCount; itemIndex += 1)
+      span.header-burger__line

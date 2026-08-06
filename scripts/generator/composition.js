@@ -168,6 +168,7 @@ export function createSelection(options) {
   const eyebrowVariant = pick(EYEBROW_VARIANTS, "eyebrow variant");
   const headerMenu = pick(HEADER_MENUS, "header menu");
   const headerBurger = pick(HEADER_BURGERS, "header burger");
+  const headerBurgerBorder = pick([true, false], "header burger border");
   const headerSticky = pick([true, false], "header sticky");
   const palette = selectBalancedPalette(options.palettes, pick);
   const colorScheme = getPaletteColorScheme(palette);
@@ -221,6 +222,7 @@ export function createSelection(options) {
       header: {
         menu: headerMenu,
         burger: headerBurger,
+        burgerBorder: headerBurgerBorder,
         sticky: headerSticky,
       },
     },

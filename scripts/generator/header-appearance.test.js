@@ -1,12 +1,14 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  HEADER_BURGER_DOT_COUNT,
   HEADER_BURGERS,
   HEADER_MENUS,
   headerBurgerClasses,
   headerMenuClass,
   headerStickyClass,
   resolveHeaderBurger,
+  resolveHeaderBurgerBorder,
   resolveHeaderMenu,
   resolveHeaderSticky,
 } from "../../plugins/pug-pages/header-appearance.js";
@@ -16,9 +18,27 @@ test("resolveHeaderMenu defaults to drawer-right", () => {
   assert.equal(resolveHeaderMenu({}), "drawer-right");
 });
 
-test("resolveHeaderBurger defaults to x", () => {
-  assert.equal(resolveHeaderBurger(), "x");
-  assert.equal(resolveHeaderBurger({}), "x");
+test("resolveHeaderBurger defaults to stacked", () => {
+  assert.equal(resolveHeaderBurger(), "stacked");
+  assert.equal(resolveHeaderBurger({}), "stacked");
+});
+
+test("resolveHeaderBurger maps legacy burger ids to current variants", () => {
+  assert.equal(resolveHeaderBurger({ header: { burger: "x" } }), "stacked");
+  assert.equal(resolveHeaderBurger({ header: { burger: "fade" } }), "dots");
+});
+
+test("resolveHeaderBurgerBorder defaults to true", () => {
+  assert.equal(resolveHeaderBurgerBorder(), true);
+  assert.equal(resolveHeaderBurgerBorder({}), true);
+  assert.equal(
+    resolveHeaderBurgerBorder({ header: { burgerBorder: true } }),
+    true,
+  );
+  assert.equal(
+    resolveHeaderBurgerBorder({ header: { burgerBorder: false } }),
+    false,
+  );
 });
 
 test("resolveHeaderSticky defaults to false", () => {
@@ -46,12 +66,22 @@ test("headerMenuClass maps page appearance to modifier class", () => {
 
 test("headerBurgerClasses maps page appearance to burger modifiers", () => {
   assert.equal(
-    headerBurgerClasses({ header: { burger: "arrow" } }),
-    "header-burger header-burger--arrow",
+    headerBurgerClasses({ header: { burger: "stacked" } }),
+    "header-burger header-burger--stacked header-burger--bordered",
   );
   assert.equal(
-    headerBurgerClasses({ header: { burger: "fade" } }, { plain: true }),
-    "header-burger header-burger--fade header-burger--plain",
+    headerBurgerClasses({ header: { burger: "plus" } }),
+    "header-burger header-burger--plus header-burger--bordered",
+  );
+  assert.equal(
+    headerBurgerClasses({
+      header: { burger: "dots", burgerBorder: false },
+    }),
+    "header-burger header-burger--dots",
+  );
+  assert.equal(
+    headerBurgerClasses({ header: { burger: "x" } }),
+    "header-burger header-burger--stacked header-burger--bordered",
   );
 });
 
@@ -68,5 +98,6 @@ test("header appearance exports complete option sets", () => {
     "fullscreen",
     "dropdown",
   ]);
-  assert.deepEqual(HEADER_BURGERS, ["x", "arrow", "fade"]);
+  assert.deepEqual(HEADER_BURGERS, ["stacked", "plus", "dots"]);
+  assert.equal(HEADER_BURGER_DOT_COUNT, 9);
 });

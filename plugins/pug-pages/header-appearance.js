@@ -4,18 +4,31 @@ export const HEADER_MENUS = [
   "dropdown",
 ];
 
-export const HEADER_BURGERS = ["x", "arrow", "fade"];
+export const HEADER_BURGERS = ["stacked", "plus", "dots"];
+
+export const HEADER_BURGER_DOT_COUNT = 9;
+
+const HEADER_BURGER_ALIASES = {
+  x: "stacked",
+  fade: "dots",
+};
+
+export function resolveHeaderBurger(pageAppearance = {}) {
+  const burger = pageAppearance?.header?.burger || "stacked";
+
+  return HEADER_BURGER_ALIASES[burger] || burger;
+}
 
 export function resolveHeaderMenu(pageAppearance = {}) {
   return pageAppearance?.header?.menu || "drawer-right";
 }
 
-export function resolveHeaderBurger(pageAppearance = {}) {
-  return pageAppearance?.header?.burger || "x";
-}
-
 export function resolveHeaderSticky(pageAppearance = {}) {
   return pageAppearance?.header?.sticky === true;
+}
+
+export function resolveHeaderBurgerBorder(pageAppearance = {}) {
+  return pageAppearance?.header?.burgerBorder !== false;
 }
 
 export function headerStickyClass(pageAppearance = {}) {
@@ -34,7 +47,7 @@ export function headerMenuClass(pageAppearance = {}) {
   return `site-header--menu-${menu}`;
 }
 
-export function headerBurgerClasses(pageAppearance = {}, options = {}) {
+export function headerBurgerClasses(pageAppearance = {}) {
   const burger = resolveHeaderBurger(pageAppearance);
 
   if (!HEADER_BURGERS.includes(burger)) {
@@ -45,8 +58,8 @@ export function headerBurgerClasses(pageAppearance = {}, options = {}) {
 
   const classes = ["header-burger", `header-burger--${burger}`];
 
-  if (options.plain) {
-    classes.push("header-burger--plain");
+  if (resolveHeaderBurgerBorder(pageAppearance)) {
+    classes.push("header-burger--bordered");
   }
 
   return classes.join(" ");

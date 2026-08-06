@@ -12,6 +12,7 @@ import {
   resolveEyebrowVariant,
 } from "./eyebrow-appearance.js";
 import {
+  HEADER_BURGER_DOT_COUNT,
   headerBurgerClasses,
   headerMenuClass,
   headerStickyClass,
@@ -68,6 +69,7 @@ export function renderPug() {
       resolveHeaderMenu,
       resolveHeaderBurger,
       resolveHeaderSticky,
+      HEADER_BURGER_DOT_COUNT,
       headerMenuClass,
       headerBurgerClasses,
       headerStickyClass,

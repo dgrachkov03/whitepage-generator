@@ -15,7 +15,8 @@ test("createThemeSource writes shared theme blocks once", () => {
   assert.match(source, /enabled: (true|false)/);
   assert.match(source, /variant: "(dot|line|badge)"/);
   assert.match(source, /menu: "(drawer-right|fullscreen|dropdown)"/);
-  assert.match(source, /burger: "(x|arrow|fade)"/);
+  assert.match(source, /burger: "(stacked|plus|dots)"/);
+  assert.match(source, /burgerBorder: (true|false)/);
   assert.match(source, /icon: "(none|arrow-right|arrow-long-right|arrow-up-right)"/);
   assert.match(source, /block font/);
   assert.match(source, /block design/);
