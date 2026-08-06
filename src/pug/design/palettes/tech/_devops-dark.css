@@ -1,20 +1,20 @@
 :root {
   color-scheme: dark;
 
-  --design-primary: #22c55e;
-  --design-primary-hover: #16a34a;
+  --design-primary: #5faa82;
+  --design-primary-hover: #4f9470;
   --design-secondary: #94a3b8;
-  --design-accent: #4ade80;
+  --design-accent: #8fc4a6;
 
-  --design-gradient-primary: #22c55e;
-  --design-gradient-secondary: #4ade80;
+  --design-gradient-primary: #5faa82;
+  --design-gradient-secondary: #8fc4a6;
   --design-gradient-accent: #94a3b8;
-  --design-gradient-primary-strength: 36%;
-  --design-gradient-secondary-strength: 30%;
-  --design-gradient-accent-strength: 24%;
+  --design-gradient-primary-strength: 24%;
+  --design-gradient-secondary-strength: 18%;
+  --design-gradient-accent-strength: 14%;
 
-  --design-button-gradient-start: #22c55e;
-  --design-button-gradient-end: #16a34a;
+  --design-button-gradient-start: #52a67c;
+  --design-button-gradient-end: #448a67;
 
   --design-surface: #0b0f19;
   --design-surface-alt: #1e293b;
