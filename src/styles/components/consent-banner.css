@@ -3,7 +3,7 @@
     position: fixed;
     inset-inline: 0;
     bottom: 0;
-    z-index: 50;
+    z-index: 105;
     padding: 1rem;
     pointer-events: none;
     visibility: hidden;
