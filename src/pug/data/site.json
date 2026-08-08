@@ -878,5 +878,39 @@
         }
       ]
     }
+  },
+  "cookieBanner": {
+    "title": "We use cookies",
+    "descriptionBefore": "We use cookies to improve your experience and analyse site traffic. Read our ",
+    "descriptionAfter": " to learn more.",
+    "policyLinkText": "Cookie Policy",
+    "policyLinkHref": "/cookies.html",
+    "acceptAllText": "Accept all",
+    "rejectAllText": "Reject non-essential",
+    "configureText": "Manage preferences",
+    "saveText": "Save preferences",
+    "categories": [
+      {
+        "id": "essential",
+        "label": "Essential",
+        "description": "Required for core site functionality, security, and session management.",
+        "required": true,
+        "defaultEnabled": true
+      },
+      {
+        "id": "analytics",
+        "label": "Analytics",
+        "description": "Help us understand how visitors use our site and improve performance.",
+        "required": false,
+        "defaultEnabled": false
+      },
+      {
+        "id": "marketing",
+        "label": "Marketing",
+        "description": "Used to deliver relevant content and measure campaign effectiveness.",
+        "required": false,
+        "defaultEnabled": false
+      }
+    ]
   }
 }
